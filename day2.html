@@ -1,0 +1,2674 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تدريب إتقان - قوانين ومعايير السلامة المعتمدة</title>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --primary-dark: #134b61;
+            --secondary: #c84b31;
+            --accent: #f9a825;
+            --success: #2e7d32;
+            --warning: #ed6c02;
+            --danger: #d32f2f;
+            --bg-light: #f5f5f5;
+            --bg-card: #ffffff;
+            --text-primary: #212121;
+            --text-secondary: #616161;
+            --border: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-lg: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+ max-width: 1400px;
+  margin: 0 auto;
+
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .nav-tabs {
+            background: white;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  border-radius: 12px;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary);
+            background: rgba(26, 95, 122, 0.05);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .nav-tab .badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.3rem;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 10px;
+        }
+        
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1.25rem 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .progress-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success) 0%, #4caf50 100%);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-fill.warning {
+            background: linear-gradient(90deg, var(--warning) 0%, #ff9800 100%);
+        }
+        
+        .progress-fill.danger {
+            background: linear-gradient(90deg, var(--danger) 0%, #f44336 100%);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        
+        #study .card {
+            margin-bottom: 2rem;
+        }
+        
+        #study .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        #study .lesson-number {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        #study .concept-item {
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        #study .concept-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        #study .concept-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        #study .concept-title .term-en {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+        
+        #study .concept-meta {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        
+        #study .concept-def {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            border-right: 4px solid var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        #study .concept-def ul, #study .concept-def ol {
+            margin: 0.5rem 1.5rem 0.5rem 0;
+        }
+        
+        #study .concept-def li {
+            margin-bottom: 0.5rem;
+        }
+        
+        #study .concept-example {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        
+        #study .concept-example-label {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        #study .exam-angle {
+            background: #fff3e0;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border-right: 4px solid var(--accent);
+        }
+        
+        #study .exam-angle-label {
+            font-weight: bold;
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+        }
+        
+        #study .confusion-box {
+            background: #ffebee;
+            padding: 1rem;
+            border-radius: 6px;
+            border-right: 4px solid var(--danger);
+        }
+        
+        #study .confusion-label {
+            font-weight: bold;
+            color: var(--danger);
+            margin-bottom: 0.5rem;
+        }
+        
+        #study .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        #study .comparison-table th {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem;
+            text-align: right;
+        }
+        
+        #study .comparison-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+        }
+        
+        #study .comparison-table tr:nth-child(even) {
+            background: #f5f5f5;
+        }
+        
+        #study .glossary-card .card-body {
+            column-count: 2;
+            column-gap: 2rem;
+        }
+        
+        #study .glossary-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #f5f5f5;
+            border-radius: 6px;
+        }
+        
+        #study .glossary-term {
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+        
+        #study .glossary-def {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        
+        .model-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .model-tab {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .model-tab:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .model-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .model-content {
+            display: none;
+        }
+        
+        .model-content.active {
+            display: block;
+        }
+        
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .question-header {
+            background: #f5f5f5;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .question-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .bloom-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .bloom-recall { background: #e3f2fd; color: #1565c0; }
+        .bloom-understand { background: #e8f5e9; color: #2e7d32; }
+        .bloom-apply { background: #fff3e0; color: #e65100; }
+        .bloom-analyze { background: #fce4ec; color: #c2185b; }
+        
+        .question-body {
+            padding: 1.5rem;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .option-item:hover {
+            background: #e3f2fd;
+            border-color: var(--primary);
+        }
+        
+        .option-item.selected {
+            background: #e3f2fd;
+            border-color: var(--primary);
+        }
+        
+        .option-item.correct {
+            background: #e8f5e9;
+            border-color: var(--success);
+        }
+        
+        .option-item.wrong {
+            background: #ffebee;
+            border-color: var(--danger);
+        }
+        
+        .option-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .option-item.selected .option-radio {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+        
+        .option-item.correct .option-radio {
+            border-color: var(--success);
+            background: var(--success);
+            color: white;
+        }
+        
+        .option-item.wrong .option-radio {
+            border-color: var(--danger);
+            background: var(--danger);
+            color: white;
+        }
+        
+        .question-footer {
+            padding: 1rem 1.5rem;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .bookmark-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+        
+        .bookmark-btn:hover, .bookmark-btn.active {
+            color: var(--accent);
+        }
+        
+        .exam-header {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .timer.warning {
+            color: var(--warning);
+        }
+        
+        .timer.danger {
+            color: var(--danger);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .exam-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .exam-progress-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #1b5e20;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-outline {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .results-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .result-card.pass {
+            border-top: 4px solid var(--success);
+        }
+        
+        .result-card.fail {
+            border-top: 4px solid var(--danger);
+        }
+        
+        .result-score {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .result-card.pass .result-score {
+            color: var(--success);
+        }
+        
+        .result-card.fail .result-score {
+            color: var(--danger);
+        }
+        
+        .result-status {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        
+        .flashcard-container {
+            perspective: 1000px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .flashcard {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            min-height: 350px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 16px;
+        }
+        
+        .flashcard-term {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .flashcard-hint {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+        }
+        
+        .flashcard-definition {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .flashcard-exam-tip {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .flashcard-counter {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .dashboard-card-header {
+            padding: 1rem 1.5rem;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+            font-weight: bold;
+        }
+        
+        .dashboard-card-body {
+            padding: 1.5rem;
+        }
+        
+        .mastery-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .mastery-item:last-child {
+            border-bottom: none;
+        }
+        
+        .mastery-bar {
+            width: 100px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .mastery-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        
+        .mastery-fill.mastered {
+            background: var(--success);
+        }
+        
+        .mastery-fill.weak {
+            background: var(--danger);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+        
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+        
+        .welcome-content {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            max-width: 600px;
+        }
+        
+        .welcome-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .welcome-info {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .welcome-info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .name-input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .explanation-box {
+            background: #e8f5e9;
+            border: 1px solid var(--success);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .explanation-title {
+            font-weight: bold;
+            color: var(--success);
+            margin-bottom: 0.5rem;
+        }
+        
+        .explanation-wrong {
+            background: #ffebee;
+            border-color: var(--danger);
+        }
+        
+        .explanation-wrong .explanation-title {
+            color: var(--danger);
+        }
+        
+        .evidence-text {
+            background: #fff8e1;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            border-right: 3px solid var(--accent);
+        }
+        
+        .evidence-label {
+            font-weight: bold;
+            color: var(--warning);
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .weakness-alert {
+            background: #ffebee;
+            border: 1px solid var(--danger);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .weakness-alert-title {
+            color: var(--danger);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            #study .glossary-card .card-body {
+                column-count: 1;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .exam-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media print {
+            .header, .nav-tabs, .btn, .flashcard-controls, .modal-overlay, .welcome-screen {
+                display: none !important;
+            }
+            
+            .tab-content {
+                display: block !important;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            margin: 1rem 0;
+        }
+        
+        .risk-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        
+        .risk-low { background: #4caf50; color: white; }
+        .risk-medium { background: #ff9800; color: white; }
+        .risk-high { background: #f44336; color: white; }
+        .risk-header {
+            background: #f5f5f5;
+            font-weight: bold;
+        }
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+.header.hero{ padding: 28px 24px; border-radius: 14px; }
+.hero-content{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; }
+.hero-title{ font-size:1.9rem; margin:0; }
+.hero-sub{ opacity:.92; margin:0; }
+.hero-meta{ opacity:.85; margin:0; }
+.day-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  vertical-align: middle;
+  margin: 0 6px;
+}
+
+.day-ico svg {
+  width: 16px;
+  height: 16px;
+}
+.day-ico{
+  --stroke:#ffffff;   /* لون الأيقونة */
+  --fill:#2563eb;     /* لون الخلفية */
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  width:32px;
+  height:32px;
+  border-radius:50%;
+
+  background: var(--fill);
+  color: var(--stroke);
+
+  border:none;                 /* إزالة الإطار */
+  box-shadow: 0 6px 18px rgba(0,0,0,.18); /* نفس إحساس زر "أ" */
+  transition: all .25s ease;
+}
+.day-ico svg{
+  width:18px;
+  height:18px;
+  display:block;
+}
+.law-ico{
+  width:38px;
+  height:38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#7c3aed;   /* لون القوانين */
+  border-radius:12px;   /* نفس زر حرف أ */
+}
+
+.law-ico svg{
+  width:20px;
+  height:20px;
+  stroke:#ffffff;
+  fill:none;
+  stroke-width:2;
+}
+.ico-a{ --fill:#2563eb; --stroke:#ffffff; }
+
+.days-bar .day-btn,
+.days-bar .day-btn:visited{
+  color:#fff;
+  text-decoration:none;
+}
+
+.days-bar .day-btn:hover{
+  color:#fff;
+  text-decoration:none; /* أو underline إذا تبي */
+}
+
+.days-bar .day-btn .day-txt{
+  color:inherit;
+}
+.infographic-slot{
+  max-width: 100%;
+  margin: 16px auto 0;
+  text-align: center;
+}
+
+.infographic-slot img{
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 12px; /* اختياري */
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="welcome-screen">
+        <div class="welcome-content">
+            <h1 class="welcome-title">نظام تدريب إتقان</h1>
+            <p class="welcome-subtitle">قوانين ومعايير السلامة المعتمدة</p>
+            <div class="welcome-info">
+                <div class="welcome-info-item">
+                    <span>مدة الاختبار:</span>
+                    <span>60 دقيقة</span>
+                </div>
+                <div class="welcome-info-item">
+                    <span>درجة النجاح:</span>
+                    <span>70%</span>
+                </div>
+                <div class="welcome-info-item">
+                    <span>عدد النماذج:</span>
+                    <span>3 نماذج</span>
+                </div>
+                <div class="welcome-info-item">
+                    <span>إجمالي الأسئلة:</span>
+                    <span>60 سؤال</span>
+                </div>
+            </div>
+            <input type="text" id="studentName" class="name-input" placeholder="أدخل اسمك" maxlength="50">
+            <button class="btn btn-success" onclick="startSystem()" style="width: 100%;">بدء التعلم</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+<header class="header hero" style="display:none;" id="mainHeader">
+  <div class="header-content hero-content">
+    <h1 class="hero-title">نظام تدريب إتقان</h1>
+    <p class="hero-sub">قوانين ومعايير السلامة المعتمدة | دبلوم الأمن والسلامة</p>
+    <p class="hero-meta">
+      <span id="displayName">طالب</span> — مدة الاختبار: 60 دقيقة | نسبة النجاح: 70%
+    </p>
+  </div>
+<div class="container">
+<div aria-label="تنقّل أيام البرنامج" class="days-bar">
+<a class="day-btn active" href="index.html" title="اليوم الأول" target="_self" rel="noopener">
+<span aria-hidden="true" class="day-ico ico-a"
+	style="--fill:#2563eb; --stroke:#ffffff;"><svg xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 24 24"
+       fill="none"
+       stroke="currentColor"
+       stroke-width="2"
+       stroke-linecap="round"
+       stroke-linejoin="round">
+    <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+    <path d="M12 15s-4-2.5-4-5.2C8 8.3 9.1 7.5 10.2 7.5c.7 0 1.3.3 1.8.8.5-.5 1.1-.8 1.8-.8 1.1 0 2.2.8 2.2 2.3 0 2.7-4 5.2-4 5.2z"/>
+  </svg>
+</span>
+<span class="day-txt">إدارة الأزمات والمخاطر الأمنية</span>
+</a>
+<a class="day-btn" href="day2.html" title="اليوم الثاني" target="_self" rel="noopener">
+<span aria-hidden="true" class="day-ico law-ico">
+<svg viewBox="0 0 24 24">
+    <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+    <path d="M8 10h8M10 10l-2 4h4l-2-4zM14 10l-2 4h4l-2-4z"/>
+  </svg></span>
+<span class="day-txt">قوانين ومعايير السلامة</span>
+</a>
+        </div>
+
+</header>
+
+
+    <!-- Navigation -->
+    <nav class="nav-tabs" style="display: none;" id="mainNav">
+        <button class="nav-tab active" onclick="switchTab('study', event)">المذاكرة</button>
+        <button class="nav-tab" onclick="switchTab('models', event)">النماذج الاختبارية</button>
+        <button class="nav-tab" onclick="switchTab('weakness', event)" id="weaknessTab">إعادة الاختبار<span class="badge" id="weakBadge" style="display: none;">!</span></button>
+        <button class="nav-tab" onclick="switchTab('flashcards', event)">البطاقات التعليمية</button>
+        <button class="nav-tab" onclick="switchTab('results', event)">النتائج</button>
+        <button class="nav-tab" onclick="switchTab('dashboard', event)">لوحة التحكم</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" style="display: none;" id="mainContent">
+        
+        <!-- Study Tab -->
+        <div id="study" class="tab-content active">
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <h3>تقدمك في المذاكرة</h3>
+                    <span id="studyProgressText">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="studyProgressBar" style="width: 0%"></div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="conceptsViewed">0</div>
+                        <div class="stat-label">مفاهيم تمت مراجعتها</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">35</div>
+                        <div class="stat-label">إجمالي المفاهيم</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">دروس</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lesson 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="lesson-number">الدرس 1</span>
+                    <span>أساسيات وتشريعات السلامة والصحة المهنية في المملكة العربية السعودية</span>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="concept-item" id="c1" onclick="markConceptViewed('c1')">
+                        <div class="concept-title">
+                            المخاطر (Hazards)
+                            <span class="term-en">Hazards</span>
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: المفاهيم الأساسية</div>
+                        <div class="concept-def">
+                            هي احتمالية وقوع حادث قد يؤدي إلى ضرر أو إصابة للعامل، سواء بسبب تصرف منه، أو نتيجة آلة، أو بسبب بيئة العمل المحيطة، أو الأعمال التي يقوم بها. وتشمل كل خطر ينشأ عن الآلات وأدوات العمل، مثل الأجهزة، والآلات، ووسائل الانتقال، والتداول، ونقل الحركة، بالإضافة إلى الأخطار الناجمة عن الأعمال الخطرة، والحفر، ومخاطر الانهيار والسقوط.
+                            <br><br>
+                            <strong>لمواجهة المخاطر، يجب معرفة النقاط التالية:</strong>
+                            <ul>
+                                <li>عدد الأشخاص الذين قد يتأثرون بالخطر</li>
+                                <li>شدة الأذى أو الإصابة المحتملة</li>
+                                <li>درجة احتمالية وقوع الخطر</li>
+                            </ul>
+                        </div>
+                        <div class="exam-angle">
+                            <div class="exam-angle-label">زاوية الاختبار:</div>
+                            قد يأتي سؤال عن تعريف المخاطر أو عن عناصر تقييم الخطر (الأشخاص المتأثرون، شدة الإصابة، احتمالية وقوع الخطر)
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c2" onclick="markConceptViewed('c2')">
+                        <div class="concept-title">
+                            الصحة والسلامة المهنية (Occupational Safety and Health)
+                            <span class="term-en">Occupational Safety and Health</span>
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: المفاهيم الأساسية</div>
+                        <div class="concept-def">
+                            تعني الوقاية من الحوادث والأمراض في بيئة العمل جانباً معيناً لتحقيق منفعة للمجتمع وأفراده.
+                        </div>
+                        <div class="exam-angle">
+                            <div class="exam-angle-label">زاوية الاختبار:</div>
+                            التمييز بين السلامة المهنية (الوقاية من الحوادث) والصحة المهنية (الوقاية من الأمراض)
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c3" onclick="markConceptViewed('c3')">
+                        <div class="concept-title">
+                            النظام (System/Regulation)
+                            <span class="term-en">System/Regulation</span>
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: المفاهيم الأساسية</div>
+                        <div class="concept-def">
+                            هو مجموعة القواعد والأحكام العامة الملزمة التي تنظم جانباً معيناً لتحقيق منفعة للمجتمع وأفراده.
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c4" onclick="markConceptViewed('c4')">
+                        <div class="concept-title">
+                            اللائحة (Regulation/Bylaw)
+                            <span class="term-en">Regulation/Bylaw</span>
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: المفاهيم الأساسية</div>
+                        <div class="concept-def">
+                            هي القواعد التنظيمية العامة التي يصدرها مجلس الوزراء أو الوزير المختص، وتعمل على تفسير النظام وتوضيحه، وتحديد أحكامه بالتفصيل، بالإضافة إلى تحديد المسؤوليات والالتزامات، والمكافآت، والعقوبات.
+                        </div>
+                        <div class="exam-angle">
+                            <div class="exam-angle-label">زاوية الاختبار:</div>
+                            الفرق بين النظام (قواعد ملزمة عامة) واللائحة (تفصيل وتفسير للنظام)
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c5" onclick="markConceptViewed('c5')">
+                        <div class="concept-title">
+                            الحادث (Accident)
+                            <span class="term-en">Accident</span>
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: المفاهيم الأساسية</div>
+                        <div class="concept-def">
+                            هو أي واقعة غير مخطط لها. والحوادث هي كل واقعة غير مخطط لها تؤدي إلى إصابات، أو أضرار في الممتلكات، أو الإصابة بأمراض.
+                            <br><br>
+                            <strong>الحادث البسيط:</strong> هو الحادث الذي لا ينتج عنه إصابات أو خسائر في الممتلكات.
+                        </div>
+                        <div class="exam-angle">
+                            <div class="exam-angle-label">زاوية الاختبار:</div>
+                            الفرق بين الحادث (واقعة غير مخططة) والمخاطر (احتمالية وقوع حادث)
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c6" onclick="markConceptViewed('c6')">
+                        <div class="concept-title">
+                            فوائد تطبيق أنظمة ولوائح الأمن والسلامة
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: فوائد الأنظمة</div>
+                        <div class="concept-def">
+                            <ul>
+                                <li>الحد من الوفيات والإصابات بين الأفراد</li>
+                                <li>تقليل التكاليف المباشرة وغير المباشرة الناتجة عن الحوادث</li>
+                                <li>تحسين سمعة المؤسسات ورفع مستوى الثقة بها</li>
+                                <li>حماية المؤسسات من المسؤولية القانونية والمخاطر النظامية</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c7" onclick="markConceptViewed('c7')">
+                        <div class="concept-title">
+                            أسباب الحوادث
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: أسباب الحوادث</div>
+                        <div class="concept-def">
+                            تعود الحوادث في بيئة العمل إلى نوعين من الأسباب:
+                            <ol>
+                                <li><strong>أسباب جنائية:</strong> وهي تتطلب تحديد المتسبب المسؤول عن الحادث وفقاً للطابع الجنائي للحالة</li>
+                                <li><strong>أسباب عرضية:</strong> تتطلب اتباع إجراءات مختلفة للتحقيق والوقاية</li>
+                            </ol>
+                            <br>
+                            <strong>أسباب أخرى تتعلق بعدم الالتزام بالأنظمة:</strong>
+                            <ul>
+                                <li>عدم تطبيق أو تنفيذ التشريعات المعتمدة</li>
+                                <li>وجود خلل أو فشل إداري في منظومة العمل</li>
+                                <li>نقص في التدريب المناسب للعاملين</li>
+                                <li>قلة خبرة لدى بعض الأفراد في التعامل مع المخاطر</li>
+                                <li>أداء العمل تحت ضغوط نفسية أو زمنية</li>
+                                <li>ضعف التواصل الفعال مع العاملين داخل المنشأة</li>
+                                <li>فشل أنظمة المراقبة والتحكم في رصد وتفادي المخاطر</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c8" onclick="markConceptViewed('c8')">
+                        <div class="concept-title">
+                            دور الجهات المختصة في إدارة المخاطر
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: الجهات المختصة</div>
+                        <div class="concept-def">
+                            تتولى الجهات المختصة وضع السياسات والخطط المناسبة لحماية المرافق والمنشآت في مجالات السلامة، والوقاية من الحريق، بما يضمن استمرارية العمل والإنتاج في جميع الظروف.
+                            <br><br>
+                            <strong>تعمل على إدارة المخاطر المتعلقة بالأسباب المادية أو القانونية، مثل:</strong>
+                            <ul>
+                                <li>الكوارث الطبيعية</li>
+                                <li>الحرائق</li>
+                                <li>الحوادث</li>
+                                <li>حالات الوفاة</li>
+                                <li>الدعاوى القضائية</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c9" onclick="markConceptViewed('c9')">
+                        <div class="concept-title">
+                            أهم لوائح السلامة والصحة المهنية في المملكة
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: اللوائح</div>
+                        <div class="concept-def">
+                            <ol>
+                                <li>لائحة مسؤوليات المختص بأعمال السلامة والأمن الصناعي في الوزارات والمصالح الحكومية</li>
+                                <li>لوائح وزارة الموارد البشرية والتنمية الاجتماعية الخاصة بالسلامة والصحة المهنية</li>
+                                <li>لوائح الهيئة العليا للأمن الصناعي</li>
+                                <li>اشتراطات السلامة الواردة في لوائح الدفاع المدني</li>
+                                <li>إرشادات المجلس الوطني للسلامة والصحة المهنية</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c10" onclick="markConceptViewed('c10')">
+                        <div class="concept-title">
+                            إحصائيات عالمية في حال ضعف التشريعات (OSHA)
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: إحصائيات</div>
+                        <div class="concept-def">
+                            <ul>
+                                <li>160 مليون حالة إصابة بالأمراض المهنية سنوياً</li>
+                                <li>أكثر من 250 مليون حادثة عمل تُسجل كل عام وفقاً لتقديرات منظمة العمل الدولية</li>
+                                <li>يمكن إنقاذ ما يقارب 600,000 شخص سنوياً إذا تم الالتزام الكامل بتطبيق أنظمة ولوائح السلامة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c11" onclick="markConceptViewed('c11')">
+                        <div class="concept-title">
+                            مسؤوليات أصحاب العمل
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: المسؤوليات</div>
+                        <div class="concept-def">
+                            <ul>
+                                <li>توفير بيئة عمل آمنة وخالية من أي مخاطر قد تؤدي إلى الوفاة أو الإصابات الجسيمة</li>
+                                <li>الالتزام الكامل بتنفيذ تعليمات ومواصفات السلامة والصحة المهنية الصادرة عن الأوشا (OSHA)، والعمل على تطبيقها في جميع مرافق العمل</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c12" onclick="markConceptViewed('c12')">
+                        <div class="concept-title">
+                            مسؤوليات العاملين
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: المسؤوليات</div>
+                        <div class="concept-def">
+                            <ul>
+                                <li>الالتزام باتباع جميع التعليمات والقوانين الخاصة بالسلامة والصحة المهنية كما تحددها الأوشا (OSHA)</li>
+                                <li>التعاون مع إدارة المنشأة في تطبيق إجراءات السلامة، والمساهمة في خلق بيئة عمل آمنة للجميع</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c13" onclick="markConceptViewed('c13')">
+                        <div class="concept-title">
+                            أسس نظام إدارة السلامة والصحة المهنية
+                        </div>
+                        <div class="concept-meta">الدرس 1 | الصفحة: الأسس</div>
+                        <div class="concept-def">
+                            <ol>
+                                <li>تُعد السلامة والصحة المهنية جزءاً لا يتجزأ من المهام الإدارية، وهي مسؤولية تقع على عاتق الإدارة</li>
+                                <li>يجب أن يكون هناك التزام وتعهد من الإدارة العليا</li>
+                                <li>تزداد قناعة الإدارة بأهمية الأمن الصناعي عندما تدرك حجم الخسائر الناجمة عن الحوادث</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Lesson 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="lesson-number">الدرس 2</span>
+                    <span>ماهية السلامة والصحة المهنية</span>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="concept-item" id="c14" onclick="markConceptViewed('c14')">
+                        <div class="concept-title">
+                            ماهية السلامة والصحة المهنية وأهدافها
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: المقدمة</div>
+                        <div class="concept-def">
+                            مع بداية الثورة الصناعية في أوروبا، بدأ الفلاحون بالانتقال بكثافة إلى المدن للعمل في المصانع هرباً من الاستعباد والإجحاف في الريف. ومع هذا التحول الكبير، ظهرت العديد من الحوادث داخل بيئة العمل الصناعي، حيث لم يكن لدى هؤلاء العمال معرفة كافية بطبيعة المخاطر المحيطة بالعمل الصناعي.
+                            <br><br>
+                            في تلك الفترة، كانت المصانع بيئات محفوفة بالمخاطر، ولم تكن هناك أي مسؤولية قانونية على صاحب العمل في حال وقوع حادث، حتى وإن كان العامل هو المتضرر. لكن ومع ازدياد معدلات الحوادث بشكل مفزع، بدأت الحكومات بإصدار تشريعات تُلزم أصحاب العمل بدفع تعويضات للمتضررين من الحوادث، حتى لو كانوا سبباً فيها.
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c15" onclick="markConceptViewed('c15')">
+                        <div class="concept-title">
+                            السلامة في المخازن
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: مخازن</div>
+                        <div class="concept-def">
+                            المخازن تحتوي على المواد الخام والمنتجات والأجهزة والمعدات التي تمثل قيمة مادية كبيرة، لذا من الضروري تأمينها ضد:
+                            <ul>
+                                <li><strong>الحريق:</strong> عبر منع أسبابه والاستعداد التام لمواجهته</li>
+                                <li><strong>السرقة والتخريب</strong></li>
+                            </ul>
+                            <br>
+                            <strong>من أبرز الإجراءات الواجب اتخاذها:</strong>
+                            <ul>
+                                <li>فصل أماكن التخزين عن مواقع التصنيع</li>
+                                <li>منع وجود أي مصدر للاشتعال في مناطق التخزين</li>
+                                <li>اتخاذ التدابير التي تحد من انتشار الحريق عند وقوعه</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c16" onclick="markConceptViewed('c16')">
+                        <div class="concept-title">
+                            مقومات نجاح نظام السلامة والصحة المهنية
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: مقومات النجاح</div>
+                        <div class="concept-def">
+                            <ol>
+                                <li>تخطيط فني سليم لأسس الوقاية في المنشآت</li>
+                                <li>تشريعات واضحة تنبثق من الحاجة الفعلية للسلامة</li>
+                                <li>تنفيذ مبني على أسس علمية، مع وجود فرق فنية متخصصة لضمان استمرارية التطبيق</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c17" onclick="markConceptViewed('c17')">
+                        <div class="concept-title">
+                            مفهوم الأمن الصناعي (Industrial Security)
+                            <span class="term-en">Industrial Security</span>
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: الأمن الصناعي</div>
+                        <div class="concept-def">
+                            الأمن الصناعي يعني تحقيق السلامة والصحة المهنية في بيئة العمل، وذلك من خلال تقليل أو منع المخاطر التي قد تهدد العاملين أو الآلات.
+                            <br><br>
+                            <strong>أهداف الأمن الصناعي:</strong>
+                            <ul>
+                                <li>منع الحوادث والإصابات</li>
+                                <li>وقاية العنصر البشري</li>
+                                <li>حماية المعدات والممتلكات</li>
+                                <li>تحقيق بيئة عمل آمنة</li>
+                            </ul>
+                            <br>
+                            <strong>لتحقيق أهداف الأمن الصناعي يجب:</strong>
+                            <ul>
+                                <li>تهيئة بيئة العمل وتحسين الظروف الطبيعية</li>
+                                <li>إجراء تفتيش مستمر</li>
+                                <li>إعداد برامج تدريبية وإحصائية</li>
+                                <li>إصدار تشريعات واضحة لحماية العاملين وتعويضهم</li>
+                                <li>إعداد مشرفين متخصصين قادرين على تحليل وتقييم المخاطر</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c18" onclick="markConceptViewed('c18')">
+                        <div class="concept-title">
+                            فوائد تطبيق نظام السلامة ووسائل تحقيق الأمن المهني
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: الفوائد والوسائل</div>
+                        <div class="concept-def">
+                            <strong>فوائد تطبيق نظام السلامة:</strong>
+                            <ul>
+                                <li>تقليل التكاليف الناتجة عن إصلاح المعدات أو تعويض العمال</li>
+                                <li>تجنب الإصابات والحوادث</li>
+                                <li>المحافظة على استمرارية العمل والإنتاج</li>
+                            </ul>
+                            <br>
+                            <strong>وسائل تحقيق الأمن المهني:</strong>
+                            <ul>
+                                <li>التشريعات والقوانين</li>
+                                <li>تحسين بيئة العمل</li>
+                                <li>التفتيش والرقابة</li>
+                                <li>البحوث الفنية والنفسية</li>
+                                <li>الدراسات الإحصائية</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c19" onclick="markConceptViewed('c19')">
+                        <div class="concept-title">
+                            مهام قسم الأمن الصناعي
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: المهام</div>
+                        <div class="concept-def">
+                            <ul>
+                                <li>تنظيم ومراقبة تطبيق لوائح الأمن في جميع مرافق المنشآة</li>
+                                <li>مراقبة فترات العمل الفردي</li>
+                                <li>تجهيز فرق الأمن بالمعدات والسيارات وأجهزة الاتصال</li>
+                                <li>التفتيش الدوري واستلام البلاغات والتحقيق فيها</li>
+                                <li>إعداد السجلات والتقارير الخاصة بالحوادث</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c20" onclick="markConceptViewed('c20')">
+                        <div class="concept-title">
+                            مهام قسم السلامة المهنية
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: المهام</div>
+                        <div class="concept-def">
+                            <ul>
+                                <li>تطوير لوائح وإجراءات السلامة</li>
+                                <li>مراقبة وتوفير وسائل الوقاية والسلامة</li>
+                                <li>تحديد مواصفات معدات السلامة وتوحيد استخدامها</li>
+                                <li>جدولة أعمال صيانة أدوات السلامة والتفتيش الدوري</li>
+                                <li>إعداد خطط الطوارئ وتوفير أدوات مكافحة الحريق والإسعافات الأولية</li>
+                                <li>إجراء الفحوصات المستمرة للتأكد من الجاهزية</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c21" onclick="markConceptViewed('c21')">
+                        <div class="concept-title">
+                            القواعد الأساسية للأمن والسلامة
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: القواعد</div>
+                        <div class="concept-def">
+                            <ul>
+                                <li>منع الحوادث الناتجة عن الآلات أو الكهرباء أو الحريق</li>
+                                <li>الوقاية من الإصابات والأمراض المهنية</li>
+                                <li>تحسين جودة الهواء وظروف العمل داخل بيئة العمل</li>
+                                <li>اتخاذ كل التدابير التي تضمن سلامة العاملين والبيئة المحيطة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c22" onclick="markConceptViewed('c22')">
+                        <div class="concept-title">
+                            العناصر الأساسية لتنظيم الأمن الصناعي في المنشآت
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: العناصر الأساسية</div>
+                        <div class="concept-def">
+                            <strong>أولاً: القيادة الإدارية</strong><br>
+                            يتوجب على إدارة المنشأة إبداء اهتمام فعال ببرنامج الأمن الصناعي، والذي لا يمكن تنفيذه بنجاح دون التزام وتعهد من الإدارة العليا. وتزداد قناعة الإدارة بأهمية الأمن الصناعي عندما تدرك حجم الخسائر الناجمة عن الحوادث.
+                            <br><br>
+                            <strong>مسؤوليات الإدارة:</strong>
+                            <ul>
+                                <li>مراجعة اللجان الخاصة بالأمن الصناعي بصفة مستمرة، وإطلاع الإدارة العليا بالمستجدات</li>
+                                <li>عقد اجتماعات دورية لمناقشة قضايا الأمن والسلامة</li>
+                                <li>تحليل معدلات تكرار الحوادث وشدتها، ومراجعة أسباب وقوعها</li>
+                            </ul>
+                            <br>
+                            <strong>ثانياً: مراقبو الأمن الصناعي</strong><br>
+                            يجب توفير عدد كافٍ من العمال المختصين بأعمال الأمن الصناعي، بحيث يكونوا متفرغين بالكامل لهذا الغرض، لضمان سلامة بيئة العمل.
+                            <br><br>
+                            <strong>ثالثاً: لجنة الأمن الصناعي</strong><br>
+                            تُشكَّل لجنة خاصة للأمن الصناعي في كل جزء من أجزاء المنشأة، وتتكون من:
+                            <ul>
+                                <li>المدير المسؤول</li>
+                                <li>المشرفون أو المراقبون الفنيون</li>
+                                <li>الطبيب المختص بالموقع</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c23" onclick="markConceptViewed('c23')">
+                        <div class="concept-title">
+                            أنواع مخاطر العمل
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: المخاطر</div>
+                        <div class="concept-def">
+                            <ul>
+                                <li>المواد السامة</li>
+                                <li>الهيدروكربونات</li>
+                                <li>الغازات المضغوطة</li>
+                                <li>الأدخنة والمواد المتطايرة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c24" onclick="markConceptViewed('c24')">
+                        <div class="concept-title">
+                            تعريف الحوادث
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: الحوادث</div>
+                        <div class="concept-def">
+                            الحادث هو حدث غير متوقع يؤدي عادة إلى إصابة الأشخاص أو تلف الممتلكات، وعندما ينتج عن الحادث إصابة شخص يُطلق عليها "إصابة عمل".
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c25" onclick="markConceptViewed('c25')">
+                        <div class="concept-title">
+                            أسباب الحوادث وطرق الوقاية منها
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: الوقاية</div>
+                        <div class="concept-def">
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>السبب</th>
+                                    <th>الوقاية</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>السقوط:</strong> يحدث بسبب الأرضيات الزلقة أو السلالم غير الآمنة أو العوائق في الممرات</td>
+                                    <td>استخدام أرضيات غير زلقة وتنظيم المسارات</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>الارتطام أو التصادم:</strong> ناتج عن ضيق المساحات أو التصميم غير المناسب</td>
+                                    <td>مراعاة الأبعاد القياسية في الممرات وأماكن العمل</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>الجروح:</strong> تحدث عند استخدام أدوات حادة أو عدم وجود حواجز واقية للماكينات</td>
+                                    <td>تخزين الأدوات الحادة بأمان، وغسلها بشكل منفصل، والتخلص الآمن من الزجاج والعبوات التالفة</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>الحروق:</strong> تنتج عن الدهون الساخنة أو البخار</td>
+                                    <td>تدريب العاملين على استخدام القلايات والغلايات وتأمين خطوط البخار</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>الصدمات الكهربائية:</strong> ناتجة عن المعدات غير المؤرضة أو التوصيلات الخاطئة</td>
+                                    <td>تصميم وتركيب الأجهزة الكهربائية بشكل آمن وفحصها دورياً</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>الإجهاد البدني:</strong> نتيجة حمل أشياء ثقيلة أو العمل في أوضاع غير مريحة</td>
+                                    <td>استخدام وسائل ميكانيكية للرفع، وضبط ارتفاع الطاولات ومواقع العمل</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c26" onclick="markConceptViewed('c26')">
+                        <div class="concept-title">
+                            تحليل مخاطر العمل (JHA)
+                            <span class="term-en">Job Hazard Analysis</span>
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: تحليل المخاطر</div>
+                        <div class="concept-def">
+                            تحليل مخاطر العمل (JHA) هو نظام يستخدم لتطبيق مبادئ السلامة والصحة المهنية ضمن عملية الإنتاج، ويتم على ثلاث مراحل:
+                            <br><br>
+                            <strong>المرحلة الأولى: التعرف على المخاطر (Hazard Identification)</strong><br>
+                            تحديد نوع الخطر (هندسي، كيميائي، فيزيائي، بيولوجي، بشري)
+                            <br><br>
+                            <strong>المرحلة الثانية: تقييم المخاطر (Risk Assessment)</strong>
+                            <ul>
+                                <li>تقدير درجة الخطر وتأثيره على صحة العاملين</li>
+                                <li>أخذ عينات وتحليلها ومقارنتها بالمعايير</li>
+                                <li>تقييم مدى كفاءة وسائل السلامة المتوفرة</li>
+                            </ul>
+                            <br>
+                            <strong>المرحلة الثالثة: التحكم في المخاطر (Risk Control)</strong>
+                            <ul>
+                                <li><strong>الإزالة (Elimination):</strong> إزالة الخطر نهائياً</li>
+                                <li><strong>الاستبدال (Substitution):</strong> استخدام بدائل أقل خطورة</li>
+                                <li><strong>العزل (Isolation):</strong> فصل مصادر الخطر عن العاملين</li>
+                                <li><strong>التحكم الهندسي:</strong> تعديل أدوات العمل لجعلها أكثر أماناً</li>
+                                <li><strong>التحكم الإداري:</strong> فرض أنظمة ولوائح سلامة</li>
+                                <li><strong>معدات الوقاية الشخصية (PPE):</strong> استخدامها عند الحاجة لتقليل التعرض للخطر</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c27" onclick="markConceptViewed('c27')">
+                        <div class="concept-title">
+                            التحقيق في الحوادث وإصابات العمل
+                        </div>
+                        <div class="concept-meta">الدرس 2 | الصفحة: التحقيق</div>
+                        <div class="concept-def">
+                            <strong>أهداف التحقيق:</strong>
+                            <ul>
+                                <li>تلبية متطلبات التشريعات</li>
+                                <li>تحديد تكاليف الحادث</li>
+                                <li>قياس مدى الالتزام بإجراءات السلامة</li>
+                                <li>المساعدة في صرف التعويضات المناسبة</li>
+                            </ul>
+                            <br>
+                            <strong>من يقوم بالتحقيق:</strong>
+                            <ol>
+                                <li>المشرفون والرؤساء المباشرون</li>
+                                <li>قسم السلامة والصحة المهنية</li>
+                                <li>في بعض الحالات، ممثل عن النقابة</li>
+                            </ol>
+                            <br>
+                            <strong>خطوات التحقيق:</strong>
+                            <ol>
+                                <li>الإبلاغ عن الحادث</li>
+                                <li>تقديم الإسعافات للمصابين</li>
+                                <li>بدء التحقيق</li>
+                                <li>تحديد الأسباب الجذرية</li>
+                                <li>إعداد تقرير نهائي</li>
+                            </ol>
+                            <br>
+                            <strong>تصنيف الحوادث:</strong>
+                            <ul>
+                                <li><strong>درجة الخطورة:</strong> لتحديد الفرق بين الحوادث البسيطة والقاتلة أو التي تسبب عجزاً</li>
+                                <li><strong>نوع العمل:</strong> يساعد على معرفة الخطورة المرتبطة بكل وظيفة أو نشاط</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Lesson 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="lesson-number">الدرس 3</span>
+                    <span>أهمية السلامة والصحة المهنية في بيئة العمل</span>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="concept-item" id="c28" onclick="markConceptViewed('c28')">
+                        <div class="concept-title">
+                            أهمية الأمن والسلامة
+                        </div>
+                        <div class="concept-meta">الدرس 3 | الصفحة: الأهمية</div>
+                        <div class="concept-def">
+                            يُعد الأمن والسلامة عنصراً أساسياً لا يمكن فصله عن أي نشاط نقوم به، سواء كان في الجو، أو على اليابسة، أو في البحر. فالسلامة تمثل فكراً حضارياً وإنسانياً وراقياً، يهدف إلى الوقاية من الحوادث والحد من وقوعها إلى أدنى مستوى ممكن، بما يضمن الحفاظ على الأرواح والممتلكات.
+                            <br><br>
+                            وتسعى إدارات السلامة دائماً إلى رفع مستوى الأمان من خلال وضع خطط وبرامج شاملة تشمل مختلف أنواع السلامة مثل السلامة الجوية، والسلامة الأرضية، وسلامة المنشآت. كما تؤكد على ضرورة التزام الجميع بتعليمات وإجراءات السلامة وتنفيذها بدقة وفق السياسات التي تعتمدها المؤسسة على جميع المستويات.
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c29" onclick="markConceptViewed('c29')">
+                        <div class="concept-title">
+                            إدارة الأمن والسلامة
+                        </div>
+                        <div class="concept-meta">الدرس 3 | الصفحة: الإدارة</div>
+                        <div class="concept-def">
+                            تمثل إدارة الأمن والسلامة الجهة المسؤولة عن حماية المؤسسة، سواء على مستوى الأفراد أو المرافق. وتُعد من الإدارات الحيوية التي لا غنى عنها، حيث يرتبط نجاح المؤسسة بمدى قدرة هذه الإدارة على أداء مهامها بفعالية، لأن أي تقصير في ذلك قد يؤدي إلى خلق بيئة غير آمنة تؤثر على سير العمل واستقراره.
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c30" onclick="markConceptViewed('c30')">
+                        <div class="concept-title">
+                            أهداف إدارة الأمن والسلامة
+                        </div>
+                        <div class="concept-meta">الدرس 3 | الصفحة: الأهداف</div>
+                        <div class="concept-def">
+                            <ul>
+                                <li>توفير بيئة عمل آمنة وخالية من المخاطر</li>
+                                <li>حماية صحة وأرواح الموظفين وزوار المؤسسة</li>
+                                <li>الحفاظ على ممتلكات المنشأة</li>
+                                <li>ضمان سلامة البيئة المحيطة بالموقع</li>
+                                <li>تطبيق المعايير الدولية للسلامة والصحة المهنية</li>
+                                <li>نشر ثقافة الوعي بالسلامة لدى جميع العاملين</li>
+                                <li>توفير بيئة عمل مريحة وآمنة</li>
+                                <li>اختيار معدات الحماية الشخصية المناسبة لنوع المخاطر المحتملة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c31" onclick="markConceptViewed('c31')">
+                        <div class="concept-title">
+                            مراحل الاستعداد للأمن والسلامة
+                        </div>
+                        <div class="concept-meta">الدرس 3 | الصفحة: المراحل</div>
+                        <div class="concept-def">
+                            يتطلب تحقيق الأمن والسلامة أن يكون الاستعداد موجوداً في ثلاث مراحل رئيسية:
+                            <ol>
+                                <li><strong>قبل وقوع الخطر:</strong> وتُعرف بمرحلة الوقاية المسبقة</li>
+                                <li><strong>أثناء وقوع الخطر:</strong> وهي مرحلة الحماية أثناء الحدث</li>
+                                <li><strong>بعد وقوع الخطر:</strong> وتشمل الإنقاذ والإخلاء والتعامل مع الآثار</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c32" onclick="markConceptViewed('c32')">
+                        <div class="concept-title">
+                            الإجراءات الوقائية
+                        </div>
+                        <div class="concept-meta">الدرس 3 | الصفحة: الإجراءات</div>
+                        <div class="concept-def">
+                            تشمل الإجراءات الوقائية التي تُتخذ قبل البدء في أي مشروع:
+                            <ul>
+                                <li>التعرف على المخاطر المحتملة وأسبابها</li>
+                                <li>تحليل العوامل التي قد تؤدي إلى زيادة المخاطر</li>
+                                <li>إشراك العاملين في معرفة هذه المخاطر وفهمها</li>
+                                <li>التوعية والتثقيف المسبق حول التهديدات وطرق التعامل معها</li>
+                                <li>تحديد التهديدات المحتملة وتأثيرها على الأفراد والموقع</li>
+                                <li>جمع المعلومات والأدوات اللازمة للتعامل مع المخاطر</li>
+                                <li>اختيار مواقع آمنة بعيدة عن مصادر الخطر</li>
+                                <li>تجهيز وسائل السلامة المناسبة</li>
+                                <li>تدريب العاملين على استخدام أدوات السلامة والتصرف أثناء الطوارئ</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c33" onclick="markConceptViewed('c33')">
+                        <div class="concept-title">
+                            برنامج مكافحة الحرائق
+                        </div>
+                        <div class="concept-meta">الدرس 3 | الصفحة: مكافحة الحرائق</div>
+                        <div class="concept-def">
+                            تُعد الحرائق من أخطر التهديدات التي تواجه المنشآت، إذ تؤدي إلى خسائر كبيرة مادية. لذا يجعل من الضروري إعداد برنامج شامل لمقاومة ومكافحة الحريق.
+                            <br><br>
+                            <strong>أولاً: أثناء تصميم المنشأة</strong>
+                            <ul>
+                                <li>تخصيص مخارج للطوارئ تتيح الهروب السريع في حالة اندلاع حريق</li>
+                                <li>استخدام مواد بناء وتجهيزات مقاومة للحرائق</li>
+                                <li>تركيب أنظمة إنذار وإطفاء، وتشمل:
+                                    <ul>
+                                        <li>كواشف الدخان</li>
+                                        <li>رشاشات إطفاء تلقائية</li>
+                                        <li>صناديق إطفاء الحرائق</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <br>
+                            <strong>ثانياً: تقليل عوامل الخطورة</strong>
+                            <ul>
+                                <li>الحفاظ على نظافة المكان وإزالة المواد القابلة للاشتعال</li>
+                                <li>تأمين جميع الأجهزة التي تعمل بالغاز</li>
+                                <li>منع التدخين إلا في الأماكن المخصصة</li>
+                                <li>استخدام أنواع وقود آمنة وعالية الجودة</li>
+                                <li>تثبيت اللواح الإرشادية الخاصة بالاستخدام الآمن داخل المنشأة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c34" onclick="markConceptViewed('c34')">
+                        <div class="concept-title">
+                            أنواع التأمين ذات الصلة
+                        </div>
+                        <div class="concept-meta">الدرس 3 | الصفحة: التأمين</div>
+                        <div class="concept-def">
+                            التأمين هو اتفاق بين المسؤول عن المنشأة وشركة التأمين، بحيث تتعهد الشركة بتعويض المنشأة عن الخسائر الناتجة عن الحوادث، مثل الحرائق أو تلف الأجهزة والمعدات.
+                            <br><br>
+                            <strong>أنواع التأمين:</strong>
+                            <ul>
+                                <li><strong>تأمين ضد الحريق:</strong> يغطي الأضرار التي تحدث نتيجة الحريق داخل المنشأة، سواء للمنقولات (كالمحتويات) أو الثابتة (كالمباني)</li>
+                                <li><strong>تأمين ضد الشغب:</strong> يعوض عن الخسائر الناتجة عن أعمال تخريب أو حرائق أو انفجارات نتيجة الشغب</li>
+                                <li><strong>تأمين ضد السطو:</strong> يغطي الخسائر الناتجة عن السرقة أو السرقة بالإكراه</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item" id="c35" onclick="markConceptViewed('c35')">
+                        <div class="concept-title">
+                            الإجراءات لضمان بيئة عمل آمنة وصحية
+                        </div>
+                        <div class="concept-meta">الدرس 3 | الصفحة: الإجراءات</div>
+                        <div class="concept-def">
+                            <ol>
+                                <li>تدريب العاملين على أداء المهام بطرق آمنة، مع مراعاة التناسب بين قدراتهم الذهنية والبدنية وطبيعة العمل</li>
+                                <li>تعليم العاملين مهارات الإسعافات الأولية</li>
+                                <li>التفتيش المنتظم على أقسام المنشأة خاصة عند استخدام معدات أو أجهزة جديدة</li>
+                                <li>متابعة المشرفين للعاملين لضمان الالتزام بإجراءات السلامة المهنية</li>
+                                <li>توفير معدات الإسعافات الأولية والأدوية اللازمة</li>
+                                <li>توفير وسائل الأمن الصناعي المناسبة</li>
+                                <li>تخصيص أماكن لتبديل الملابس الشخصية وحفظها</li>
+                                <li>إجراء فحوصات طبية دورية للعاملين للتأكد من قدرتهم الصحية على أداء العمل وكشف أي حالات مرضية مبكراً</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Glossary -->
+            <div class="card glossary-card">
+                <div class="card-header">قاموس المصطلحات</div>
+                <div class="card-body">
+                    <div class="glossary-item">
+                        <div class="glossary-term">المخاطر (Hazards)</div>
+                        <div class="glossary-def">احتمالية وقوع حادث قد يؤدي إلى ضرر أو إصابة</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">السلامة المهنية (Occupational Safety)</div>
+                        <div class="glossary-def">الوقاية من الحوادث في بيئة العمل</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">الصحة المهنية (Occupational Health)</div>
+                        <div class="glossary-def">الوقاية من الأمراض المهنية</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">الأمن الصناعي (Industrial Security)</div>
+                        <div class="glossary-def">تحقيق السلامة والصحة المهنية في بيئة العمل</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">الحادث (Accident)</div>
+                        <div class="glossary-def">واقعة غير مخطط لها تؤدي إلى إصابات أو أضرار</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">اللائحة (Regulation)</div>
+                        <div class="glossary-def">قواعد تنظيمية تصدر لتفسير النظام</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">تحليل مخاطر العمل (JHA)</div>
+                        <div class="glossary-def">نظام لتطبيق مبادئ السلامة ضمن عملية الإنتاج</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">OSHA</div>
+                        <div class="glossary-def">إدارة السلامة والصحة المهنية الأمريكية</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">معدات الوقاية الشخصية (PPE)</div>
+                        <div class="glossary-def">معدات تُستخدم لتقليل التعرض للخطر</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">إصابة عمل</div>
+                        <div class="glossary-def">إصابة تنتج عن حادث في بيئة العمل</div>
+                    </div>
+
+                </div>
+		
+      		</div>
+<div class="infographic-slot">
+        	<img src="unit2.png" alt="Unit Infographic Placeholder">
+            </div>
+
+        </div>
+
+
+        <!-- Models Tab -->
+        <div id="models" class="tab-content">
+            <div class="exam-header">
+                <div class="timer" id="examTimer">60:00</div>
+                <div class="exam-progress">
+                    <span class="exam-progress-text" id="examProgress">0/60 سؤال</span>
+                </div>
+                <button class="btn btn-danger" onclick="confirmSubmitExam()">تسليم الاختبار</button>
+            </div>
+            
+            <div class="model-tabs">
+                <button class="model-tab active" onclick="switchModel('A')">النموذج أ</button>
+                <button class="model-tab" onclick="switchModel('B')">النموذج ب</button>
+                <button class="model-tab" onclick="switchModel('C')">النموذج ج</button>
+            </div>
+            
+            <div id="modelA" class="model-content active"></div>
+            <div id="modelB" class="model-content"></div>
+            <div id="modelC" class="model-content"></div>
+        </div>
+
+        <!-- Weakness Retest Tab -->
+        <div id="weakness" class="tab-content">
+            <div class="card">
+                <div class="card-header">إعادة الاختبار - نقاط الضعف</div>
+                <div class="card-body">
+                    <div id="weaknessContent">
+                        <p>سيتم عرض أسئلة من المفاهيم التي تحتاج إلى مزيد من المراجعة.</p>
+                        <button class="btn btn-primary" onclick="generateWeaknessTest()">بدء اختبار النقاط الضعيفة</button>
+                    </div>
+                    <div id="weaknessQuestions" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flashcards Tab -->
+        <div id="flashcards" class="tab-content">
+            <div class="card">
+                <div class="card-header">البطاقات التعليمية</div>
+                <div class="card-body">
+                    <div class="flashcard-container">
+                        <div class="flashcard" id="flashcard" onclick="flipCard()">
+                            <div class="flashcard-face flashcard-front">
+                                <div class="flashcard-term" id="cardTerm">اضغط للبدء</div>
+                                <div class="flashcard-hint">اضغط على البطاقة للقلب</div>
+                            </div>
+                            <div class="flashcard-face flashcard-back">
+                                <div class="flashcard-definition" id="cardDef">التعريف سيظهر هنا</div>
+                                <div class="flashcard-exam-tip" id="cardTip">نصيحة للاختبار</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" onclick="prevCard()">السابق</button>
+                        <button class="btn btn-primary" onclick="nextCard()">التالي</button>
+                    </div>
+                    <div class="flashcard-counter" id="cardCounter">1 / 20</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Tab -->
+        <div id="results" class="tab-content">
+            <div id="resultsContent">
+                <div class="card">
+                    <div class="card-header">النتائج</div>
+                    <div class="card-body">
+                        <p>لم يتم إجراء أي اختبار بعد. أكمل نموذجاً اختبارياً لرؤية نتائجك.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">إحصائيات عامة</div>
+                    <div class="dashboard-card-body">
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalAttempts">0</div>
+                            <div class="stat-label">عدد المحاولات</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="bestScore">0%</div>
+                            <div class="stat-label">أفضل درجة</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="avgScore">0%</div>
+                            <div class="stat-label">متوسط الدرجات</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">مستوى إتقان المفاهيم</div>
+                    <div class="dashboard-card-body" id="masteryList">
+                        <p>أكمل اختباراً لرؤية مستوى إتقانك</p>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">الأسئلة المحفوظة</div>
+                    <div class="dashboard-card-body" id="bookmarkedList">
+                        <p>لا توجد أسئلة محفوظة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Submit Confirmation Modal -->
+    <div id="submitModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>تأكيد تسليم الاختبار</h3>
+            </div>
+            <div class="modal-body">
+                <p>هل أنت متأكد من رغبتك في تسليم الاختبار؟</p>
+                <p id="unansweredWarning" style="color: var(--warning);"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">إلغاء</button>
+                <button class="btn btn-success" onclick="submitExam()">تأكيد التسليم</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+// Question Bank
+const questionBank = [
+    // Model A - Recall & Understanding
+    { id: "A1", question: "ما هو تعريف المخاطر (Hazards) في بيئة العمل؟", options: ["الحوادث التي وقعت بالفعل في الموقع", "احتمالية وقوع حادث قد يؤدي إلى ضرر أو إصابة للعامل", "الإجراءات الوقائية المتبعة في المنشأة", "التشريعات الخاصة بالسلامة والصحة المهنية"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "recall", conceptId: "c1" },
+    { id: "A2", question: "ما هي العناصر الثلاثة الأساسية لمواجهة المخاطر؟", options: ["التدريب، التفتيش، التحقيق", "عدد المتأثرين، شدة الإصابة، احتمالية وقوع الخطر", "الوقاية، الحماية، الإنقاذ", "الإدارة، العمال، المعدات"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "recall", conceptId: "c1" },
+    { id: "A3", question: "ما الفرق الأساسي بين النظام واللائحة؟", options: ["لا يوجد فرق بينهما", "النظام قواعد ملزمة عامة، واللائحة تفسر النظام وتوضحه بالتفصيل", "اللائحة أقوى من النظام", "النظام للشركات واللائحة للأفراد"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "understand", conceptId: "c4" },
+    { id: "A4", question: "ما هو تعريف الحادث البسيط؟", options: ["الحادث الذي يسبب إصابات طفيفة فقط", "الحادث الذي لا ينتج عنه إصابات أو خسائر في الممتلكات", "الحادث الذي يمكن علاجه بالإسعافات الأولية", "الحادث الذي يتطلب إبلاغ الإدارة فقط"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "recall", conceptId: "c5" },
+    { id: "A5", question: "ما هي فوائد تطبيق أنظمة ولوائح الأمن والسلامة؟", options: ["زيادة الإنتاج فقط", "الحد من الوفيات والإصابات، تقليل التكاليف، تحسين السمعة، حماية المؤسسات قانونياً", "تقليل عدد العمال فقط", "زيادة الأرباح المالية فقط"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "recall", conceptId: "c6" },
+    { id: "A6", question: "ما هي أنواع أسباب الحوادث في بيئة العمل؟", options: ["أسباب طبيعية وأسباب صناعية", "أسباب جنائية وأسباب عرضية", "أسباب مباشرة وأسباب غير مباشرة", "أسباب فردية وأسباب جماعية"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "recall", conceptId: "c7" },
+    { id: "A7", question: "ما هي الإحصائية العالمية لحالات الإصابة بالأمراض المهنية سنوياً وفق OSHA؟", options: ["60 مليون حالة", "160 مليون حالة", "260 مليون حالة", "360 مليون حالة"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "recall", conceptId: "c10" },
+    { id: "A8", question: "كم عدد الأشخاص الذين يمكن إنقاذهم سنوياً إذا تم الالتزام الكامل بأنظمة السلامة؟", options: ["100,000 شخص", "600,000 شخص", "1,000,000 شخص", "1,600,000 شخص"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "recall", conceptId: "c10" },
+    { id: "A9", question: "ما هي مسؤولية أصحاب العمل الرئيسية تجاه السلامة والصحة المهنية؟", options: ["توفير بيئة عمل آمنة وخالية من المخاطر", "شراء المعدات فقط", "توظيف المزيد من العمال", "زيادة ساعات العمل"], correctIndex: 0, lessonRef: "الدرس 1", bloomLevel: "recall", conceptId: "c11" },
+    { id: "A10", question: "ما هي مقومات نجاح نظام السلامة والصحة المهنية؟", options: ["المال فقط", "تخطيط فني سليم، تشريعات واضحة، تنفيذ على أسس علمية", "العمال فقط", "المعدات الحديثة فقط"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "recall", conceptId: "c16" },
+    { id: "A11", question: "ما هو الهدف الرئيسي من الأمن الصناعي؟", options: ["زيادة الإنتاج", "تحقيق السلامة والصحة المهنية في بيئة العمل", "تقليل عدد العمال", "تقليل التكاليف فقط"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "recall", conceptId: "c17" },
+    { id: "A12", question: "ما هي وسائل تحقيق الأمن المهني؟", options: ["الزيادة في الرواتب فقط", "التشريعات، تحسين بيئة العمل، التفتيش، البحوث الفنية، الدراسات الإحصائية", "العقوبات فقط", "التدريب فقط"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "recall", conceptId: "c18" },
+    { id: "A13", question: "ما هي مهام قسم السلامة المهنية؟", options: ["تطوير اللوائح، مراقبة وسائل الوقاية، تحديد مواصفات المعدات، إعداد خطط الطوارئ", "الإنتاج فقط", "المبيعات فقط", "التوظيف فقط"], correctIndex: 0, lessonRef: "الدرس 2", bloomLevel: "recall", conceptId: "c20" },
+    { id: "A14", question: "ما هي مراحل تحليل مخاطر العمل (JHA)؟", options: ["مرحلة واحدة فقط", "ثلاث مراحل: التعرف على المخاطر، تقييم المخاطر، التحكم في المخاطر", "مرحلتان فقط", "أربع مراحل"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "recall", conceptId: "c26" },
+    { id: "A15", question: "ما هي طرق الوقاية من حوادث السقوط؟", options: ["استخدام حذاء ثقيل", "استخدام أرضيات غير زلقة وتنظيم المسارات", "الجري بسرعة", "عدم ارتداء أي حماية"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "recall", conceptId: "c25" },
+    { id: "A16", question: "ما هي الوقاية من الصدمات الكهربائية؟", options: ["استخدام الماء لإطفاء الحرائق الكهربائية", "تصميم وتركيب الأجهزة بشكل آمن وفحصها دورياً", "لمس الأسلاك المكشوفة", "استخدام أي نوع من القوابس"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "recall", conceptId: "c25" },
+    { id: "A17", question: "من يقوم بالتحقيق في حوادث العمل؟", options: ["العمال فقط", "المشرفون، قسم السلامة، وممثل النقابة في بعض الحالات", "الزوار فقط", "الشرطة فقط"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "recall", conceptId: "c27" },
+    { id: "A18", question: "ما هي مراحل الاستعداد للأمن والسلامة؟", options: ["مرحلة واحدة فقط", "ثلاث مراحل: قبل وقوع الخطر، أثناء وقوع الخطر، بعد وقوع الخطر", "مرحلتان فقط", "أربع مراحل"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "recall", conceptId: "c31" },
+    { id: "A19", question: "ما هي أنواع التأمين ذات الصلة بالسلامة؟", options: ["التأمين الصحي فقط", "التأمين ضد الحريق، التأمين ضد الشغب، التأمين ضد السطو", "تأمين السيارات فقط", "تأمين الحياة فقط"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "recall", conceptId: "c34" },
+    { id: "A20", question: "في سيناريو: فني بدأ تشغيل آلة بدون تدريب مسبق، ما العواقب المتوقعة؟", options: ["زيادة الإنتاج", "حوادث وإصابات محتملة وتلف المعدات", "تحسين الجودة", "تقليل التكاليف"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "apply", conceptId: "c7" },
+    // Model B - Application
+    { id: "B1", question: "عند تقييم مخاطر عمل جديد، ما هي الأولوية في التعامل مع الخطر؟", options: ["استخدام معدات الوقاية الشخصية فوراً", "إزالة الخطر نهائياً إن أمكن", "تقبل الخطر كجزء من العمل", "نقل الخطر لقسم آخر"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "apply", conceptId: "c26" },
+    { id: "B2", question: "في حالة اندلاع حريق في غرفة كهرباء، ما هو الإجراء الأول الصحيح؟", options: ["رش الماء فوراً", "قطع التيار الكهربائي عن موقع الحريق", "فتح جميع النوافذ", "استخدام المصعد للهروب"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "apply", conceptId: "c33" },
+    { id: "B3", question: "ما هو الترتيب الصحيح لهرمية التحكم في المخاطر؟", options: ["PPE ثم التحكم الإداري ثم العزل ثم الاستبدال ثم الإزالة", "الإزالة، الاستبدال، العزل، التحكم الهندسي، التحكم الإداري، PPE", "التحكم الإداري ثم PPE ثم العزل", "لا يوجد ترتيب محدد"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "understand", conceptId: "c26" },
+    { id: "B4", question: "في حالة ملاحظة دخان يتصاعد من غرفة الكهرباء، ما الإجراء الأنسب لموظف غير مدرب؟", options: ["محاولة إطفاء الحريق بنفسه", "الإبلاغ الفوري للفريق المختص وإخلاء المنطقة", "فتح باب الغرفة للتهوية", "استخدام المصعد للهروب"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "apply", conceptId: "c32" },
+    { id: "B5", question: "ما هي أفضل طريقة لمنع حوادث الجروح عند استخدام أدوات حادة؟", options: ["العمل بسرعة", "تخزين الأدوات الحادة بأمان واستخدام حواجز واقية", "عدم استخدام الأدوات الحادة", "العمل بدون قفازات"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "apply", conceptId: "c25" },
+    { id: "B6", question: "عند تصميم مخزن جديد، ما هي الاعتبارات الأساسية للسلامة؟", options: ["السعر فقط", "فصل أماكن التخزين عن التصنيع، منع مصادر الاشتعال، تدابير منع انتشار الحريق", "اللون فقط", "الحجم فقط"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "apply", conceptId: "c15" },
+    { id: "B7", question: "في حالة وقوع حادث عمل، ما هي الخطوة الأولى؟", options: ["البحث عن المسؤول", "تقديم الإسعافات للمصابين", "إخفاء الحادث", "مواصلة العمل"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "apply", conceptId: "c27" },
+    { id: "B8", question: "ما هو دور لجنة الأمن الصناعي في المنشأة؟", options: ["زيادة الإنتاج فقط", "مناقشة قضايا الأمن والسلامة وتحليل معدلات الحوادث", "التوظيف فقط", "المبيعات فقط"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "understand", conceptId: "c22" },
+    { id: "B9", question: "عند اختيار معدات الوقاية الشخصية (PPE)، ما هو المعيار الأهم؟", options: ["السعر الأرخص", "المناسبة لنوع المخاطر المحتملة", "اللون المفضل", "الحجم الأصغر"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "apply", conceptId: "c30" },
+    { id: "B10", question: "في حالة وجود عامل يعمل تحت ضغط نفسي، ما هو الحل الأمثل؟", options: ["فصل العامل", "تقليل الضغوط وتوفير بيئة عمل مريحة", "زيادة الضغط", "تجاهل المشكلة"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "apply", conceptId: "c7" },
+    { id: "B11", question: "ما هي أولويات إدارة الأمن والسلامة؟", options: ["الربح فقط", "حماية الأرواح والممتلكات، توفير الإرشاد، وضع السياسات الوقائية", "الإنتاج فقط", "التسويق فقط"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "understand", conceptId: "c29" },
+    { id: "B12", question: "عند تقييم خطر كيميائي، ما هي الخطوة الأولى؟", options: ["شراء معدات وقاية", "تحديد نوع الخطر وتقدير درجة تأثيره", "تجاهل الخطر", "نقل المادة لقسم آخر"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "apply", conceptId: "c26" },
+    { id: "B13", question: "في حالة حريق في منشأة، ما هو الإجراء الصحيح للإخلاء؟", options: ["استخدام المصاعد للخروج السريع", "الخروج بهدوء عبر مخارج الطوارئ المخصصة", "الجري بسرعة والصراخ", "البقاء في المكان"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "apply", conceptId: "c33" },
+    { id: "B14", question: "ما هو الهدف من إجراء فحوصات طبية دورية للعاملين؟", options: ["تقليل الرواتب", "التأكد من قدرتهم الصحية على أداء العمل وكشف الحالات المرضية مبكراً", "فصل العمال", "زيادة التكاليف"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "understand", conceptId: "c35" },
+    { id: "B15", question: "عند رصد خلل إداري في منظومة السلامة، ما هو الإجراء المناسب؟", options: ["تجاهل الخلل", "معالجة الخلل واتخاذ إجراءات تصحيحية", "إلقاء اللوم على العمال", "إخفاء المشكلة"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "apply", conceptId: "c7" },
+    { id: "B16", question: "ما هي أهمية التواصل الفعال في السلامة المهنية؟", options: ["لا أهمية له", "نقل معلومات المخاطر والإجراءات الوقائية بشكل واضح", "زيادة الضغط على العمال", "تقليل الإنتاج"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "understand", conceptId: "c7" },
+    { id: "B17", question: "في حالة وجود عوائق في ممرات العمل، ما هو الحل؟", options: ["تركها كما هي", "تنظيم المسارات وإزالة العوائق", "وضع علامات تحذير فقط", "العمل حولها"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "apply", conceptId: "c25" },
+    { id: "B18", question: "ما هو دور التدريب في الوقاية من الحوادث؟", options: ["لا دور له", "تزويد العاملين بالمعرفة والمهارات اللازمة للتعامل مع المخاطر", "إضاعة الوقت", "زيادة التكاليف فقط"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "understand", conceptId: "c7" },
+    { id: "B19", question: "عند التعامل مع غازات مضغوطة، ما هو الإجراء الآمن؟", options: ["تخزينها بالقرب من مصادر الحرارة", "تأمينها بشكل صحيح ووضعها في أماكن مخصصة", "فتح الصمامات بسرعة", "تركها بدون إشراف"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "apply", conceptId: "c23" },
+    { id: "B20", question: "ما هي أهمية وجود تقرير فني من الدفاع المدني؟", options: ["لا أهمية له", "تحديد مدى سلامة وصالحية المرافق والمنشآت", "زيادة التكاليف فقط", "تأخير المشاريع"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "understand", conceptId: "c8" },
+    // Model C - Analysis
+    { id: "C1", question: "تحليل: لماذا تُعد الإزالة (Elimination) الخيار الأول في التحكم بالمخاطر؟", options: ["لأنها الأرخص", "لأنها تزيل الخطر نهائياً بدلاً من تقليله", "لأنها الأسرع", "لأنها لا تتطلب تدريب"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "analyze", conceptId: "c26" },
+    { id: "C2", question: "قارن بين أسباب الحوادث الجنائية والأسباب العرضية من حيث الإجراءات المطلوبة.", options: ["لا يوجد فرق", "الجنائية تتطلب تحديد المسؤول، والعرضية تتطلب إجراءات تحقيق ووقاية", "العرضية أخطر", "الجنائية لا تحتاج تحقيق"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "analyze", conceptId: "c7" },
+    { id: "C3", question: "حلل العلاقة بين تطبيق أنظمة السلامة وسمعة المؤسسة.", options: ["لا توجد علاقة", "تطبيق السلامة يحسن السمعة ويرفع الثقة بالمؤسسة", "السلامة تضر بالسمعة", "العلاقة سلبية"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "analyze", conceptId: "c6" },
+    { id: "C4", question: "ما هي العلاقة بين نقص التدريب وحوادث العمل؟", options: ["لا توجد علاقة", "نقص التدريب يزيد من احتمالية وقوع الحوادث", "التدريب يزيد الحوادث", "العلاقة غير مهمة"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "analyze", conceptId: "c7" },
+    { id: "C5", question: "حلل: لماذا يجب أن تكون السلامة جزءاً من المهام الإدارية؟", options: ["لأنها إضافة فقط", "لأن الإدارة تمتلك السلطة والموارد لتطبيقها بفعالية", "لأن العمال لا يستطيعون", "لأنها غير مهمة"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "analyze", conceptId: "c13" },
+    { id: "C6", question: "قارن بين مسؤوليات أصحاب العمل ومسؤوليات العاملين في السلامة.", options: ["لا توجد مسؤوليات", "أصحاب العمل يوفرون البيئة الآمنة، والعمال يتبعون التعليمات", "المسؤوليات متشابهة تماماً", "العمال فقط هم المسؤولون"], correctIndex: 1, lessonRef: "الدرس 1", bloomLevel: "analyze", conceptId: "c11" },
+    { id: "C7", question: "حلل أهمية وجود لجنة للأمن والسلامة في المنشأة.", options: ["لا أهمية لها", "لضمان متابعة تنفيذ إجراءات السلامة بشكل منظم ومستمر", "لزيادة التكاليف فقط", "لتعقيد الأمور"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "analyze", conceptId: "c22" },
+    { id: "C8", question: "ما هي العلاقة بين جودة الهواء وسلامة العاملين؟", options: ["لا توجد علاقة", "جودة الهواء الجيدة تقلل الأمراض المهنية وتحسن الإنتاجية", "جودة الهواء تضر بالعمال", "العلاقة ضعيفة"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "analyze", conceptId: "c21" },
+    { id: "C9", question: "حلل: لماذا يُعد التفتيش المستمر ضرورياً للأمن الصناعي؟", options: ["لإضاعة الوقت", "لرصد المخاطر والتأكد من الالتزام بإجراءات السلامة", "لمعاقبة العمال", "لزيادة التكاليف"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "analyze", conceptId: "c17" },
+    { id: "C10", question: "قارن بين مرحلة الوقاية المسبقة ومرحلة الحماية أثناء الحدث.", options: ["لا فرق بينهما", "الوقاية قبل وقوع الخطر، والحماية أثناء وقوعه", "الحماية أهم", "الوقاية غير مهمة"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "analyze", conceptId: "c31" },
+    { id: "C11", question: "حلل العواقب المحتملة لعدم وجود خطة طوارئ في المنشأة.", options: ["لا توجد عواقب", "فوضى وقت الطوارئ، زيادة الخسائر، إصابات أكثر", "تحسن الأداء", "تقليل التكاليف"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "analyze", conceptId: "c33" },
+    { id: "C12", question: "ما هي العلاقة بين التأمين وإدارة المخاطر؟", options: ["لا توجد علاقة", "التأمين يعوض عن الخسائر لكن الوقاية أفضل", "التأمين يمنع الحوادث", "التأمين غير مهم"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "analyze", conceptId: "c34" },
+    { id: "C13", question: "حلل: لماذا يُعد التحكم الهندسي أفضل من التحكم الإداري في بعض الحالات؟", options: ["لأنه أرخص", "لأنه يعدل الأدوات لتكون أكثر أماناً بدون الاعتماد على سلوك الإنسان", "لأنه أسهل", "لا فرق بينهما"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "analyze", conceptId: "c26" },
+    { id: "C14", question: "قارن بين كواشف الدخان ورشاشات الإطفاء التلقائية من حيث الوظيفة.", options: ["لا فرق", "الأولى للكشف والتحذير، والثانية للإطفاء الفوري", "كلاهما للإطفاء", "كلاهما للكشف فقط"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "analyze", conceptId: "c33" },
+    { id: "C15", question: "حلل أهمية مشاركة العاملين في التعرف على المخاطر.", options: ["لا أهمية", "لأنهم يعرفون بيئة عملهم ويمكنهم رصد المخاطر الفعلية", "لزيادة الضغط عليهم", "لتقليل مسؤولية الإدارة"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "analyze", conceptId: "c32" },
+    { id: "C16", question: "ما هي العلاقة بين الإجهاد البدني وحوادث العمل؟", options: ["لا علاقة", "الإجهاد يزيد من احتمالية الأخطاء والحوادث", "الإجهاد يقلل الحوادث", "العلاقة غير واضحة"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "analyze", conceptId: "c25" },
+    { id: "C17", question: "حلل: لماذا يُعد فصل أماكن التخزين عن مواقع التصنيع إجراءً وقائياً مهماً؟", options: ["لزيادة المسافة فقط", "لمنع انتشار الحريق وتقليل الخسائر", "لتعقيد العمل", "لزيادة التكاليف"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "analyze", conceptId: "c15" },
+    { id: "C18", question: "قارن بين العزل (Isolation) والاستبدال (Substitution) في التحكم بالمخاطر.", options: ["لا فرق", "العزل يفصل الخطر عن العمال، والاستبدال يستخدم بدائل أقل خطورة", "كلاهما يزيل الخطر نهائياً", "كلاهما غير فعال"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "analyze", conceptId: "c26" },
+    { id: "C19", question: "حلل أهمية تحديد الأسباب الجذرية في تحقيق الحوادث.", options: ["لا أهمية", "لمنع تكرار الحوادث المعنية وليس معالجة الأعراض فقط", "لإلقاء اللوم", "لزيادة الورقيات"], correctIndex: 1, lessonRef: "الدرس 2", bloomLevel: "analyze", conceptId: "c27" },
+    { id: "C20", question: "ما هي العلاقة بين ثقافة السلامة ومعدلات الحوادث؟", options: ["لا علاقة", "ثقافة السلامة القوية تقلل معدلات الحوادث", "ثقافة السلامة تزيد الحوادث", "العلاقة ضعيفة"], correctIndex: 1, lessonRef: "الدرس 3", bloomLevel: "analyze", conceptId: "c30" }
+];
+
+// Flashcards data
+const flashcardsData = [
+    { term: "المخاطر (Hazards)", def: "احتمالية وقوع حادث قد يؤدي إلى ضرر أو إصابة للعامل", tip: "تذكر العناصر الثلاثة: عدد المتأثرين، شدة الإصابة، احتمالية وقوع الخطر" },
+    { term: "السلامة المهنية", def: "الوقاية من الحوادث في بيئة العمل", tip: "التركيز على منع الحوادث قبل وقوعها" },
+    { term: "الصحة المهنية", def: "الوقاية من الأمراض المهنية", tip: "تهتم بالأمراض الناتجة عن بيئة العمل" },
+    { term: "النظام", def: "مجموعة القواعد والأحكام العامة الملزمة", tip: "يصدر من جهات عليا ويكون ملزماً" },
+    { term: "اللائحة", def: "قواعد تنظيمية تفسر النظام وتوضحه بالتفصيل", tip: "تصدر لتفصيل أحكام النظام" },
+    { term: "الحادث", def: "واقعة غير مخطط لها تؤدي إلى إصابات أو أضرار", tip: "الحادث البسيط لا يسبب إصابات" },
+    { term: "الأمن الصناعي", def: "تحقيق السلامة والصحة المهنية في بيئة العمل", tip: "يهدف لمنع الحوادث وحماية العنصر البشري" },
+    { term: "JHA", def: "تحليل مخاطر العمل - نظام لتطبيق مبادئ السلامة", tip: "ثلاث مراحل: التعرف، التقييم، التحكم" },
+    { term: "PPE", def: "معدات الوقاية الشخصية", tip: "آخر خط دفاع في التحكم بالمخاطر" },
+    { term: "OSHA", def: "إدارة السلامة والصحة المهنية الأمريكية", tip: "جهة وضعت معايير عالمية للسلامة" },
+    { term: "الإزالة", def: "إزالة الخطر نهائياً", tip: "أفضل طريقة للتحكم في المخاطر" },
+    { term: "الاستبدال", def: "استخدام بدائل أقل خطورة", tip: "ثاني أفضل طريقة للتحكم" },
+    { term: "العزل", def: "فصل مصادر الخطر عن العاملين", tip: "عنصر مهم في التحكم الهندسي" },
+    { term: "إصابة عمل", def: "إصابة تنتج عن حادث في بيئة العمل", tip: "تتطلب إجراءات تحقيق وعلاج" },
+    { term: "التأمين ضد الحريق", def: "يغطي أضرار الحريق للمنقولات والثابتات", tip: "تعويض مالي لا يعوض عن فقدان الأرواح" },
+    { term: "كواشف الدخان", def: "أجهزة للكشف المبكر عن الحرائق", tip: "عنصر مهم في أنظمة الإنذار" },
+    { term: "مخارج الطوارئ", def: "مخارج مخصصة للهروب السريع", tip: "يجب أن تكون واضحة وغير مسدودة" },
+    { term: "التفتيش الدوري", def: "فحص مستمر لرصد المخاطر", tip: "يساعد في اكتشاف المشاكل قبل وقوع الحوادث" },
+    { term: "الإسعافات الأولية", def: "إجراءات طبية أولية للمصابين", tip: "مهارة يجب أن يتقنها جميع العاملين" },
+    { term: "لجنة الأمن الصناعي", def: "لجنة مختصة بمناقشة قضايا السلامة", tip: "تضم ممثلين من الإدارة والعمال" }
+];
+
+// State Management
+let currentState = {
+    studentName: '',
+    currentTab: 'study',
+    currentModel: 'A',
+    examAnswers: {},
+    examTimeRemaining: 3600,
+    examTimerInterval: null,
+    examStarted: false,
+    conceptsViewed: [],
+    bookmarks: [],
+    attempts: [],
+    currentCardIndex: 0,
+    cardFlipped: false,
+    weaknessQuestions: [],
+    conceptMastery: {}
+};
+
+function init() {
+    loadState();
+    updateStudyProgress();
+    renderQuestions();
+    updateDashboard();
+}
+
+function startSystem() {
+    const nameInput = document.getElementById('studentName');
+    if (!nameInput.value.trim()) {
+        alert('الرجاء إدخال اسمك');
+        return;
+    }
+    currentState.studentName = nameInput.value.trim();
+    saveState();
+    
+    document.getElementById('welcomeScreen').style.display = 'none';
+    document.getElementById('mainHeader').style.display = 'block';
+    document.getElementById('mainNav').style.display = 'flex';
+    document.getElementById('mainContent').style.display = 'block';
+    const dn = document.getElementById('displayName');
+if (dn) dn.textContent = currentState.studentName;
+    
+    init();
+}
+
+function saveState() {
+    localStorage.setItem('safetyMasteryState', JSON.stringify(currentState));
+}
+
+function loadState() {
+    const saved = localStorage.getItem('safetyMasteryState');
+    if (saved) {
+        const parsed = JSON.parse(saved);
+        currentState = { ...currentState, ...parsed };
+        if (currentState.studentName) {
+            document.getElementById('studentName').value = currentState.studentName;
+        }
+    }
+}
+
+function switchTab(tabName, evt) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+
+  const panel = document.getElementById(tabName);
+  if (panel) panel.classList.add('active');
+
+  if (evt && evt.target) evt.target.classList.add('active');
+
+  currentState.currentTab = tabName;
+
+  if (tabName === 'dashboard') updateDashboard();
+  if (tabName === 'results') updateResults();
+}
+
+function markConceptViewed(conceptId) {
+    if (!currentState.conceptsViewed.includes(conceptId)) {
+        currentState.conceptsViewed.push(conceptId);
+        saveState();
+        updateStudyProgress();
+    }
+}
+
+function updateStudyProgress() {
+    const totalConcepts = 35;
+    const viewed = currentState.conceptsViewed.length;
+    const percentage = Math.round((viewed / totalConcepts) * 100);
+    
+    document.getElementById('conceptsViewed').textContent = viewed;
+    document.getElementById('studyProgressText').textContent = percentage + '%';
+    document.getElementById('studyProgressBar').style.width = percentage + '%';
+}
+
+function switchModel(model) {
+    currentState.currentModel = model;
+    document.querySelectorAll('.model-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.model-content').forEach(content => content.classList.remove('active'));
+    
+    event.target.classList.add('active');
+    document.getElementById('model' + model).classList.add('active');
+    
+    if (!currentState.examStarted) {
+        startExamTimer();
+        currentState.examStarted = true;
+    }
+}
+
+function renderQuestions() {
+    const modelAQuestions = questionBank.filter(q => q.id.startsWith('A'));
+    document.getElementById('modelA').innerHTML = modelAQuestions.map((q, idx) => renderQuestionCard(q, idx + 1)).join('');
+    
+    const modelBQuestions = questionBank.filter(q => q.id.startsWith('B'));
+    document.getElementById('modelB').innerHTML = modelBQuestions.map((q, idx) => renderQuestionCard(q, idx + 21)).join('');
+    
+    const modelCQuestions = questionBank.filter(q => q.id.startsWith('C'));
+    document.getElementById('modelC').innerHTML = modelCQuestions.map((q, idx) => renderQuestionCard(q, idx + 41)).join('');
+}
+
+function renderQuestionCard(question, displayNum) {
+    const bloomClass = 'bloom-' + question.bloomLevel;
+    const bloomText = { 'recall': 'تذكر', 'understand': 'فهم', 'apply': 'تطبيق', 'analyze': 'تحليل' }[question.bloomLevel];
+    const isBookmarked = currentState.bookmarks.includes(question.id);
+    
+    return `
+        <div class="question-card" id="q-${question.id}">
+            <div class="question-header">
+                <span class="question-number">سؤال ${displayNum}</span>
+                <div class="question-meta">
+                    <span class="bloom-badge ${bloomClass}">${bloomText}</span>
+                    <span>${question.lessonRef}</span>
+                </div>
+            </div>
+            <div class="question-body">
+                <div class="question-text">${question.question}</div>
+                <div class="options-list">
+                    ${question.options.map((opt, idx) => `
+                        <div class="option-item ${currentState.examAnswers[question.id] === idx ? 'selected' : ''}" 
+                             onclick="selectAnswer('${question.id}', ${idx})">
+                            <div class="option-radio">${currentState.examAnswers[question.id] === idx ? '✓' : ''}</div>
+                            <span>${opt}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            <div class="question-footer">
+                <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmark('${question.id}')">
+                    ${isBookmarked ? '★' : '☆'}
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function selectAnswer(questionId, optionIndex) {
+    currentState.examAnswers[questionId] = optionIndex;
+    saveState();
+    
+    const card = document.getElementById('q-' + questionId);
+    card.querySelectorAll('.option-item').forEach((item, idx) => {
+        item.classList.toggle('selected', idx === optionIndex);
+        item.querySelector('.option-radio').textContent = idx === optionIndex ? '✓' : '';
+    });
+    
+    updateExamProgress();
+}
+
+function updateExamProgress() {
+    const answered = Object.keys(currentState.examAnswers).length;
+    document.getElementById('examProgress').textContent = `${answered}/60 سؤال`;
+}
+
+function toggleBookmark(questionId) {
+    const index = currentState.bookmarks.indexOf(questionId);
+    if (index > -1) currentState.bookmarks.splice(index, 1);
+    else currentState.bookmarks.push(questionId);
+    saveState();
+    renderQuestions();
+}
+
+function startExamTimer() {
+    if (currentState.examTimerInterval) return;
+    
+    currentState.examTimerInterval = setInterval(() => {
+        currentState.examTimeRemaining--;
+        
+        const minutes = Math.floor(currentState.examTimeRemaining / 60);
+        const seconds = currentState.examTimeRemaining % 60;
+        const timerEl = document.getElementById('examTimer');
+        timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (currentState.examTimeRemaining <= 300) timerEl.classList.add('danger');
+        else if (currentState.examTimeRemaining <= 600) timerEl.classList.add('warning');
+        
+        if (currentState.examTimeRemaining <= 0) submitExam();
+    }, 1000);
+}
+
+function confirmSubmitExam() {
+    const answered = Object.keys(currentState.examAnswers).length;
+    const total = questionBank.length;
+    const unanswered = total - answered;
+    
+    document.getElementById('unansweredWarning').textContent = unanswered > 0 ? `لم تجب على ${unanswered} سؤال` : '';
+    document.getElementById('submitModal').classList.add('active');
+}
+
+function closeModal() {
+    document.getElementById('submitModal').classList.remove('active');
+}
+
+function submitExam() {
+    clearInterval(currentState.examTimerInterval);
+    currentState.examTimerInterval = null;
+    
+    let correct = 0;
+    for (const q of questionBank) {
+        if (currentState.examAnswers[q.id] === q.correctIndex) correct++;
+    }
+    
+    const score = Math.round((correct / questionBank.length) * 100);
+    const passed = score >= 70;
+    
+    const attempt = {
+        date: new Date().toISOString(),
+        score: score,
+        correct: correct,
+        total: questionBank.length,
+        passed: passed,
+        model: currentState.currentModel,
+        answers: {...currentState.examAnswers}
+    };
+    
+    currentState.attempts.push(attempt);
+    
+    const conceptMastery = {};
+    for (const q of questionBank) {
+        if (!conceptMastery[q.conceptId]) conceptMastery[q.conceptId] = { correct: 0, total: 0 };
+        conceptMastery[q.conceptId].total++;
+        if (currentState.examAnswers[q.id] === q.correctIndex) conceptMastery[q.conceptId].correct++;
+    }
+    currentState.conceptMastery = conceptMastery;
+    saveState();
+    
+    closeModal();
+    switchTab('results');
+    updateResults();
+    
+    if (!passed) document.getElementById('weakBadge').style.display = 'inline';
+}
+
+function updateResults() {
+    if (currentState.attempts.length === 0) return;
+    
+    const lastAttempt = currentState.attempts[currentState.attempts.length - 1];
+    const passed = lastAttempt.passed;
+    
+    let html = `
+        <div class="results-summary">
+            <div class="result-card ${passed ? 'pass' : 'fail'}">
+                <div class="result-status">${passed ? 'ناجح' : 'راسب'}</div>
+                <div class="result-score">${lastAttempt.score}%</div>
+                <div>${lastAttempt.correct} / ${lastAttempt.total} إجابة صحيحة</div>
+            </div>
+        </div>
+    `;
+    
+    html += '<div class="card"><div class="card-header">الأسئلة الخاطئة</div><div class="card-body">';
+    
+    let hasIncorrect = false;
+    for (const q of questionBank) {
+        if (currentState.examAnswers[q.id] !== q.correctIndex) {
+            hasIncorrect = true;
+            html += `
+                <div style="margin-bottom: 1.5rem; padding: 1rem; background: #ffebee; border-radius: 8px;">
+                    <div style="font-weight: bold; margin-bottom: 0.5rem;">${q.question}</div>
+                    <div style="color: #d32f2f;">إجابتك: ${q.options[currentState.examAnswers[q.id]] || 'لم تجب'}</div>
+                    <div style="color: #2e7d32;">الإجابة الصحيحة: ${q.options[q.correctIndex]}</div>
+                    <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">${q.lessonRef}</div>
+                </div>
+            `;
+        }
+    }
+    
+    if (!hasIncorrect) html += '<p>مبروك! جميع إجاباتك صحيحة!</p>';
+    html += '</div></div>';
+    
+    html += '<div class="card"><div class="card-header">سجل المحاولات</div><div class="card-body">';
+    html += '<table class="comparison-table"><tr><th>التاريخ</th><th>الدرجة</th><th>النتيجة</th></tr>';
+    
+    for (const attempt of currentState.attempts.slice().reverse()) {
+        const date = new Date(attempt.date).toLocaleDateString('ar-SA');
+        html += `<tr><td>${date}</td><td>${attempt.score}%</td><td>${attempt.passed ? '<span style="color: #2e7d32;">ناجح</span>' : '<span style="color: #d32f2f;">راسب</span>'}</td></tr>`;
+    }
+    
+    html += '</table></div></div>';
+    document.getElementById('resultsContent').innerHTML = html;
+}
+
+function generateWeaknessTest() {
+    if (!currentState.conceptMastery || Object.keys(currentState.conceptMastery).length === 0) {
+        alert('أكمل اختباراً أولاً لتحديد نقاط الضعف');
+        return;
+    }
+    
+    const weakConcepts = [];
+    for (const [conceptId, data] of Object.entries(currentState.conceptMastery)) {
+        const mastery = (data.correct / data.total) * 100;
+        if (mastery < 70) weakConcepts.push(conceptId);
+    }
+    
+    if (weakConcepts.length === 0) {
+        alert('ممتاز! لا توجد نقاط ضعف واضحة');
+        return;
+    }
+    
+    const weaknessQs = questionBank.filter(q => weakConcepts.includes(q.conceptId)).slice(0, 20);
+    currentState.weaknessQuestions = weaknessQs;
+    
+    document.getElementById('weaknessContent').style.display = 'none';
+    document.getElementById('weaknessQuestions').style.display = 'block';
+    document.getElementById('weaknessQuestions').innerHTML = weaknessQs.map((q, idx) => renderQuestionCard(q, idx + 1)).join('');
+}
+
+function flipCard() {
+    document.getElementById('flashcard').classList.toggle('flipped');
+    currentState.cardFlipped = !currentState.cardFlipped;
+}
+
+function nextCard() {
+    currentState.currentCardIndex = (currentState.currentCardIndex + 1) % flashcardsData.length;
+    updateCard();
+}
+
+function prevCard() {
+    currentState.currentCardIndex = (currentState.currentCardIndex - 1 + flashcardsData.length) % flashcardsData.length;
+    updateCard();
+}
+
+function updateCard() {
+    const card = flashcardsData[currentState.currentCardIndex];
+    document.getElementById('cardTerm').textContent = card.term;
+    document.getElementById('cardDef').textContent = card.def;
+    document.getElementById('cardTip').textContent = 'نصيحة: ' + card.tip;
+    document.getElementById('cardCounter').textContent = `${currentState.currentCardIndex + 1} / ${flashcardsData.length}`;
+    document.getElementById('flashcard').classList.remove('flipped');
+}
+
+function updateDashboard() {
+    document.getElementById('totalAttempts').textContent = currentState.attempts.length;
+    
+    if (currentState.attempts.length > 0) {
+        const scores = currentState.attempts.map(a => a.score);
+        const best = Math.max(...scores);
+        const avg = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+        document.getElementById('bestScore').textContent = best + '%';
+        document.getElementById('avgScore').textContent = avg + '%';
+    }
+    
+    const conceptNames = {
+        'c1': 'المخاطر', 'c2': 'السلامة المهنية', 'c3': 'النظام', 'c4': 'اللائحة',
+        'c5': 'الحادث', 'c6': 'فوائد الأنظمة', 'c7': 'أسباب الحوادث', 'c8': 'الجهات المختصة',
+        'c9': 'اللوائح', 'c10': 'إحصائيات', 'c11': 'مسؤوليات أصحاب العمل', 'c12': 'مسؤوليات العاملين',
+        'c13': 'أسس النظام', 'c14': 'ماهية السلامة', 'c15': 'السلامة في المخازن', 'c16': 'مقومات النجاح',
+        'c17': 'الأمن الصناعي', 'c18': 'فوائد النظام', 'c19': 'مهام قسم الأمن', 'c20': 'مهام قسم السلامة',
+        'c21': 'القواعد الأساسية', 'c22': 'العناصر الأساسية', 'c23': 'أنواع المخاطر', 'c24': 'تعريف الحوادث',
+        'c25': 'الوقاية من الحوادث', 'c26': 'تحليل المخاطر', 'c27': 'التحقيق', 'c28': 'أهمية الأمن',
+        'c29': 'إدارة الأمن', 'c30': 'أهداف الإدارة', 'c31': 'مراحل الاستعداد', 'c32': 'الإجراءات الوقائية',
+        'c33': 'مكافحة الحرائق', 'c34': 'التأمين', 'c35': 'الإجراءات الآمنة'
+    };
+    
+    if (currentState.conceptMastery && Object.keys(currentState.conceptMastery).length > 0) {
+        let masteryHtml = '';
+        for (const [conceptId, data] of Object.entries(currentState.conceptMastery)) {
+            const mastery = Math.round((data.correct / data.total) * 100);
+            const status = mastery >= 70 ? 'mastered' : 'weak';
+            const statusText = mastery >= 70 ? 'مُتقن' : 'ضعيف';
+            
+            masteryHtml += `
+                <div class="mastery-item">
+                    <span>${conceptNames[conceptId] || conceptId}</span>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div class="mastery-bar">
+                            <div class="mastery-fill ${status}" style="width: ${mastery}%"></div>
+                        </div>
+                        <span style="font-size: 0.85rem;">${mastery}% (${statusText})</span>
+                    </div>
+                </div>
+            `;
+        }
+        document.getElementById('masteryList').innerHTML = masteryHtml;
+    }
+    
+    if (currentState.bookmarks.length > 0) {
+        let bookmarksHtml = '';
+        for (const qId of currentState.bookmarks) {
+            const q = questionBank.find(q => q.id === qId);
+            if (q) bookmarksHtml += `<div style="padding: 0.5rem; border-bottom: 1px solid #eee;">${q.question}</div>`;
+        }
+        document.getElementById('bookmarkedList').innerHTML = bookmarksHtml;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadState();
+    if (currentState.studentName) {
+        document.getElementById('welcomeScreen').style.display = 'none';
+        document.getElementById('mainHeader').style.display = 'block';
+        document.getElementById('mainNav').style.display = 'flex';
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('displayName').textContent = currentState.studentName;
+        init();
+    }
+    updateCard();
+});
+</script>
+</body>
+</html>
