@@ -122,6 +122,29 @@
   fill:none;
   stroke-width:2;
 }
+.safety-ico svg{
+  width:20px;
+  height:20px;
+  stroke:#ffffff;
+  fill:none;
+  stroke-width:2;
+}
+/* 1) لون النص داخل التابات (حتى ما يأخذ لون رابط افتراضي) */
+.days-bar .day-btn,
+.days-bar .day-btn:visited { color: #fff; }
+
+/* 2) اجعل أي SVG داخل day-ico يرث اللون */
+.day-ico { color: var(--stroke, #fff); }
+
+/* 3) توحيد سلوك الـSVG */
+.day-ico svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  stroke: currentColor;   /* يرث من color */
+  fill: none;             /* الافتراضي: بدون تعبئة */
+}
+
 .ico-a{ --fill:#2563eb; --stroke:#ffffff; }
 
 
@@ -178,6 +201,15 @@
     <path d="M8 10h8M10 10l-2 4h4l-2-4zM14 10l-2 4h4l-2-4z"/>
   </svg></span>
 <span class="day-txt">قوانين ومعايير السلامة</span>
+</a>
+<a class="day-btn" href="day3.html" title="اليوم الثالث" target="_self" rel="noopener">
+<span aria-hidden="true" class="day-ico safety-ico">
+<svg viewBox="0 0 24 24">
+    <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+    <path d="M8 13a4 4 0 0 1 8 0"/>
+    <path d="M8 13h8"/>
+  </svg></span>
+<span class="day-txt">إدارة السلامة ومنع الخسائر</span>
 </a>
         </div>
     </header>
