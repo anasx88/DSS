@@ -1,0 +1,3842 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام التدريب المهني - السلامة والصحة المهنية 121</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #2563eb;
+            --accent: #f59e0b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+        
+        #app {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+        
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 16px;
+            z-index: 100;
+        }
+        
+        .app-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .app-header .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .app-header .course-info {
+            display: flex;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .course-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .course-info-item span {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            background: var(--card-bg);
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow-x: auto;
+            flex-wrap: nowrap;
+        }
+        
+        .nav-tab {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-tab:hover {
+            background: var(--bg);
+            color: var(--primary);
+        }
+        
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+        
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .card-subtitle {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        
+        /* Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-card.success {
+            background: linear-gradient(135deg, var(--success) 0%, #22c55e 100%);
+        }
+        
+        .stat-card.warning {
+            background: linear-gradient(135deg, var(--warning) 0%, var(--accent) 100%);
+        }
+        
+        .stat-card.danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #ef4444 100%);
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 24px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success) 0%, #22c55e 100%);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-fill.warning {
+            background: linear-gradient(90deg, var(--warning) 0%, var(--accent) 100%);
+        }
+        
+        .progress-fill.danger {
+            background: linear-gradient(90deg, var(--danger) 0%, #ef4444 100%);
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #15803d;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* Exam Styles */
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .timer-badge {
+            background: var(--danger);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .timer-badge.warning {
+            background: var(--warning);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .progress-indicator {
+            background: var(--card-bg);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+        
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border-right: 4px solid var(--primary);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            margin-left: 12px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .option:hover {
+            border-color: var(--secondary);
+            background: #eff6ff;
+        }
+        
+        .option.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+        
+        .option.correct {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+        
+        .option.wrong {
+            border-color: var(--danger);
+            background: #fef2f2;
+        }
+        
+        .option-marker {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .option.selected .option-marker {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .option.correct .option-marker {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+        
+        .option.wrong .option-marker {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: white;
+        }
+        
+        .explanation {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .explanation.correct {
+            background: #f0fdf4;
+            border-right: 4px solid var(--success);
+        }
+        
+        .explanation.wrong {
+            background: #fef2f2;
+            border-right: 4px solid var(--danger);
+        }
+        
+        /* Results */
+        .results-header {
+            text-align: center;
+            padding: 40px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: white;
+            margin: 0 auto 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .score-value {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .score-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .pass-status {
+            font-size: 24px;
+            font-weight: 700;
+            padding: 12px 32px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 16px;
+        }
+        
+        .pass-status.passed {
+            background: var(--success);
+        }
+        
+        .pass-status.failed {
+            background: var(--danger);
+        }
+        
+        /* Concept Mastery Bars */
+        .concept-mastery-item {
+            margin-bottom: 16px;
+        }
+        
+        .concept-mastery-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .concept-mastery-name {
+            font-weight: 600;
+        }
+        
+        .concept-mastery-score {
+            font-weight: 700;
+        }
+        
+        .concept-mastery-score.weak {
+            color: var(--danger);
+        }
+        
+        .concept-mastery-score.strong {
+            color: var(--success);
+        }
+        
+        /* Flashcards */
+        .flashcard-container {
+            perspective: 1000px;
+            margin-bottom: 24px;
+        }
+        
+        .flashcard {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-front, .flashcard-back {
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-term {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .flashcard-definition {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+        
+        .flashcard-hint {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 24px;
+        }
+        
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        /* Study Section Styles - Scoped under #study */
+        #study .concept-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border-right: 4px solid var(--primary);
+        }
+        
+        #study .concept-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        
+        #study .concept-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+        
+        #study .concept-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #study .concept-list li {
+            padding: 8px 0;
+            padding-right: 24px;
+            position: relative;
+        }
+        
+        #study .concept-list li::before {
+            content: "•";
+            position: absolute;
+            right: 8px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        #study .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        
+        #study .glossary-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+        
+        #study .glossary-term {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        #study .glossary-definition {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        #study .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-top: 16px;
+            overflow-x: auto;
+        }
+        
+        #study .risk-cell {
+            padding: 16px 8px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            min-width: 80px;
+        }
+        
+        #study .risk-low {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        #study .risk-medium {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+        
+        #study .risk-high {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+        
+        #study .risk-critical {
+            background: #fecaca;
+            color: #991b1b;
+        }
+        
+        #study .analytical-model {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-right: 4px solid var(--secondary);
+        }
+        
+        #study .model-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        
+        #study .model-steps {
+            counter-reset: step;
+            list-style: none;
+        }
+        
+        #study .model-steps li {
+            counter-increment: step;
+            padding: 8px 0;
+            padding-right: 32px;
+            position: relative;
+        }
+        
+        #study .model-steps li::before {
+            content: counter(step);
+            position: absolute;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .app-header h1 {
+                font-size: 22px;
+            }
+            
+            .nav-tabs {
+                padding: 4px;
+            }
+            
+            .nav-tab {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+            
+            .card {
+                padding: 16px;
+            }
+            
+            .question-card {
+                padding: 16px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stat-value {
+                font-size: 28px;
+            }
+            
+            #study .risk-matrix {
+                grid-template-columns: repeat(5, minmax(60px, 1fr));
+            }
+            
+            .flashcard {
+                padding: 24px;
+                min-height: 250px;
+            }
+            
+            .flashcard-term {
+                font-size: 20px;
+            }
+        }
+        
+        /* Alert */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .alert-info {
+            background: #eff6ff;
+            border-right: 4px solid var(--secondary);
+            color: var(--primary);
+        }
+        
+        .alert-warning {
+            background: #fffbeb;
+            border-right: 4px solid var(--accent);
+            color: var(--warning);
+        }
+        
+        .alert-success {
+            background: #f0fdf4;
+            border-right: 4px solid var(--success);
+            color: var(--success);
+        }
+        
+        /* Utility */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-16 {
+            margin-bottom: 16px;
+        }
+        
+        .mb-24 {
+            margin-bottom: 24px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Model Selection */
+        .model-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .model-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--secondary);
+        }
+        
+        .model-card.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+        
+        .model-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .model-description {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+        
+        .model-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+        }
+        
+        .model-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* Question Review */
+        .review-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            border-right: 4px solid var(--border);
+        }
+        
+        .review-item.correct {
+            border-right-color: var(--success);
+        }
+        
+        .review-item.wrong {
+            border-right-color: var(--danger);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .review-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .review-status.correct {
+            background: #f0fdf4;
+            color: var(--success);
+        }
+        
+        .review-status.wrong {
+            background: #fef2f2;
+            color: var(--danger);
+        }
+.infographic-slot{
+  max-width: 100%;
+  margin: 16px auto 0;
+  text-align: center;
+}
+
+.infographic-slot img{
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 12px; /* اختياري */
+}
+.risk-matrix{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin:20px 0;font-size:.8rem}
+        .matrix-header{background:#1e3a5f;color:#fff;padding:10px;text-align:center;font-weight:600}
+        .matrix-cell{padding:12px;text-align:center;border-radius:4px;font-weight:600;min-height:auto}
+        .matrix-low{background:#9ae6b4}
+        .matrix-medium{background:#fbd38d}
+        .matrix-high{background:#fc8181}
+        .matrix-critical{background:#e53e3e;color:#fff}
+
+
+/* ===== Days Navigation Bar (Day 1..6) ===== */
+.days-bar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-top:16px;
+  padding:10px;
+  border-radius:14px;
+  background: rgba(255,255,255,.10);
+  backdrop-filter: blur(6px);
+}
+
+/* Link/button */
+.day-btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:12px;
+  text-decoration:none;
+  background: rgba(255,255,255,.10);
+  transition: .2s ease;
+}
+
+.days-bar .day-btn,
+.days-bar .day-btn:visited { color:#fff; }
+
+.day-btn:hover{
+  background: rgba(255,255,255,.18);
+  transform: translateY(-1px);
+}
+
+.day-btn.active{
+  background: rgba(255,255,255,.24);
+  outline: 2px solid rgba(255,255,255,.35);
+}
+
+/* Text */
+.day-txt{
+  font-weight:800;
+  font-size:14px;
+  white-space:nowrap;
+}
+
+/* Icon base */
+.day-ico{
+  --stroke:#ffffff;
+  --fill:#2563eb;
+
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  display:inline-grid;
+  place-items:center;
+
+  background: var(--fill);
+  color: var(--stroke);
+
+  border:none;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+}
+
+.day-ico svg{
+  width:20px;
+  height:20px;
+  display:block;
+  stroke: currentColor;
+  fill: none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Day colors (اختياري/مقترح) */
+.ico-d1{ --fill:#2563eb; --stroke:#ffffff; }  /* Day 1 */
+.ico-d2{ --fill:#16a34a; --stroke:#ffffff; }  /* Day 2 */
+.ico-d3{ --fill:#065f46; --stroke:#ffffff; }  /* Day 3 */
+
+/* NEW */
+.ico-d4{ --fill:#f59e0b; --stroke:#ffffff; }  /* Day 4: OHS */
+.ico-d5{ --fill:#9333ea; --stroke:#ffffff; }  /* Day 5: Media */
+.ico-d6{ --fill:#0f172a; --stroke:#ffffff; }  /* Day 6: Security */
+
+@media (max-width:768px){
+  .day-txt{ font-size:13px; }
+  .day-btn{ padding:9px 12px; }
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>نظام التدريب المهني - السلامة والصحة المهنية</h1>
+
+<div aria-label="تنقّل أيام البرنامج" class="days-bar">
+
+  <!-- Day 1 -->
+  <a class="day-btn" href="index.html" title="اليوم الأول" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d1">
+      <!-- (اختياري) أيقونة اليوم الأول: اتركها كما عندك إن كانت مختلفة -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M12 15s-4-2.5-4-5.2C8 8.3 9.1 7.5 10.2 7.5c.7 0 1.3.3 1.8.8.5-.5 1.1-.8 1.8-.8 1.1 0 2.2.8 2.2 2.3 0 2.7-4 5.2-4 5.2z"/>
+      </svg>
+    </span>
+    <span class="day-txt">إدارة الأزمات والمخاطر الأمنية</span>
+  </a>
+
+  <!-- Day 2 -->
+  <a class="day-btn" href="day2.html" title="اليوم الثاني" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d2">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M8 10h8"/>
+        <path d="M10 10l-2 4h4l-2-4z"/>
+        <path d="M14 10l-2 4h4l-2-4z"/>
+      </svg>
+    </span>
+    <span class="day-txt">قوانين ومعايير السلامة</span>
+  </a>
+
+  <!-- Day 3 -->
+  <a class="day-btn" href="day3.html" title="اليوم الثالث" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d3">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M8 13a4 4 0 0 1 8 0"/>
+        <path d="M8 13h8"/>
+      </svg>
+    </span>
+    <span class="day-txt">إدارة السلامة ومنع الخسائر</span>
+  </a>
+
+  <!-- Day 4 (NEW) -->
+  <a class="day-btn" href="day4.html" title="اليوم الرابع" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d4">
+      <!-- Helmet / OHS -->
+      <svg viewBox="0 0 24 24">
+        <path d="M4 18h16"/>
+        <path d="M6 18v-3a6 6 0 0 1 12 0v3"/>
+        <path d="M12 9v6"/>
+      </svg>
+    </span>
+    <span class="day-txt">السلامة والصحة المهنية</span>
+  </a>
+
+  <!-- Day 5 (NEW) -->
+  <a class="day-btn" href="day5.html" title="اليوم الخامس" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d5">
+      <!-- Megaphone / Media -->
+      <svg viewBox="0 0 24 24">
+        <path d="M3 11v2"/>
+        <path d="M5 10v4"/>
+        <path d="M7 9l10-3v12l-10-3z"/>
+        <path d="M17 9l4-2v10l-4-2"/>
+      </svg>
+    </span>
+    <span class="day-txt">التعامل مع وسائل الإعلام</span>
+  </a>
+
+  <!-- Day 6 (NEW) -->
+  <a class="day-btn" href="day6.html" title="اليوم السادس" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d6">
+      <!-- Shield/Lock / Security Planning -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M9.5 12a2.5 2.5 0 0 1 5 0v2.5h-5V12z"/>
+        <path d="M10 14.5h4"/>
+      </svg>
+    </span>
+    <span class="day-txt">التخطيط الأمني</span>
+  </a>
+
+</div>
+
+        </header>
+        
+        <!-- Navigation -->
+        <nav class="nav-tabs" role="tablist" aria-label="القائمة الرئيسية">
+            <button class="nav-tab active" data-tab="dashboard" role="tab" aria-selected="true" aria-label="لوحة التحكم">
+                لوحة التحكم
+            </button>
+            <button class="nav-tab" data-tab="study" role="tab" aria-selected="false" aria-label="الدراسة">
+                الدراسة
+            </button>
+            <button class="nav-tab" data-tab="exam" role="tab" aria-selected="false" aria-label="الاختبار">
+                الاختبار
+            </button>
+            <button class="nav-tab" data-tab="flashcards" role="tab" aria-selected="false" aria-label="البطاقات التعليمية">
+                البطاقات التعليمية
+            </button>
+            <button class="nav-tab" data-tab="results" role="tab" aria-selected="false" aria-label="النتائج">
+                النتائج
+            </button>
+        </nav>
+        
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalAttempts">0</div>
+                    <div class="stat-label">عدد المحاولات</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-value" id="bestScore">0%</div>
+                    <div class="stat-label">أفضل نتيجة</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-value" id="avgScore">0%</div>
+                    <div class="stat-label">متوسط النتيجة</div>
+                </div>
+                <div class="stat-card" id="masteryCard">
+                    <div class="stat-value" id="masteryRate">0%</div>
+                    <div class="stat-label">معدل الإتقان</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">آخر محاولة</h2>
+                <div id="lastAttemptInfo">
+                    <p class="text-center" style="color: var(--text-light);">لم تقم بأي محاولة بعد</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">إتقان المفاهيم</h2>
+                <div id="conceptMasteryList">
+                    <p class="text-center" style="color: var(--text-light);">أكمل اختباراً لعرض إتقان المفاهيم</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">التوصيات</h2>
+                <div id="recommendations">
+                    <div class="alert alert-info">
+                        ابدأ بدراسة المحتوى ثم اختبر معرفتك
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Study Tab -->
+        <div id="study" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">المحتوى الدراسي - السلامة والصحة المهنية</h2>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">تعريف السلامة المهنية (Occupational Safety)</h3>
+                    <div class="concept-content">
+                        <p>هي حماية العمال من الإصابات المفاجئة الناتجة عن الحوادث المرتبطة بالعمل، وتشمل جميع الإجراءات والتدابير الوقائية اللازمة لحماية العمال من المخاطر المهنية.</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">تعريف الصحة المهنية (Occupational Health)</h3>
+                    <div class="concept-content">
+                        <p>هي الحفاظ على الصحة في بيئة العمل بوسائلها ومواردها المادية والبشرية، ويشمل مفهوماً شاملاً يؤثر على صحة الأفراد والمؤسسات. يُعنى بصحة العامل من النواحي البدنية والنفسية والاجتماعية.</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">تعريف بيئة العمل الآمنة (Safe Work Environment)</h3>
+                    <div class="concept-content">
+                        <p>هي بيئة العمل التي تتمتع بالشروط الضرورية لتوفير السلامة والصحة المهنية للعاملين.</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">تعريف السلامة والصحة المهنية (Occupational Safety and Health)</h3>
+                    <div class="concept-content">
+                        <p>تُعرف السلامة والصحة المهنية بأنها العلم الذي يهتم بالحفاظ على سلامة وصحة الإنسان من خلال توفير بيئة عمل آمنة خالية من المسببات للحوادث والإصابات والأمراض المهنية.</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">أهداف السلامة والصحة المهنية</h3>
+                    <div class="concept-content">
+                        <ul class="concept-list">
+                            <li>حماية العنصر البشري من الإصابات الناتجة عن مخاطر بيئة العمل</li>
+                            <li>حماية المؤسسات من الخسائر المادية الناتجة عن الحوادث والإصابات</li>
+                            <li>توفير بيئة عمل آمنة وصحية للعاملين</li>
+                            <li>توفير المعدات والموارد اللازمة لتحقيق السلامة</li>
+                            <li>توفير التدريب اللازم للعاملين على الإجراءات الآمنة</li>
+                            <li>الحفاظ على رأس المال البشري والمادي للمؤسسات</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">أهمية السلامة والصحة المهنية</h3>
+                    <div class="concept-content">
+                        <ul class="concept-list">
+                            <li>توفير الأمن والطمأنينة في نفوس العمال أثناء ممارسة أعمالهم</li>
+                            <li>حماية العمال من الإصابات والأمراض المهنية</li>
+                            <li>تقليل الخسائر الاقتصادية والاجتماعية الناتجة عن الحوادث</li>
+                            <li>زيادة الإنتاجية وتحسين جودة المنتجات</li>
+                            <li>تعزيز ثقة العمال في بيئة العمل</li>
+                            <li>الالتزام بالقوانين واللوائح المحلية والدولية</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">طرق تحقيق السلامة والصحة المهنية</h3>
+                    <div class="concept-content">
+                        <ul class="concept-list">
+                            <li>التعاون بين الجهات المختلفة (أصحاب العمل، العمال، الأطباء، المرضى)</li>
+                            <li>إجراء البحوث لمعرفة المخاطر الصحية في مكان العمل</li>
+                            <li>تدريب العاملين على الإجراءات الآمنة والوقاية من المخاطر</li>
+                            <li>توفير المعدات الوقائية الشخصية (PPE)</li>
+                            <li>الالتزام بقوانين ولوائح السلامة والصحة المهنية</li>
+                            <li>إصدار العقوبات على المخالفين</li>
+                            <li>التخطيط الفني والتنفيذ الآمن للمشاريع</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">أجهزة جسم الإنسان</h2>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز التكاملي (الجلد) - Integumentary System</h3>
+                    <div class="concept-content">
+                        <p><strong>الوظائف الرئيسية:</strong></p>
+                        <ul class="concept-list">
+                            <li>تنظيم درجة حرارة الجسم من خلال التعرق</li>
+                            <li>حماية الجسم من العوامل الخارجية</li>
+                            <li>الإحساس باللمس والحرارة والبرودة والألم</li>
+                            <li>تكوين فيتامين D عند التعرض لأشعة الشمس</li>
+                            <li>إفراز الزيوت الطبيعية لترطيب الجلد</li>
+                        </ul>
+                        <p><strong>طبقات الجلد:</strong> البشرة، الأدمة، الطبقة تحت الجلدية</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز الهيكلي (العظام) - Skeletal System</h3>
+                    <div class="concept-content">
+                        <p><strong>الوظائف الرئيسية:</strong></p>
+                        <ul class="concept-list">
+                            <li>دعم الجسم وإعطائه الشكل</li>
+                            <li>حماية الأعضاء الداخلية (الدماغ، القلب، الرئتين)</li>
+                            <li>المساعدة في الحركة بالتعاون مع العضلات</li>
+                            <li>إنتاج خلايا الدم (نخاع العظم)</li>
+                            <li>تخزين المعادن (الكالسيوم والفوسفور)</li>
+                        </ul>
+                        <p><strong>أنواع العظام:</strong> طويلة، قصيرة، مسطحة، غير منتظمة</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز العضلي - Muscular System</h3>
+                    <div class="concept-content">
+                        <p><strong>أنواع العضلات:</strong></p>
+                        <ul class="concept-list">
+                            <li><strong>العضلات الهيكلية:</strong> ترتبط بالعظام وتتحكم في الحركة الإرادية</li>
+                            <li><strong>العضلات القلبية:</strong> تتواجد في القلب فقط، حركة لا إرادية</li>
+                            <li><strong>العضلات الملساء:</strong> تتواجد في الأعضاء الداخلية، حركة لا إرادية</li>
+                        </ul>
+                        <p><strong>الوظائف:</strong> إنتاج حركة الجسم، تثبيت وضع الجسم، نقل وخزن المواد داخل الجسم</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز العصبي - Nervous System</h3>
+                    <div class="concept-content">
+                        <p><strong>الأقسام الرئيسية:</strong></p>
+                        <ul class="concept-list">
+                            <li><strong>الجهاز العصبي المركزي:</strong> الدماغ والنخاع الشوكي</li>
+                            <li><strong>الجهاز العصبي المحيطي:</strong> الأعصاب خارج الدماغ والنخاع الشوكي</li>
+                        </ul>
+                        <p><strong>الوظائف:</strong></p>
+                        <ul class="concept-list">
+                            <li>استقبال المعلومات من الحواس</li>
+                            <li>معالجة المعلومات وتحليلها</li>
+                            <li>إصدار الأوامر للعضلات والغدد</li>
+                            <li>تنظيم الوظائف الحيوية (التنفس، ضربات القلب)</li>
+                            <li>التعلم والذاكرة</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">جهاز الغدد الصماء - Endocrine System</h3>
+                    <div class="concept-content">
+                        <p><strong>الغدد الرئيسية:</strong></p>
+                        <ul class="concept-list">
+                            <li><strong>الغدة النخامية:</strong> الغدة الرئيسية التي تتحكم في باقي الغدد</li>
+                            <li><strong>الغدة الدرقية:</strong> تنظم عملية التمثيل الغذائي</li>
+                            <li><strong>الغدة الكظرية:</strong> تفرز هرمونات الإجهاد</li>
+                            <li><strong>البنكرياس:</strong> ينتج الأنسولين والجلوكاجون</li>
+                            <li><strong>الغدد الجنسية:</strong> المبيضان/الخصيتان</li>
+                        </ul>
+                        <p><strong>الوظيفة:</strong> إفراز الهرمونات التي تنظم وظائف الجسم المختلفة</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز القلبي وجهاز الدم - Cardiovascular System</h3>
+                    <div class="concept-content">
+                        <p><strong>مكونات الدم:</strong></p>
+                        <ul class="concept-list">
+                            <li><strong>بلازما الدم (55%):</strong> المادة السائلة التي تحمل خلايا الدم</li>
+                            <li><strong>خلايا الدم (45%):</strong> كرات الدم الحمراء والبيضاء والصفائح الدموية</li>
+                        </ul>
+                        <p><strong>وظائف الدم:</strong> نقل الأكسجين والغذاء، إزالة الفضلات، الدفاع ضد الأمراض، تنظيم درجة الحرارة</p>
+                        <p><strong>وظائف القلب:</strong> مضخة الدم التي تدفع الدم إلى جميع أنحاء الجسم</p>
+                    </div>
+                </div>
+                <div class="concept-item">
+    <h3 class="concept-title">الجهاز الوعائي - Vascular System</h3>
+    <div class="concept-content">
+
+        <p><strong>التعريف:</strong> الجهاز الوعائي هو شبكة من الأوعية الدموية المسؤولة عن نقل الدم بين القلب وأجزاء الجسم المختلفة.</p>
+
+        <p><strong>المكونات الرئيسية:</strong></p>
+        <ul class="concept-list">
+            <li><strong>الشرايين (Arteries):</strong> تنقل الدم بعيدًا عن القلب إلى باقي أجزاء الجسم، ويكون الدم غالبًا غنيًا بالأكسجين.</li>
+            <li><strong>الأوردة (Veins):</strong> تعيد الدم إلى القلب، ويكون الدم غالبًا محمّلًا بثاني أكسيد الكربون.</li>
+            <li><strong>الشعيرات الدموية (Capillaries):</strong> أوعية دقيقة تنقل الدم من الشرايين الصغيرة إلى الأوردة الصغيرة، ويتم عبرها تبادل الغازات والمواد الغذائية والفضلات.</li>
+        </ul>
+
+        <p><strong>الوظيفة الأساسية:</strong> ضمان دوران الدم المستمر لتزويد الخلايا بالأكسجين والمواد الغذائية والتخلص من الفضلات.</p>
+
+    </div>
+</div>
+
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز الليمفاوي - Lymphatic/Immune System</h3>
+                    <div class="concept-content">
+                        <p><strong>المكونات:</strong> الأوعية اللمفية، العقد اللمفية، الطحال، الزعترة، اللوزتان</p>
+                        <p><strong>الوظائف:</strong></p>
+                        <ul class="concept-list">
+                            <li>إعادة السوائل إلى مجرى الدم</li>
+                            <li>الدفاع ضد العدوى والأمراض</li>
+                            <li>تصفية اللمف من الجراثيم والخلايا الغريبة</li>
+                            <li>إنتاج خلايا الدم البيضاء (اللمفاويات)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="concept-item">
+    <h3 class="concept-title">الجهاز المناعي - Immune System</h3>
+    <div class="concept-content">
+        
+        <p><strong>التعريف:</strong> المناعة هي قدرة الجسم على تدمير مسببات الأمراض أو المواد الغريبة، ومنع تكرار بعض الأمراض المعدية.</p>
+        
+        <p><strong>المكونات الرئيسية:</strong></p>
+        <ul class="concept-list">
+            <li>الخلايا البلعمية (Phagocytes) – نوع من خلايا الدم البيضاء</li>
+            <li>الخلايا اللمفاوية (Lymphocytes)</li>
+            <li>الطحال (Spleen)</li>
+        </ul>
+
+        <p><strong>الوظائف:</strong></p>
+        <ul class="concept-list">
+            <li>تدمير مسببات الأمراض والمواد الغريبة داخل الجسم</li>
+            <li>بلعمة الميكروبات والخلايا التالفة بواسطة الخلايا البلعمية</li>
+            <li>إزالة خلايا الدم الحمراء والصفائح الدموية البالية في الطحال</li>
+            <li>إطلاق استجابة عامة عند حدوث ضرر ميكروبي أو كيميائي أو فيزيائي</li>
+        </ul>
+
+        <p><strong>أنواع المناعة:</strong></p>
+        <ul class="concept-list">
+            <li>
+                <strong>المناعة الفطرية (Innate Immunity) – غير النوعية:</strong>
+                دفاعات موجودة منذ الولادة، توفر حماية فورية وعامة ضد مجموعة واسعة من مسببات الأمراض.
+            </li>
+            <li>
+                <strong>المناعة التكيفية (Adaptive Immunity) – النوعية:</strong>
+                دفاعات تستجيب لغزو معين، وتتضمن تنشيط خلايا لمفاوية متخصصة قادرة على مكافحة أجسام غريبة محددة.
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز التنفسي - Respiratory System</h3>
+                    <div class="concept-content">
+                        <p><strong>مراحل التنفس:</strong></p>
+                        <ul class="concept-list">
+                            <li><strong>التنفس الخارجي:</strong> تبادل الغازات بين الهواء والدم في الرئتين</li>
+                            <li><strong>النقل الداخلي:</strong> نقل الأكسجين وثاني أكسيد الكربون في الدم</li>
+                            <li><strong>التنفس الداخلي:</strong> تبادل الغازات بين الدم والأنسجة</li>
+                        </ul>
+                        <p><strong>الوظائف:</strong> امتصاص الأكسجين، إخراج ثاني أكسيد الكربون، تنظيم حموضة الدم</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز الهضمي - Digestive System</h3>
+                    <div class="concept-content">
+                        <p><strong>العمليات الأساسية:</strong></p>
+                        <ul class="concept-list">
+                            <li><strong>الهضم الميكانيكي:</strong> تكسير الطعام إلى قطع صغيرة</li>
+                            <li><strong>الهضم الكيميائي:</strong> تحليل الطعام بفعل الإنزيمات</li>
+                            <li><strong>الامتصاص:</strong> امتصاص العناصر الغذائية في الدم</li>
+                            <li><strong>الإخراج:</strong> التخلص من الفضلات</li>
+                        </ul>
+                        <p><strong>المسار:</strong> الفم → المريء → المعدة → الأمعاء الدقيقة → الأمعاء الغليظة</p>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز البولي - Urinary System</h3>
+                    <div class="concept-content">
+                        <p><strong>المكونات:</strong> الكليتان، الحالبين، المثانة، الإحليل</p>
+                        <p><strong>الوظائف:</strong></p>
+                        <ul class="concept-list">
+                            <li>تنظيف الدم من الفضلات والسموم</li>
+                            <li>تنظيم مستوى الماء والأملاح في الجسم</li>
+                            <li>تنظيم ضغط الدم (عن طريق إنزيم الرينين)</li>
+                            <li>تنظيم درجة حموضة الدم (pH)</li>
+                            <li>إنتاج البول وإخراجه من الجسم</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="concept-item">
+                    <h3 class="concept-title">الجهاز التناسلي - Reproductive System</h3>
+                    <div class="concept-content">
+                        <p><strong>الجهاز التناسلي الذكري:</strong></p>
+                        <ul class="concept-list">
+                            <li>الخصيتان: إنتاج الحيوانات المنوية وهرمون التستوستيرون</li>
+                            <li>الغدد الملحقة: إنتاج السوائل المغذية للحيوانات المنوية</li>
+                            <li>الأنابيب: نقل الحيوانات المنوية</li>
+                        </ul>
+                        <p><strong>الجهاز التناسلي الأنثوي:</strong></p>
+                        <ul class="concept-list">
+                            <li>المبيضان: إنتاج البويضات والهرمونات الجنسية</li>
+                            <li>قناة فالوب: نقل البويضة من المبيض إلى الرحم</li>
+                            <li>الرحم: استضافة الجنين أثناء الحمل</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">النماذج التحليلية</h2>
+                
+                <div class="analytical-model">
+                    <div class="model-title">نموذج تقييم المخاطر المهنية</div>
+                    <ol class="model-steps">
+                        <li>تحديد المخاطر المحتملة في بيئة العمل</li>
+                        <li>تقييم احتمالية حدوث الخطر</li>
+                        <li>تقييم شدة الأثر الناتج عن الخطر</li>
+                        <li>حساب مستوى الخطر (الاحتمالية × الشدة)</li>
+                        <li>تحديد الإجراءات الوقائية المناسبة</li>
+                        <li>تنفيذ الإجراءات ومراقبة فعاليتها</li>
+                    </ol>
+                </div>
+                
+                <div class="analytical-model">
+                    <div class="model-title">نموذج الاستجابة للطوارئ</div>
+                    <ol class="model-steps">
+                        <li>الاكتشاف والإنذار المبكر</li>
+                        <li>تقييم الموقف وتحديد مستوى الخطر</li>
+                        <li>إخلاء المنطقة إذا لزم الأمر</li>
+                        <li>تقديم الإسعافات الأولية</li>
+                        <li>الاتصال بخدمات الطوارئ</li>
+                        <li>توثيق الحادث وتحليل أسبابه</li>
+                    </ol>
+                </div>
+                
+                <div class="analytical-model">
+                    <div class="model-title">نموذج تحليل الحوادث</div>
+                    <ol class="model-steps">
+                        <li>جمع المعلومات عن الحادث</li>
+                        <li>تحديد الأسباب المباشرة</li>
+                        <li>تحديد الأسباب الجذرية (الأساسية)</li>
+                        <li>تحليل العوامل المساهمة</li>
+                        <li>وضع توصيات للمنع</li>
+                        <li>متابعة تنفيذ التوصيات</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">مصفوفة المخاطر</h2>
+                <div class="risk-matrix">
+                                        <div class="matrix-header">التأثير →<br>الاحتمال ↓</div>
+                    <div class="matrix-header">ضئيل</div>
+                    <div class="matrix-header">متوسط</div>
+                    <div class="matrix-header">كبير</div>
+                    <div class="matrix-header">حرج</div>
+                    
+                    <div class="matrix-header">نادر</div>
+                    <div class="matrix-cell matrix-low">منخفض</div>
+                    <div class="matrix-cell matrix-low">منخفض</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    
+                    <div class="matrix-header">محتمل</div>
+                    <div class="matrix-cell matrix-low">منخفض</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-high">مرتفع</div>
+                    
+                    <div class="matrix-header">متكرر</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-high">مرتفع</div>
+                    <div class="matrix-cell matrix-high">مرتفع</div>
+                    <div class="matrix-cell matrix-critical">حرج</div>
+                    
+                    <div class="matrix-header">مؤكد</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-high">مرتفع</div>
+                    <div class="matrix-cell matrix-critical">حرج</div>
+                    <div class="matrix-cell matrix-critical">حرج</div>
+                <div class="exam-angle">المصفوفة توضح العلاقة بين احتمالية حدوث الخطر (أفقياً) وشدة الضرر (رأسياً)</div>
+
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">قاموس المصطلحات</h2>
+                <div class="glossary-grid">
+                    <div class="glossary-item">
+                        <div class="glossary-term">السلامة المهنية (Occupational Safety)</div>
+                        <div class="glossary-definition">حماية العمال من الإصابات المفاجئة الناتجة عن الحوادث المرتبطة بالعمل</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">الصحة المهنية (Occupational Health)</div>
+                        <div class="glossary-definition">الحفاظ على الصحة في بيئة العمل من النواحي البدنية والنفسية والاجتماعية</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">المخاطر المهنية (Occupational Hazards)</div>
+                        <div class="glossary-definition">العوامل في بيئة العمل التي قد تسبب ضرراً للعمال</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">الإصابات المهنية (Occupational Injuries)</div>
+                        <div class="glossary-definition">الأضرار التي تصيب العمال نتيجة الحوادث في مكان العمل</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">الأمراض المهنية (Occupational Diseases)</div>
+                        <div class="glossary-definition">الأمراض التي تنتج عن التعرض لعوامل ضارة في بيئة العمل</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">الوقاية (Prevention)</div>
+                        <div class="glossary-definition">الإجراءات المتخذة لتجنب وقوع الحوادث والإصابات</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">المعدات الوقائية الشخصية (PPE)</div>
+                        <div class="glossary-definition">المعدات التي يرتديها العمال لحمايتهم من المخاطر</div>
+                    </div>
+                    <div class="glossary-item">
+                        <div class="glossary-term">التدريب على السلامة (Safety Training)</div>
+                        <div class="glossary-definition">تعليم العمال الإجراءات الآمنة وكيفية التعامل مع المخاطر</div>
+                    </div>
+                </div>
+            </div>
+<div class="infographic-slot">
+        <img src="unit4.png" alt="Unit Infographic Placeholder">
+      </div>
+        </div>
+        
+        <!-- Exam Tab -->
+        <div id="exam" class="tab-content">
+            <div id="examIntro">
+                <div class="card">
+                    <h2 class="card-title">اختيار نموذج الاختبار</h2>
+                    <p class="mb-24">اختر نموذج الاختبار المناسب لك. كل نموذج يحتوي على أسئلة مختلفة.</p>
+                    
+                    <div class="model-selection">
+                        <div class="model-card" data-model="A">
+                            <div class="model-name">النموذج أ - متوازن</div>
+                            <div class="model-description">نموذج متوازن يغطي جميع المفاهيم الأساسية بشكل متساوٍ</div>
+                            <div class="model-stats">
+                                <div class="model-stat">40 سؤال</div>
+                                <div class="model-stat">60 دقيقة</div>
+                                <div class="model-stat">مستوى متوسط</div>
+                            </div>
+                        </div>
+                        <div class="model-card" data-model="B">
+                            <div class="model-name">النموذج ب - متقدم</div>
+                            <div class="model-description">نموذج يركز على المفاهيم الأكثر تعقيداً والتطبيق العملي</div>
+                            <div class="model-stats">
+                                <div class="model-stat">40 سؤال</div>
+                                <div class="model-stat">60 دقيقة</div>
+                                <div class="model-stat">مستوى متقدم</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="startExamBtn" disabled onclick="startExam()">
+                        بدء الاختبار
+                    </button>
+                </div>
+            </div>
+            
+            <div id="examContainer" class="hidden">
+                <div class="exam-header">
+                    <div class="timer-badge" id="timer">
+                        <span>⏱</span> <span id="timerValue">60:00</span>
+                    </div>
+                    <div class="progress-indicator">
+                        السؤال <span id="currentQuestion">1</span> من <span id="totalQuestions">40</span>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="examProgress" style="width: 2.5%"></div>
+                    </div>
+                </div>
+                
+                <div id="questionsContainer"></div>
+                
+                <div class="text-center mb-24">
+                    <button class="btn btn-success" id="submitExamBtn" onclick="submitExam()" disabled>
+                        إنهاء الاختبار وتسليم الإجابات
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flashcards Tab -->
+        <div id="flashcards" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">البطاقات التعليمية</h2>
+                <p class="mb-24 text-center">اضغط على البطاقة لقلبها وعرض التعريف</p>
+                
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipFlashcard()">
+                        <div class="flashcard-front" id="flashcardFront">
+                            <div class="flashcard-term" id="flashcardTerm">السلامة المهنية</div>
+                            <div class="flashcard-hint">اضغط لعرض التعريف</div>
+                        </div>
+                        <div class="flashcard-back" id="flashcardBack">
+                            <div class="flashcard-definition" id="flashcardDefinition">
+                                حماية العمال من الإصابات المفاجئة الناتجة عن الحوادث المرتبطة بالعمل
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flashcard-controls">
+                    <button class="btn btn-outline" onclick="prevFlashcard()">السابق</button>
+                    <span id="flashcardCounter">1 / 20</span>
+                    <button class="btn btn-outline" onclick="nextFlashcard()">التالي</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Tab -->
+        <div id="results" class="tab-content">
+            <div id="resultsContainer">
+                <div class="card">
+                    <h2 class="card-title">النتائج</h2>
+                    <p class="text-center" style="color: var(--text-light);">أكمل اختباراً لعرض النتائج</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+
+        // Question Bank - 80 Questions
+        const questionBank = {
+            A: [
+                // Concept 1: Occupational Safety Definition
+                {
+                    id: "A1",
+                    concept: "تعريف السلامة المهنية",
+                    question: "ما هو تعريف السلامة المهنية (Occupational Safety)؟",
+                    options: [
+                        "حماية العمال من الإصابات المفاجئة الناتجة عن الحوادث المرتبطة بالعمل",
+                        "علاج العمال بعد إصابتهم في العمل",
+                        "توفير التأمين الصحي للعمال",
+                        "زيادة الإنتاجية في العمل"
+                    ],
+                    correct: 0,
+                    explanation: "السلامة المهنية هي حماية العمال من الإصابات المفاجئة الناتجة عن الحوادث المرتبطة بالعمل."
+                },
+                {
+                    id: "A2",
+                    concept: "تعريف السلامة المهنية",
+                    question: "أي من التالي يعد جزءاً من السلامة المهنية؟",
+                    options: [
+                        "توفير المعدات الوقائية للعمال",
+                        "زيادة ساعات العمل",
+                        "تقليل الرواتب",
+                        "إلغاء الإجازات"
+                    ],
+                    correct: 0,
+                    explanation: "توفير المعدات الوقائية للعمال هو جزء أساسي من السلامة المهنية."
+                },
+                {
+                    id: "A3",
+                    concept: "تعريف السلامة المهنية",
+                    question: "ما الهدف الرئيسي من السلامة المهنية؟",
+                    options: [
+                        "حماية العنصر البشري من الإصابات",
+                        "زيادة الأرباح المالية",
+                        "تقليل عدد العمال",
+                        "تسريع الإنتاج"
+                    ],
+                    correct: 0,
+                    explanation: "الهدف الرئيسي من السلامة المهنية هو حماية العنصر البشري من الإصابات."
+                },
+                {
+                    id: "A4",
+                    concept: "تعريف السلامة المهنية",
+                    question: "متى بدأ الاهتمام بقوانين السلامة المهنية؟",
+                    options: [
+                        "بداية الثورة الصناعية في القرن التاسع عشر",
+                        "في القرن العشرين",
+                        "في العصور الوسطى",
+                        "في العصر الحديث فقط"
+                    ],
+                    correct: 0,
+                    explanation: "بدأ الاهتمام بقوانين السلامة المهنية مع بداية الثورة الصناعية في القرن التاسع عشر."
+                },
+                
+                // Concept 2: Occupational Health Definition
+                {
+                    id: "A5",
+                    concept: "تعريف الصحة المهنية",
+                    question: "ما هو تعريف الصحة المهنية (Occupational Health)؟",
+                    options: [
+                        "الحفاظ على الصحة في بيئة العمل بوسائلها ومواردها المادية والبشرية",
+                        "علاج الأمراض فقط",
+                        "توفير وجبات غذائية للعمال",
+                        "تنظيم ساعات العمل"
+                    ],
+                    correct: 0,
+                    explanation: "الصحة المهنية هي الحفاظ على الصحة في بيئة العمل بوسائلها ومواردها المادية والبشرية."
+                },
+                {
+                    id: "A6",
+                    concept: "تعريف الصحة المهنية",
+                    question: "ما النواحي التي تهتم بها الصحة المهنية؟",
+                    options: [
+                        "البدنية والنفسية والاجتماعية",
+                        "البدنية فقط",
+                        "النفسية فقط",
+                        "الاجتماعية فقط"
+                    ],
+                    correct: 0,
+                    explanation: "الصحة المهنية تهتم بالنواحي البدنية والنفسية والاجتماعية للعامل."
+                },
+                {
+                    id: "A7",
+                    concept: "تعريف الصحة المهنية",
+                    question: "ما الفرق بين السلامة المهنية والصحة المهنية؟",
+                    options: [
+                        "السلامة تهتم بالحوادث المفاجئة، والصحة تهتم بالأمراض المزمنة",
+                        "لا يوجد فرق بينهما",
+                        "السلامة للمعدات والصحة للعمال",
+                        "الصحة أهم من السلامة"
+                    ],
+                    correct: 0,
+                    explanation: "السلامة المهنية تهتم بالحوادث المفاجئة، بينما تهتم الصحة المهنية بالأمراض المزمنة."
+                },
+                {
+                    id: "A8",
+                    concept: "تعريف الصحة المهنية",
+                    question: "من هم الأطراف المعنية بالصحة المهنية؟",
+                    options: [
+                        "أصحاب العمل، العمال، الأطباء، المرضى",
+                        "العمال فقط",
+                        "أصحاب العمل فقط",
+                        "الحكومة فقط"
+                    ],
+                    correct: 0,
+                    explanation: "الأطراف المعنية بالصحة المهنية تشمل أصحاب العمل، العمال، الأطباء، والمرضى."
+                },
+                
+                // Concept 3: Safe Work Environment
+                {
+                    id: "A9",
+                    concept: "بيئة العمل الآمنة",
+                    question: "ما هي بيئة العمل الآمنة (Safe Work Environment)؟",
+                    options: [
+                        "البيئة التي تتمتع بالشروط الضرورية لتوفير السلامة والصحة المهنية",
+                        "البيئة التي لا يوجد فيها أي عمل",
+                        "البيئة المكيفة فقط",
+                        "البيئة النظيفة فقط"
+                    ],
+                    correct: 0,
+                    explanation: "بيئة العمل الآمنة هي التي تتمتع بالشروط الضرورية لتوفير السلامة والصحة المهنية."
+                },
+                {
+                    id: "A10",
+                    concept: "بيئة العمل الآمنة",
+                    question: "ما هي شروط بيئة العمل الآمنة؟",
+                    options: [
+                        "الإضاءة المناسبة، التهوية الجيدة، المعدات الآمنة",
+                        "العمل لساعات طويلة",
+                        "غياب الإشراف",
+                        "عدم توفير التدريب"
+                    ],
+                    correct: 0,
+                    explanation: "شروط بيئة العمل الآمنة تشمل الإضاءة المناسبة، التهوية الجيدة، والمعدات الآمنة."
+                },
+                {
+                    id: "A11",
+                    concept: "بيئة العمل الآمنة",
+                    question: "من المسؤول عن توفير بيئة العمل الآمنة؟",
+                    options: [
+                        "صاحب العمل",
+                        "العامل فقط",
+                        "الحكومة فقط",
+                        "لا أحد"
+                    ],
+                    correct: 0,
+                    explanation: "صاحب العمل هو المسؤول الأساسي عن توفير بيئة العمل الآمنة."
+                },
+                {
+                    id: "A12",
+                    concept: "بيئة العمل الآمنة",
+                    question: "ما دور العامل في بيئة العمل الآمنة؟",
+                    options: [
+                        "اتباع إجراءات السلامة واستخدام المعدات الوقائية",
+                        "عدم الالتزام بالقوانين",
+                        "تجاهل التحذيرات",
+                        "العمل بدون راحة"
+                    ],
+                    correct: 0,
+                    explanation: "دور العامل هو اتباع إجراءات السلامة واستخدام المعدات الوقائية."
+                },
+                
+                // Concept 4: Objectives of OSH
+                {
+                    id: "A13",
+                    concept: "أهداف السلامة والصحة المهنية",
+                    question: "ما من أهداف السلامة والصحة المهنية؟",
+                    options: [
+                        "حماية العنصر البشري من الإصابات",
+                        "زيادة ساعات العمل",
+                        "تقليل الرواتب",
+                        "إلغاء التأمين"
+                    ],
+                    correct: 0,
+                    explanation: "من أهداف السلامة والصحة المهنية حماية العنصر البشري من الإصابات."
+                },
+                {
+                    id: "A14",
+                    concept: "أهداف السلامة والصحة المهنية",
+                    question: "ما من أهداف السلامة والصحة المهنية؟",
+                    options: [
+                        "حماية المؤسسات من الخسائر المادية",
+                        "زيادة الخسائر",
+                        "تقليل الإنتاج",
+                        "إلغاء الإجازات"
+                    ],
+                    correct: 0,
+                    explanation: "من الأهداف حماية المؤسسات من الخسائر المادية الناتجة عن الحوادث."
+                },
+                {
+                    id: "A15",
+                    concept: "أهداف السلامة والصحة المهنية",
+                    question: "ما من أهداف السلامة والصحة المهنية؟",
+                    options: [
+                        "توفير بيئة عمل آمنة وصحية",
+                        "توفير بيئة عمل خطرة",
+                        "تجاهل سلامة العمال",
+                        "عدم توفير التدريب"
+                    ],
+                    correct: 0,
+                    explanation: "من الأهداف توفير بيئة عمل آمنة وصحية للعاملين."
+                },
+                {
+                    id: "A16",
+                    concept: "أهداف السلامة والصحة المهنية",
+                    question: "ما من أهداف السلامة والصحة المهنية؟",
+                    options: [
+                        "توفير المعدات والموارد اللازمة",
+                        "توفير معدات قديمة",
+                        "عدم صيانة المعدات",
+                        "استخدام معدات غير آمنة"
+                    ],
+                    correct: 0,
+                    explanation: "من الأهداف توفير المعدات والموارد اللازمة لتحقيق السلامة."
+                },
+                
+                // Concept 5: Importance of OSH
+                {
+                    id: "A17",
+                    concept: "أهمية السلامة والصحة المهنية",
+                    question: "ما من أهمية السلامة والصحة المهنية؟",
+                    options: [
+                        "توفير الأمن والطمأنينة للعمال",
+                        "زيادة القلق والتوتر",
+                        "تقليل الراحة",
+                        "زيادة المخاطر"
+                    ],
+                    correct: 0,
+                    explanation: "من الأهمية توفير الأمن والطمأنينة في نفوس العمال."
+                },
+                {
+                    id: "A18",
+                    concept: "أهمية السلامة والصحة المهنية",
+                    question: "ما من أهمية السلامة والصحة المهنية؟",
+                    options: [
+                        "تقليل الخسائر الاقتصادية",
+                        "زيادة الخسائر",
+                        "تقليل الإنتاج",
+                        "زيادة التكاليف"
+                    ],
+                    correct: 0,
+                    explanation: "من الأهمية تقليل الخسائر الاقتصادية والاجتماعية الناتجة عن الحوادث."
+                },
+                {
+                    id: "A19",
+                    concept: "أهمية السلامة والصحة المهنية",
+                    question: "ما من أهمية السلامة والصحة المهنية؟",
+                    options: [
+                        "زيادة الإنتاجية وتحسين جودة المنتجات",
+                        "تقليل الإنتاجية",
+                        "تقليل جودة المنتجات",
+                        "زيادة الهدر"
+                    ],
+                    correct: 0,
+                    explanation: "من الأهمية زيادة الإنتاجية وتحسين جودة المنتجات."
+                },
+                {
+                    id: "A20",
+                    concept: "أهمية السلامة والصحة المهنية",
+                    question: "ما من أهمية السلامة والصحة المهنية؟",
+                    options: [
+                        "تعزيز ثقة العمال في بيئة العمل",
+                        "تقليل ثقة العمال",
+                        "زيادة الاستقالات",
+                        "تقليل الولاء"
+                    ],
+                    correct: 0,
+                    explanation: "من الأهمية تعزيز ثقة العمال في بيئة العمل."
+                },
+                
+                // Concept 6: Methods to Achieve OSH
+                {
+                    id: "A21",
+                    concept: "طرق تحقيق السلامة والصحة المهنية",
+                    question: "ما من طرق تحقيق السلامة والصحة المهنية؟",
+                    options: [
+                        "التعاون بين الجهات المختلفة",
+                        "العمل بشكل منفصل",
+                        "عدم التواصل",
+                        "إخفاء المعلومات"
+                    ],
+                    correct: 0,
+                    explanation: "من الطرق التعاون بين الجهات المختلفة (أصحاب العمل، العمال، الأطباء)."
+                },
+                {
+                    id: "A22",
+                    concept: "طرق تحقيق السلامة والصحة المهنية",
+                    question: "ما من طرق تحقيق السلامة والصحة المهنية؟",
+                    options: [
+                        "إجراء البحوث لمعرفة المخاطر",
+                        "تجاهل المخاطر",
+                        "عدم دراسة بيئة العمل",
+                        "إخفاء المخاطر"
+                    ],
+                    correct: 0,
+                    explanation: "من الطرق إجراء البحوث لمعرفة المخاطر الصحية في مكان العمل."
+                },
+                {
+                    id: "A23",
+                    concept: "طرق تحقيق السلامة والصحة المهنية",
+                    question: "ما من طرق تحقيق السلامة والصحة المهنية؟",
+                    options: [
+                        "تدريب العاملين على الإجراءات الآمنة",
+                        "عدم تدريب العاملين",
+                        "تدريب غير كافٍ",
+                        "تجاهل التدريب"
+                    ],
+                    correct: 0,
+                    explanation: "من الطرق تدريب العاملين على الإجراءات الآمنة والوقاية من المخاطر."
+                },
+                {
+                    id: "A24",
+                    concept: "طرق تحقيق السلامة والصحة المهنية",
+                    question: "ما من طرق تحقيق السلامة والصحة المهنية؟",
+                    options: [
+                        "توفير المعدات الوقائية الشخصية (PPE)",
+                        "عدم توفير المعدات الوقائية",
+                        "استخدام معدات رخيصة",
+                        "تجاهل المعدات الوقائية"
+                    ],
+                    correct: 0,
+                    explanation: "من الطرق توفير المعدات الوقائية الشخصية (PPE) للعمال."
+                },
+                
+                // Concept 7: Integumentary System
+                {
+                    id: "A25",
+                    concept: "الجهاز التكاملي (الجلد)",
+                    question: "ما هي الوظيفة الرئيسية للجلد؟",
+                    options: [
+                        "حماية الجسم من العوامل الخارجية",
+                        "إنتاج الدم",
+                        "هضم الطعام",
+                        "تنقية الدم"
+                    ],
+                    correct: 0,
+                    explanation: "الوظيفة الرئيسية للجلد هي حماية الجسم من العوامل الخارجية."
+                },
+                {
+                    id: "A26",
+                    concept: "الجهاز التكاملي (الجلد)",
+                    question: "كم عدد طبقات الجلد الرئيسية؟",
+                    options: [
+                        "ثلاث طبقات",
+                        "طبقة واحدة",
+                        "طبقتان",
+                        "أربع طبقات"
+                    ],
+                    correct: 0,
+                    explanation: "الجلد يتكون من ثلاث طبقات رئيسية: البشرة، الأدمة، والطبقة تحت الجلدية."
+                },
+                {
+                    id: "A27",
+                    concept: "الجهاز التكاملي (الجلد)",
+                    question: "ما هي وظيفة التعرق في الجلد؟",
+                    options: [
+                        "تنظيم درجة حرارة الجسم",
+                        "إنتاج الدم",
+                        "هضم الطعام",
+                        "تنقية الدم"
+                    ],
+                    correct: 0,
+                    explanation: "التعرق يساعد في تنظيم درجة حرارة الجسم."
+                },
+                {
+                    id: "A28",
+                    concept: "الجهاز التكاملي (الجلد)",
+                    question: "ما الذي يتم إنتاجه عند تعرض الجلد لأشعة الشمس؟",
+                    options: [
+                        "فيتامين D",
+                        "فيتامين C",
+                        "فيتامين A",
+                        "فيتامين B"
+                    ],
+                    correct: 0,
+                    explanation: "يتم إنتاج فيتامين D عند تعرض الجلد لأشعة الشمس."
+                },
+                
+                // Concept 8: Skeletal System
+                {
+                    id: "A29",
+                    concept: "الجهاز الهيكلي (العظام)",
+                    question: "ما هي وظيفة العظام في إنتاج الدم؟",
+                    options: [
+                        "نخاع العظم ينتج خلايا الدم",
+                        "العظام تخزن الدم",
+                        "العظام تنقي الدم",
+                        "العظام تهضم الدم"
+                    ],
+                    correct: 0,
+                    explanation: "نخاع العظم الموجود داخل العظام ينتج خلايا الدم."
+                },
+                {
+                    id: "A30",
+                    concept: "الجهاز الهيكلي (العظام)",
+                    question: "ما هي المعادن التي تخزنها العظام؟",
+                    options: [
+                        "الكالسيوم والفوسفور",
+                        "الحديد فقط",
+                        "الصوديوم فقط",
+                        "البوتاسيوم فقط"
+                    ],
+                    correct: 0,
+                    explanation: "العظام تخزن الكالسيوم والفوسفور."
+                },
+                {
+                    id: "A31",
+                    concept: "الجهاز الهيكلي (العظام)",
+                    question: "ما هي أنواع العظام؟",
+                    options: [
+                        "طويلة، قصيرة، مسطحة، غير منتظمة",
+                        "طويلة فقط",
+                        "قصيرة فقط",
+                        "مسطحة فقط"
+                    ],
+                    correct: 0,
+                    explanation: "أنواع العظام: طويلة، قصيرة، مسطحة، وغير منتظمة."
+                },
+                {
+                    id: "A32",
+                    concept: "الجهاز الهيكلي (العظام)",
+                    question: "ما هي وظيفة الغضاريف في الجهاز الهيكلي؟",
+                    options: [
+                        "تقليل الاحتكاك بين العظام",
+                        "إنتاج الدم",
+                        "هضم الطعام",
+                        "تنقية الدم"
+                    ],
+                    correct: 0,
+                    explanation: "الغضاريف تقلل الاحتكاك بين العظام في المفاصل."
+                },
+                
+                // Concept 9: Muscular System
+                {
+                    id: "A33",
+                    concept: "الجهاز العضلي",
+                    question: "كم نوعاً من العضلات في جسم الإنسان؟",
+                    options: [
+                        "ثلاثة أنواع",
+                        "نوع واحد",
+                        "نوعان",
+                        "أربعة أنواع"
+                    ],
+                    correct: 0,
+                    explanation: "هناك ثلاثة أنواع من العضلات: الهيكلية، القلبية، والملساء."
+                },
+                {
+                    id: "A34",
+                    concept: "الجهاز العضلي",
+                    question: "أي العضلات تتحكم فيها إرادياً؟",
+                    options: [
+                        "العضلات الهيكلية",
+                        "العضلات القلبية",
+                        "العضلات الملساء",
+                        "جميع العضلات"
+                    ],
+                    correct: 0,
+                    explanation: "العضلات الهيكلية هي الوحيدة التي نتحكم فيها إرادياً."
+                },
+                {
+                    id: "A35",
+                    concept: "الجهاز العضلي",
+                    question: "أين توجد العضلات القلبية؟",
+                    options: [
+                        "في القلب فقط",
+                        "في الذراعين",
+                        "في الساقين",
+                        "في البطن"
+                    ],
+                    correct: 0,
+                    explanation: "العضلات القلبية توجد في القلب فقط."
+                },
+                {
+                    id: "A36",
+                    concept: "الجهاز العضلي",
+                    question: "ما هي وظيفة العضلات الملساء؟",
+                    options: [
+                        "التحكم في الأعضاء الداخلية",
+                        "التحكم في الحركة الإرادية",
+                        "ضخ الدم",
+                        "حماية العظام"
+                    ],
+                    correct: 0,
+                    explanation: "العضلات الملساء تتحكم في الأعضاء الداخلية مثل الأمعاء."
+                },
+                
+                // Concept 10: Nervous System
+                {
+                    id: "A37",
+                    concept: "الجهاز العصبي",
+                    question: "ما هي مكونات الجهاز العصبي المركزي؟",
+                    options: [
+                        "الدماغ والنخاع الشوكي",
+                        "الأعصاب فقط",
+                        "العينان فقط",
+                        "الأذنان فقط"
+                    ],
+                    correct: 0,
+                    explanation: "الجهاز العصبي المركزي يتكون من الدماغ والنخاع الشوكي."
+                },
+                {
+                    id: "A38",
+                    concept: "الجهاز العصبي",
+                    question: "ما هي وظيفة الجهاز العصبي المحيطي؟",
+                    options: [
+                        "نقل الإشارات بين الدماغ والجسم",
+                        "إنتاج الدم",
+                        "هضم الطعام",
+                        "تنقية الدم"
+                    ],
+                    correct: 0,
+                    explanation: "الجهاز العصبي المحيطي ينقل الإشارات بين الدماغ والجسم."
+                },
+                {
+                    id: "A39",
+                    concept: "الجهاز العصبي",
+                    question: "أي من التالي يعد وظيفة للدماغ؟",
+                    options: [
+                        "معالجة المعلومات والتعلم والذاكرة",
+                        "إنتاج الدم",
+                        "هضم الطعام",
+                        "تنقية الدم"
+                    ],
+                    correct: 0,
+                    explanation: "الدماغ يقوم بمعالجة المعلومات والتعلم والذاكرة."
+                },
+                {
+                    id: "A40",
+                    concept: "الجهاز العصبي",
+                    question: "ما هي وظيفة النخاع الشوكي؟",
+                    options: [
+                        "نقل الإشارات بين الدماغ والجسم",
+                        "إنتاج الدم",
+                        "هضم الطعام",
+                        "تنقية الدم"
+                    ],
+                    correct: 0,
+                    explanation: "النخاع الشوكي ينقل الإشارات بين الدماغ وباقي أجزاء الجسم."
+                },
+                
+                // Concept 11: Endocrine System
+                {
+                    id: "A41",
+                    concept: "جهاز الغدد الصماء",
+                    question: "ما هي الغدة الرئيسية في الجهاز الغدي؟",
+                    options: [
+                        "الغدة النخامية",
+                        "الغدة الدرقية",
+                        "الغدة الكظرية",
+                        "البنكرياس"
+                    ],
+                    correct: 0,
+                    explanation: "الغدة النخامية هي الغدة الرئيسية التي تتحكم في باقي الغدد."
+                },
+                {
+                    id: "A42",
+                    concept: "جهاز الغدد الصماء",
+                    question: "ما هي وظيفة الغدة الدرقية؟",
+                    options: [
+                        "تنظيم عملية التمثيل الغذائي",
+                        "إنتاج الأنسولين",
+                        "إنتاج هرمونات الإجهاد",
+                        "إنتاج الحيوانات المنوية"
+                    ],
+                    correct: 0,
+                    explanation: "الغدة الدرقية تنظم عملية التمثيل الغذائي في الجسم."
+                },
+                {
+                    id: "A43",
+                    concept: "جهاز الغدد الصماء",
+                    question: "أين يقع البنكرياس؟",
+                    options: [
+                        "خلف المعدة",
+                        "في الرأس",
+                        "في الصدر",
+                        "في الرجلين"
+                    ],
+                    correct: 0,
+                    explanation: "البنكرياس يقع خلف المعدة في البطن."
+                },
+                {
+                    id: "A44",
+                    concept: "جهاز الغدد الصماء",
+                    question: "ما هو هرمون الأنسولين؟",
+                    options: [
+                        "يخفض مستوى السكر في الدم",
+                        "يرفع مستوى السكر في الدم",
+                        "ينظم ضغط الدم",
+                        "ينظم درجة الحرارة"
+                    ],
+                    correct: 0,
+                    explanation: "الأنسولين يخفض مستوى السكر في الدم."
+                },
+                
+                // Concept 12: Cardiovascular System
+                {
+                    id: "A45",
+                    concept: "الجهاز القلبي وجهاز الدم",
+                    question: "ما هي نسبة البلازما في الدم؟",
+                    options: [
+                        "حوالي 55%",
+                        "حوالي 45%",
+                        "حوالي 65%",
+                        "حوالي 35%"
+                    ],
+                    correct: 0,
+                    explanation: "البلازما تشكل حوالي 55% من حجم الدم."
+                },
+                {
+                    id: "A46",
+                    concept: "الجهاز القلبي وجهاز الدم",
+                    question: "ما هي وظيفة كرات الدم الحمراء؟",
+                    options: [
+                        "نقل الأكسجين",
+                        "مكافحة العدوى",
+                        "تخثر الدم",
+                        "تنظيم الحرارة"
+                    ],
+                    correct: 0,
+                    explanation: "كرات الدم الحمراء تنقل الأكسجين من الرئتين إلى الأنسجة."
+                },
+                {
+                    id: "A47",
+                    concept: "الجهاز القلبي وجهاز الدم",
+                    question: "ما هي وظيفة الصفائح الدموية؟",
+                    options: [
+                        "تخثر الدم",
+                        "نقل الأكسجين",
+                        "مكافحة العدوى",
+                        "إنتاج الدم"
+                    ],
+                    correct: 0,
+                    explanation: "الصفائح الدموية تساعد في تخثر الدم عند النزيف."
+                },
+                {
+                    id: "A48",
+                    concept: "الجهاز القلبي وجهاز الدم",
+                    question: "كم عدد ضربات القلب الطبيعي في الدقيقة؟",
+                    options: [
+                        "60-80 ضربة",
+                        "100-120 ضربة",
+                        "30-40 ضربة",
+                        "150-180 ضربة"
+                    ],
+                    correct: 0,
+                    explanation: "معدل ضربات القلب الطبيعي هو 60-80 ضربة في الدقيقة."
+                },
+                
+                // Concept 13: Respiratory System
+                {
+                    id: "A49",
+                    concept: "الجهاز التنفسي",
+                    question: "ما هي مراحل التنفس؟",
+                    options: [
+                        "التنفس الخارجي، النقل الداخلي، التنفس الداخلي",
+                        "الشهيق فقط",
+                        "الزفير فقط",
+                        "البلع فقط"
+                    ],
+                    correct: 0,
+                    explanation: "مراحل التنفس: التنفس الخارجي، النقل الداخلي، والتنفس الداخلي."
+                },
+                {
+                    id: "A50",
+                    concept: "الجهاز التنفسي",
+                    question: "ما هي وظيفة الحجاب الحاجز في التنفس؟",
+                    options: [
+                        "المساعدة في عملية الشهيق والزفير",
+                        "إنتاج الأكسجين",
+                        "تنقية الهواء",
+                        "تدفئة الهواء"
+                    ],
+                    correct: 0,
+                    explanation: "الحجاب الحاجز يساعد في عملية الشهيق والزفير."
+                },
+                {
+                    id: "A51",
+                    concept: "الجهاز التنفسي",
+                    question: "أين يحدث تبادل الغازات في الجهاز التنفسي؟",
+                    options: [
+                        "في الحويصلات الهوائية",
+                        "في القصبة الهوائية",
+                        "في الحنجرة",
+                        "في الأنف"
+                    ],
+                    correct: 0,
+                    explanation: "يحدث تبادل الغازات في الحويصلات الهوائية داخل الرئتين."
+                },
+                {
+                    id: "A52",
+                    concept: "الجهاز التنفسي",
+                    question: "ما الغاز الذي يتم إخراجه من الجسم أثناء الزفير؟",
+                    options: [
+                        "ثاني أكسيد الكربون",
+                        "الأكسجين",
+                        "النيتروجين",
+                        "الهيدروجين"
+                    ],
+                    correct: 0,
+                    explanation: "يتم إخراج ثاني أكسيد الكربون من الجسم أثناء الزفير."
+                },
+                
+                // Concept 14: Digestive System
+                {
+                    id: "A53",
+                    concept: "الجهاز الهضمي",
+                    question: "ما هي مراحل الهضم؟",
+                    options: [
+                        "الهضم الميكانيكي، الهضم الكيميائي، الامتصاص، الإخراج",
+                        "البلع فقط",
+                        "الهضم فقط",
+                        "الامتصاص فقط"
+                    ],
+                    correct: 0,
+                    explanation: "مراحل الهضم: الهضم الميكانيكي، الهضم الكيميائي، الامتصاص، والإخراج."
+                },
+                {
+                    id: "A54",
+                    concept: "الجهاز الهضمي",
+                    question: "أين يتم امتصاص معظم العناصر الغذائية؟",
+                    options: [
+                        "في الأمعاء الدقيقة",
+                        "في المعدة",
+                        "في الفم",
+                        "في الأمعاء الغليظة"
+                    ],
+                    correct: 0,
+                    explanation: "يتم امتصاص معظم العناصر الغذائية في الأمعاء الدقيقة."
+                },
+                {
+                    id: "A55",
+                    concept: "الجهاز الهضمي",
+                    question: "ما هي وظيفة المعدة في الهضم؟",
+                    options: [
+                        "تكسير الطعام بفعل الأحماض والإنزيمات",
+                        "امتصاص العناصر الغذائية",
+                        "تخزين الفضلات",
+                        "إنتاج الدم"
+                    ],
+                    correct: 0,
+                    explanation: "المعدة تكسر الطعام بفعل الأحماض والإنزيمات الهاضمة."
+                },
+                {
+                    id: "A56",
+                    concept: "الجهاز الهضمي",
+                    question: "ما هي وظيفة الكبد في الجهاز الهضمي؟",
+                    options: [
+                        "إنتاج الصفراء التي تساعد في هضم الدهون",
+                        "امتصاص العناصر الغذائية",
+                        "تخزين الطعام",
+                        "إنتاج الإنزيمات فقط"
+                    ],
+                    correct: 0,
+                    explanation: "الكبد ينتج الصفراء التي تساعد في هضم الدهون."
+                },
+                
+                // Concept 15: Urinary System
+                {
+                    id: "A57",
+                    concept: "الجهاز البولي",
+                    question: "ما هي وظيفة الكليتين؟",
+                    options: [
+                        "تنقية الدم من الفضلات",
+                        "إنتاج الدم",
+                        "هضم الطعام",
+                        "تنقية الهواء"
+                    ],
+                    correct: 0,
+                    explanation: "الكليتين تنقيان الدم من الفضلات والسموم."
+                },
+                {
+                    id: "A58",
+                    concept: "الجهاز البولي",
+                    question: "ما هو إنزيم الرينين؟",
+                    options: [
+                        "ينظم ضغط الدم",
+                        "يهضم البروتينات",
+                        "ينظم السكر في الدم",
+                        "ينظم درجة الحرارة"
+                    ],
+                    correct: 0,
+                    explanation: "إنزيم الرينين ينظم ضغط الدم."
+                },
+                {
+                    id: "A59",
+                    concept: "الجهاز البولي",
+                    question: "ما هي وظيفة المثانة؟",
+                    options: [
+                        "تخزين البول حتى إخراجه",
+                        "إنتاج البول",
+                        "تنقية الدم",
+                        "هضم الطعام"
+                    ],
+                    correct: 0,
+                    explanation: "المثانة تخزن البول حتى يتم إخراجه من الجسم."
+                },
+                {
+                    id: "A60",
+                    concept: "الجهاز البولي",
+                    question: "ما الذي ينظمه الجهاز البولي؟",
+                    options: [
+                        "مستوى الماء والأملاح في الجسم",
+                        "مستوى السكر فقط",
+                        "مستوى الأكسجين فقط",
+                        "مستوى الدهون فقط"
+                    ],
+                    correct: 0,
+                    explanation: "الجهاز البولي ينظم مستوى الماء والأملاح في الجسم."
+                },
+                
+                // Concept 16: Reproductive System
+                {
+                    id: "A61",
+                    concept: "الجهاز التناسلي",
+                    question: "ما هي وظيفة الخصيتين؟",
+                    options: [
+                        "إنتاج الحيوانات المنوية وهرمون التستوستيرون",
+                        "إنتاج البويضات فقط",
+                        "إنتاج الحليب",
+                        "تنظيم الدورة الشهرية"
+                    ],
+                    correct: 0,
+                    explanation: "الخصيتين تنتجان الحيوانات المنوية وهرمون التستوستيرون."
+                },
+                {
+                    id: "A62",
+                    concept: "الجهاز التناسلي",
+                    question: "ما هي وظيفة المبيضين؟",
+                    options: [
+                        "إنتاج البويضات والهرمونات الجنسية",
+                        "إنتاج الحيوانات المنوية",
+                        "استضافة الجنين",
+                        "إنتاج الحليب"
+                    ],
+                    correct: 0,
+                    explanation: "المبيضين ينتجان البويضات والهرمونات الجنسية."
+                },
+                {
+                    id: "A63",
+                    concept: "الجهاز التناسلي",
+                    question: "أين يتم استضافة الجنين أثناء الحمل؟",
+                    options: [
+                        "في الرحم",
+                        "في المبيض",
+                        "في قناة فالوب",
+                        "في المهبل"
+                    ],
+                    correct: 0,
+                    explanation: "يتم استضافة الجنين في الرحم أثناء الحمل."
+                },
+                {
+                    id: "A64",
+                    concept: "الجهاز التناسلي",
+                    question: "ما هي وظيفة قناة فالوب؟",
+                    options: [
+                        "نقل البويضة من المبيض إلى الرحم",
+                        "إنتاج البويضات",
+                        "استضافة الجنين",
+                        "إنتاج الهرمونات"
+                    ],
+                    correct: 0,
+                    explanation: "قناة فالوب تنقل البويضة من المبيض إلى الرحم."
+                },
+                
+                // Concept 17: Lymphatic System
+                {
+                    id: "A65",
+                    concept: "الجهاز الليمفاوي",
+                    question: "ما هي وظيفة الجهاز اللمفي؟",
+                    options: [
+                        "إعادة السوائل إلى مجرى الدم والدفاع ضد العدوى",
+                        "إنتاج الدم",
+                        "هضم الطعام",
+                        "تنقية الهواء"
+                    ],
+                    correct: 0,
+                    explanation: "الجهاز اللمفي يعيد السوائل إلى مجرى الدم ويدافع ضد العدوى."
+                },
+                {
+                    id: "A66",
+                    concept: "الجهاز الليمفاوي",
+                    question: "ما هي وظيفة الطحال؟",
+                    options: [
+                        "تصفية الدم وإنتاج خلايا الدم البيضاء",
+                        "إنتاج الأنسولين",
+                        "هضم الطعام",
+                        "تنقية الهواء"
+                    ],
+                    correct: 0,
+                    explanation: "الطحال يصفى الدم وينتج خلايا الدم البيضاء."
+                },
+                {
+                    id: "A67",
+                    concept: "الجهاز الليمفاوي",
+                    question: "ما هي وظيفة اللوزتين؟",
+                    options: [
+                        "مكافحة العدوى في الحلق",
+                        "إنتاج الدم",
+                        "هضم الطعام",
+                        "تنقية الهواء"
+                    ],
+                    correct: 0,
+                    explanation: "اللوزتين تساعدان في مكافحة العدوى في الحلق."
+                },
+                {
+                    id: "A68",
+                    concept: "الجهاز الليمفاوي",
+                    question: "ما هي وظيفة خلايا الدم البيضاء؟",
+                    options: [
+                        "مكافحة العدوى والأمراض",
+                        "نقل الأكسجين",
+                        "تخثر الدم",
+                        "نقل الغذاء"
+                    ],
+                    correct: 0,
+                    explanation: "خلايا الدم البيضاء تكافح العدوى والأمراض."
+                },
+                
+                // Concept 18: Risk Assessment
+                {
+                    id: "A69",
+                    concept: "تقييم المخاطر",
+                    question: "ما هي خطوات تقييم المخاطر؟",
+                    options: [
+                        "تحديد الخطر، تقييم الاحتمالية، تقييم الشدة، تحديد الإجراءات",
+                        "تجاهل الخطر",
+                        "إخفاء الخطر",
+                        "عدم اتخاذ إجراء"
+                    ],
+                    correct: 0,
+                    explanation: "خطوات تقييم المخاطر: تحديد الخطر، تقييم الاحتمالية، تقييم الشدة، تحديد الإجراءات."
+                },
+                {
+                    id: "A70",
+                    concept: "تقييم المخاطر",
+                    question: "كيف يتم حساب مستوى الخطر؟",
+                    options: [
+                        "الاحتمالية × الشدة",
+                        "الاحتمالية فقط",
+                        "الشدة فقط",
+                        "الاحتمالية ÷ الشدة"
+                    ],
+                    correct: 0,
+                    explanation: "مستوى الخطر = الاحتمالية × الشدة."
+                },
+                {
+                    id: "A71",
+                    concept: "تقييم المخاطر",
+                    question: "ما هي الإجراءات الوقائية المناسبة للمخاطر العالية؟",
+                    options: [
+                        "إيقاف العمل فوراً وإزالة الخطر",
+                        "الاستمرار في العمل",
+                        "تجاهل الخطر",
+                        "عدم اتخاذ إجراء"
+                    ],
+                    correct: 0,
+                    explanation: "للمخاطر العالية يجب إيقاف العمل فوراً وإزالة الخطر."
+                },
+                {
+                    id: "A72",
+                    concept: "تقييم المخاطر",
+                    question: "ما هو الهدف من تقييم المخاطر؟",
+                    options: [
+                        "تحديد المخاطر ووضع خطط للوقاية منها",
+                        "زيادة المخاطر",
+                        "تجاهل المخاطر",
+                        "إخفاء المخاطر"
+                    ],
+                    correct: 0,
+                    explanation: "الهدف من تقييم المخاطر هو تحديد المخاطر ووضع خطط للوقاية منها."
+                },
+                
+                // Concept 19: PPE
+                {
+                    id: "A73",
+                    concept: "المعدات الوقائية الشخصية",
+                    question: "ما هي المعدات الوقائية الشخصية (PPE)؟",
+                    options: [
+                        "المعدات التي يرتديها العمال لحمايتهم من المخاطر",
+                        "معدات الإنتاج فقط",
+                        "معدات المكتب فقط",
+                        "معدات النقل فقط"
+                    ],
+                    correct: 0,
+                    explanation: "المعدات الوقائية الشخصية هي المعدات التي يرتديها العمال لحمايتهم من المخاطر."
+                },
+                {
+                    id: "A74",
+                    concept: "المعدات الوقائية الشخصية",
+                    question: "ما من أمثلة المعدات الوقائية الشخصية؟",
+                    options: [
+                        "خوذة، نظارات، قفازات، حذاء أمان",
+                        "قلم، ورق، مكتب",
+                        "هاتف، كمبيوتر",
+                        "سيارة، شاحنة"
+                    ],
+                    correct: 0,
+                    explanation: "أمثلة المعدات الوقائية: خوذة، نظارات، قفازات، حذاء أمان."
+                },
+                {
+                    id: "A75",
+                    concept: "المعدات الوقائية الشخصية",
+                    question: "من المسؤول عن توفير المعدات الوقائية الشخصية؟",
+                    options: [
+                        "صاحب العمل",
+                        "العامل فقط",
+                        "الحكومة فقط",
+                        "لا أحد"
+                    ],
+                    correct: 0,
+                    explanation: "صاحب العمل مسؤول عن توفير المعدات الوقائية الشخصية."
+                },
+                {
+                    id: "A76",
+                    concept: "المعدات الوقائية الشخصية",
+                    question: "ما هو دور العامل في استخدام المعدات الوقائية؟",
+                    options: [
+                        "ارتداؤها بشكل صحيح والمحافظة عليها",
+                        "تجاهلها",
+                        "إلقاؤها",
+                        "عدم استخدامها"
+                    ],
+                    correct: 0,
+                    explanation: "دور العامل هو ارتداء المعدات الوقائية بشكل صحيح والمحافظة عليها."
+                },
+                
+                // Concept 20: Emergency Response
+                {
+                    id: "A77",
+                    concept: "الاستجابة للطوارئ",
+                    question: "ما هي أول خطوة في الاستجابة للطوارئ؟",
+                    options: [
+                        "الاكتشاف والإنذار المبكر",
+                        "الهروب فوراً",
+                        "إخفاء المعلومات",
+                        "عدم اتخاذ إجراء"
+                    ],
+                    correct: 0,
+                    explanation: "أول خطوة هي الاكتشاف والإنذار المبكر."
+                },
+                {
+                    id: "A78",
+                    concept: "الاستجابة للطوارئ",
+                    question: "ما هي الإسعافات الأولية؟",
+                    options: [
+                        "المساعدة الطبية الفورية قبل وصول المساعدة الطبية المتخصصة",
+                        "العلاج الكامل",
+                        "الجراحة",
+                        "العلاج الطبيعي"
+                    ],
+                    correct: 0,
+                    explanation: "الإسعافات الأولية هي المساعدة الطبية الفورية قبل وصول المساعدة المتخصصة."
+                },
+                {
+                    id: "A79",
+                    concept: "الاستجابة للطوارئ",
+                    question: "ما هي خطوات الإخلاء في حالات الطوارئ؟",
+                    options: [
+                        "البقاء هادئاً، اتباع مخرج الطوارئ، عدم استخدام المصعد",
+                        "الركض بشكل عشوائي",
+                        "استخدام المصعد",
+                        "البقاء في المكان"
+                    ],
+                    correct: 0,
+                    explanation: "خطوات الإخلاء: البقاء هادئاً، اتباع مخرج الطوارئ، عدم استخدام المصعد."
+                },
+                {
+                    id: "A80",
+                    concept: "الاستجابة للطوارئ",
+                    question: "ما هو رقم الطوارئ الموحد في المملكة العربية السعودية؟",
+                    options: [
+                        "999",
+                        "911",
+                        "112",
+                        "100"
+                    ],
+                    correct: 0,
+                    explanation: "رقم الطوارئ الموحد في المملكة العربية السعودية هو 999."
+                }
+            ],
+            B: [
+                // More challenging questions
+                {
+                    id: "B1",
+                    concept: "تعريف السلامة المهنية",
+                    question: "أي من التالي يمثل الفرق الأساسي بين السلامة المهنية والصحة المهنية؟",
+                    options: [
+                        "السلامة تهتم بالحوادث المفاجئة بينما الصحة تهتم بالتعرض المزمن للمخاطر",
+                        "السلامة أهم من الصحة",
+                        "الصحة أهم من السلامة",
+                        "لا يوجد فرق بينهما"
+                    ],
+                    correct: 0,
+                    explanation: "السلامة المهنية تهتم بالحوادث المفاجئة، بينما تهتم الصحة المهنية بالتعرض المزمن للمخاطر."
+                },
+                {
+                    id: "B2",
+                    concept: "الجهاز العصبي",
+                    question: "ما هو الفرق بين الأعصاب الحسية والأعصاب الحركية؟",
+                    options: [
+                        "الحسية تنقل الإشارات إلى الدماغ، والحركية تنقل الإشارات من الدماغ",
+                        "لا يوجد فرق بينهما",
+                        "الحسية أسرع من الحركية",
+                        "الحركية أسرع من الحسية"
+                    ],
+                    correct: 0,
+                    explanation: "الأعصاب الحسية تنقل الإشارات إلى الدماغ، بينما تنقل الأعصاب الحركية الإشارات من الدماغ إلى العضلات."
+                },
+                {
+                    id: "B3",
+                    concept: "جهاز الغدد الصماء",
+                    question: "ما هو مرض السكري وما علاقته بالجهاز الغدي؟",
+                    options: [
+                        "اضطراب في إنتاج الأنسولين من البنكرياس",
+                        "خلل في الغدة الدرقية",
+                        "خلل في الغدة النخامية",
+                        "خلل في الغدة الكظرية"
+                    ],
+                    correct: 0,
+                    explanation: "السكري هو اضطراب في إنتاج الأنسولين من البنكرياس أو استخدامه في الجسم."
+                },
+                {
+                    id: "B4",
+                    concept: "الجهاز القلبي وجهاز الدم",
+                    question: "ما هو الفرق بين الضغط الانقباضي والضغط الانبساطي؟",
+                    options: [
+                        "الانقباضي أثناء انقباض القلب، والانبساطي أثناء استرخاء القلب",
+                        "لا يوجد فرق بينهما",
+                        "الانقباضي أقل من الانبساطي",
+                        "الانبساطي أعلى من الانقباضي"
+                    ],
+                    correct: 0,
+                    explanation: "الضغط الانقباضي يقاس أثناء انقباض القلب، والانبساطي أثناء استرخاء القلب."
+                },
+                {
+                    id: "B5",
+                    concept: "الجهاز التنفسي",
+                    question: "ما هي وظيفة الأهداب في الجهاز التنفسي؟",
+                    options: [
+                        "تصفية الهواء وإزالة الغبار والجزيئات",
+                        "إنتاج الأكسجين",
+                        "إنتاج ثاني أكسيد الكربون",
+                        "تدفئة الهواء فقط"
+                    ],
+                    correct: 0,
+                    explanation: "الأهداب تساعد في تصفية الهواء وإزالة الغبار والجزيئات الدقيقة."
+                },
+                {
+                    id: "B6",
+                    concept: "الجهاز الهضمي",
+                    question: "ما هو دور البنكرياس في الجهاز الهضمي؟",
+                    options: [
+                        "إنتاج الإنزيمات الهاضمة والأنسولين",
+                        "تخزين الطعام فقط",
+                        "هضم الطعام فقط",
+                        "إنتاج الصفراء"
+                    ],
+                    correct: 0,
+                    explanation: "البنكرياس ينتج الإنزيمات الهاضمة والأنسولين الذي ينظم سكر الدم."
+                },
+                {
+                    id: "B7",
+                    concept: "الجهاز البولي",
+                    question: "ما هو الفرق بين الكلية والمثانة؟",
+                    options: [
+                        "الكلية تنتج البول، والمثانة تخزنه",
+                        "لا يوجد فرق بينهما",
+                        "المثانة تنتج البول، والكلية تخزنه",
+                        "الكلية والمثانة نفس الوظيفة"
+                    ],
+                    correct: 0,
+                    explanation: "الكلية تنتج البول، بينما المثانة تخزن البول حتى إخراجه."
+                },
+                {
+                    id: "B8",
+                    concept: "الجهاز الليمفاوي",
+                    question: "ما هو الفرق بين المناعة الطبيعية والمناعة المكتسبة؟",
+                    options: [
+                        "الطبيعية فطرية، والمكتسبة تتطور بعد التعرض للمسبب المرضي",
+                        "لا يوجد فرق بينهما",
+                        "الطبيعية أضعف من المكتسبة",
+                        "المكتسبة أضعف من الطبيعية"
+                    ],
+                    correct: 0,
+                    explanation: "المناعة الطبيعية فطرية، بينما المناعة المكتسبة تتطور بعد التعرض للمسبب المرضي."
+                },
+                {
+                    id: "B9",
+                    concept: "تقييم المخاطر",
+                    question: "ما هي الهرمية الخمسة للتحكم في المخاطر؟",
+                    options: [
+                        "الإزالة، الاستبدال، العزل، الإجراءات، PPE",
+                        "PPE فقط",
+                        "الإجراءات فقط",
+                        "العزل فقط"
+                    ],
+                    correct: 0,
+                    explanation: "الهرمية: الإزالة، الاستبدال، العزل الهندسي، الإجراءات الإدارية، المعدات الوقائية."
+                },
+                {
+                    id: "B10",
+                    concept: "المعدات الوقائية الشخصية",
+                    question: "لماذا تعتبر المعدات الوقائية الشخصية آخر خط دفاع وليس الأول؟",
+                    options: [
+                        "لأنها تعتمد على سلوك الإنسان وقد تفشل",
+                        "لأنها غير فعالة",
+                        "لأنها مكلفة",
+                        "لأنها غير ضرورية"
+                    ],
+                    correct: 0,
+                    explanation: "PPE آخر خط دفاع لأنها تعتمد على سلوك الإنسان وقد تُستخدم بشكل خاطئ أو تفشل."
+                },
+                {
+                    id: "B11",
+                    concept: "الاستجابة للطوارئ",
+                    question: "ما هي ABC في الإسعافات الأولية؟",
+                    options: [
+                        "Airway (المجرى الهوائي)، Breathing (التنفس)، Circulation (الدورة الدموية)",
+                        "Ambulance، Bandage، CPR",
+                        "Aid، Bandage، Care",
+                        "Air، Blood، Circulation"
+                    ],
+                    correct: 0,
+                    explanation: "ABC: Airway (المجرى الهوائي)، Breathing (التنفس)، Circulation (الدورة الدموية)."
+                },
+                {
+                    id: "B12",
+                    concept: "الجهاز العضلي",
+                    question: "ما هو الفرق بين الانقباض العضلي الانزلاكي والتجانسي؟",
+                    options: [
+                        "الانزلاكي يقصر العضلة، والتجانسي لا يغير الطول",
+                        "لا يوجد فرق بينهما",
+                        "التجانسي يقصر العضلة، والانزلاكي لا يغير الطول",
+                        "كلاهما يقصر العضلة"
+                    ],
+                    correct: 0,
+                    explanation: "الانقباض الانزلاكي يقصر العضلة، بينما التجانسي لا يغير طول العضلة."
+                },
+                {
+                    id: "B13",
+                    concept: "الجهاز الهيكلي (العظام)",
+                    question: "ما هو مرض هشاشة العظام؟",
+                    options: [
+                        "نقص في كثافة العظام يجعلها هشة",
+                        "زيادة في كثافة العظام",
+                        "التهاب في المفاصل",
+                        "كسر في العظام"
+                    ],
+                    correct: 0,
+                    explanation: "هشاشة العظام هي نقص في كثافة العظام يجعلها هشة وعرضة للكسر."
+                },
+                {
+                    id: "B14",
+                    concept: "الجهاز التكاملي (الجلد)",
+                    question: "ما هي الدرجة الثالثة من الحروق؟",
+                    options: [
+                        "تدمير جميع طبقات الجلد والأنسجة تحتها",
+                        "احمرار فقط",
+                        "تقرحات فقط",
+                        "تصبغ فقط"
+                    ],
+                    correct: 0,
+                    explanation: "الحروق من الدرجة الثالثة تدمر جميع طبقات الجلد والأنسجة تحتها."
+                },
+                {
+                    id: "B15",
+                    concept: "الجهاز التناسلي",
+                    question: "ما هو دور هرمون التستوستيرون؟",
+                    options: [
+                        "تطوير الخصائص الذكورية الثانوية",
+                        "تطوير الخصائص الأنثوية",
+                        "تنظيم الدورة الشهرية",
+                        "إنتاج الحليب"
+                    ],
+                    correct: 0,
+                    explanation: "التستوستيرون يساعد في تطوير الخصائص الذكورية الثانوية."
+                },
+                {
+                    id: "B16",
+                    concept: "الجهاز التنفسي",
+                    question: "ما هو التهاب الشعب الهوائية؟",
+                    options: [
+                        "التهاب في الشعب الهوائية في الرئتين",
+                        "التهاب في القصبة الهوائية",
+                        "التهاب في الحنجرة",
+                        "التهاب في الأنف"
+                    ],
+                    correct: 0,
+                    explanation: "التهاب الشعب الهوائية هو التهاب في الشعب الهوائية الصغيرة في الرئتين."
+                },
+                {
+                    id: "B17",
+                    concept: "الجهاز الهضمي",
+                    question: "ما هو دور الأحماض في المعدة؟",
+                    options: [
+                        "قتل البكتيريا وهضم البروتينات",
+                        "امتصاص العناصر الغذائية",
+                        "تخزين الطعام فقط",
+                        "نقل الطعام"
+                    ],
+                    correct: 0,
+                    explanation: "الأحماض في المعدة تقتل البكتيريا وتساعد في هضم البروتينات."
+                },
+                {
+                    id: "B18",
+                    concept: "الجهاز القلبي وجهاز الدم",
+                    question: "ما هو الفرق بين الشرايين والأوردة؟",
+                    options: [
+                        "الشرايين تنقل الدم من القلب، والأوردة تنقل الدم إلى القلب",
+                        "لا يوجد فرق بينهما",
+                        "الأوردة تنقل الدم من القلب، والشرايين تنقل الدم إلى القلب",
+                        "الشرايين تحمل دم غير مؤكسج"
+                    ],
+                    correct: 0,
+                    explanation: "الشرايين تنقل الدم من القلب، بينما الأوردة تنقل الدم إلى القلب."
+                },
+                {
+                    id: "B19",
+                    concept: "جهاز الغدد الصماء",
+                    question: "ما هو قصور الغدة الدرقية؟",
+                    options: [
+                        "عدم إنتاج كمية كافية من هرمونات الغدة الدرقية",
+                        "زيادة إنتاج هرمونات الغدة الدرقية",
+                        "تضخم الغدة الدرقية",
+                        "التهاب الغدة الدرقية"
+                    ],
+                    correct: 0,
+                    explanation: "قصور الغدة الدرقية هو عدم إنتاج كمية كافية من هرمونات الغدة الدرقية."
+                },
+                {
+                    id: "B20",
+                    concept: "الجهاز العصبي",
+                    question: "ما هو الفرق بين الجهاز العصبي الجسدي والجهاز العصبي اللاإرادي؟",
+                    options: [
+                        "الجسدي إرادي، واللاإرادي يتحكم في الوظائف التلقائية",
+                        "لا يوجد فرق بينهما",
+                        "اللاإرادي إرادي، والجسدي تلقائي",
+                        "كلاهما إرادي"
+                    ],
+                    correct: 0,
+                    explanation: "الجهاز العصبي الجسدي إرادي، بينما اللاإرادي يتحكم في الوظائف التلقائية مثل ضربات القلب."
+                },
+                {
+                    id: "B21",
+                    concept: "تعريف الصحة المهنية",
+                    question: "ما هي الأمراض المهنية المزمنة؟",
+                    options: [
+                        "أمراض تتطور ببطء نتيجة التعرض المزمن للمخاطر",
+                        "أمراض تظور فجأة",
+                        "أمراض معدية",
+                        "أمراض وراثية"
+                    ],
+                    correct: 0,
+                    explanation: "الأمراض المهنية المزمنة تتطور ببطء نتيجة التعرض المزمن للمخاطر في العمل."
+                },
+                {
+                    id: "B22",
+                    concept: "بيئة العمل الآمنة",
+                    question: "ما هي عوامل بيئة العمل غير الآمنة؟",
+                    options: [
+                        "الإضاءة الرديئة، التهوية السيئة، الضوضاء العالية",
+                        "الإضاءة الجيدة، التهوية الجيدة",
+                        "العمل بانتظام",
+                        "التدريب الجيد"
+                    ],
+                    correct: 0,
+                    explanation: "عوامل بيئة العمل غير الآمنة تشمل الإضاءة الرديئة، التهوية السيئة، والضوضاء العالية."
+                },
+                {
+                    id: "B23",
+                    concept: "أهداف السلامة والصحة المهنية",
+                    question: "كيف تساهم السلامة والصحة المهنية في الاقتصاد الوطني؟",
+                    options: [
+                        "تقليل الخسائر وزيادة الإنتاجية",
+                        "زيادة الخسائر",
+                        "تقليل الإنتاج",
+                        "زيادة البطالة"
+                    ],
+                    correct: 0,
+                    explanation: "السلامة والصحة المهنية تساهم في الاقتصاد بتقليل الخسائر وزيادة الإنتاجية."
+                },
+                {
+                    id: "B24",
+                    concept: "أهمية السلامة والصحة المهنية",
+                    question: "ما هو تأثير الحوادث المهنية على المجتمع؟",
+                    options: [
+                        "خسائر بشرية واقتصادية واجتماعية",
+                        "فائدة للمجتمع",
+                        "لا يوجد تأثير",
+                        "زيادة الإنتاج"
+                    ],
+                    correct: 0,
+                    explanation: "الحوادث المهنية تسبب خسائر بشرية واقتصادية واجتماعية للمجتمع."
+                },
+                {
+                    id: "B25",
+                    concept: "طرق تحقيق السلامة والصحة المهنية",
+                    question: "ما هو دور التدريب في تحقيق السلامة والصحة المهنية؟",
+                    options: [
+                        "تعليم العمال كيفية العمل بأمان",
+                        "زيادة ساعات العمل",
+                        "تقليل الرواتب",
+                        "إلغاء الإجازات"
+                    ],
+                    correct: 0,
+                    explanation: "التدريب يعلم العمال كيفية العمل بأمان وكيفية التعامل مع المخاطر."
+                },
+                {
+                    id: "B26",
+                    concept: "الجهاز التكاملي (الجلد)",
+                    question: "ما هو سرطان الجلد؟",
+                    options: [
+                        "نمو غير طبيعي لخلايا الجلد",
+                        "التهاب في الجلد",
+                        "حساسية من الشمس",
+                        "جفاف الجلد"
+                    ],
+                    correct: 0,
+                    explanation: "سرطان الجلد هو نمو غير طبيعي لخلايا الجلد غالباً بسبب التعرض للأشعة فوق البنفسجية."
+                },
+                {
+                    id: "B27",
+                    concept: "الجهاز الهيكلي (العظام)",
+                    question: "ما هو التهاب المفاصل؟",
+                    options: [
+                        "التهاب في المفاصل يسبب الألم والتيبس",
+                        "كسر في العظام",
+                        "نقص في الكالسيوم",
+                        "زيادة في كثافة العظام"
+                    ],
+                    correct: 0,
+                    explanation: "التهاب المفاصل هو التهاب في المفاصل يسبب الألم والتيبس."
+                },
+                {
+                    id: "B28",
+                    concept: "الجهاز العضلي",
+                    question: "ما هي التشنجات العضلية؟",
+                    options: [
+                        "انقباض لا إرادي مؤلم في العضلات",
+                        "استرخاء العضلات",
+                        "نمو العضلات",
+                        "ضعف العضلات"
+                    ],
+                    correct: 0,
+                    explanation: "التشنجات العضلية هي انقباض لا إرادي مؤلم في العضلات."
+                },
+                {
+                    id: "B29",
+                    concept: "الجهاز العصبي",
+                    question: "ما هو السكتة الدماغية؟",
+                    options: [
+                        "انقطاع تدفق الدم إلى جزء من الدماغ",
+                        "صداع شديد",
+                        "التهاب في الدماغ",
+                        "نزيف في الأنف"
+                    ],
+                    correct: 0,
+                    explanation: "السكتة الدماغية هي انقطاع تدفق الدم إلى جزء من الدماغ."
+                },
+                {
+                    id: "B30",
+                    concept: "جهاز الغدد الصماء",
+                    question: "ما هو فرط نشاط الغدة الدرقية؟",
+                    options: [
+                        "زيادة إنتاج هرمونات الغدة الدرقية",
+                        "نقص في إنتاج هرمونات الغدة الدرقية",
+                        "تضخم الغدة النخامية",
+                        "التهاب البنكرياس"
+                    ],
+                    correct: 0,
+                    explanation: "فرط نشاط الغدة الدرقية هو زيادة إنتاج هرمونات الغدة الدرقية."
+                },
+                {
+                    id: "B31",
+                    concept: "الجهاز القلبي وجهاز الدم",
+                    question: "ما هو الجلطة القلبية؟",
+                    options: [
+                        "انسداد في أحد الشرايين التاجية يمنع تدفق الدم إلى عضلة القلب",
+                        "سرعة في ضربات القلب",
+                        "بطء في ضربات القلب",
+                        "التهاب في القلب"
+                    ],
+                    correct: 0,
+                    explanation: "الجلطة القلبية هي انسداد في أحد الشرايين التاجية يمنع تدفق الدم إلى عضلة القلب."
+                },
+                {
+                    id: "B32",
+                    concept: "الجهاز التنفسي",
+                    question: "ما هو مرض الانسداد الرئوي المزمن (COPD)؟",
+                    options: [
+                        "مرض رئوي مزمن يسبب صعوبة في التنفس",
+                        "التهاب في الأنف",
+                        "حساسية من الغبار",
+                        "نزلة برد"
+                    ],
+                    correct: 0,
+                    explanation: "COPD هو مرض رئوي مزمن يسبب صعوبة في التنفس بسبب تلف في الرئتين."
+                },
+                {
+                    id: "B33",
+                    concept: "الجهاز الهضمي",
+                    question: "ما هو قرحة المعدة؟",
+                    options: [
+                        "تقرح في بطانة المعدة",
+                        "التهاب في الأمعاء",
+                        "حصى في المرارة",
+                        "التهاب في الكبد"
+                    ],
+                    correct: 0,
+                    explanation: "قرحة المعدة هي تقرح في بطانة المعدة غالباً بسبب بكتيريا أو الأدوية."
+                },
+                {
+                    id: "B34",
+                    concept: "الجهاز البولي",
+                    question: "ما هي حصى الكلى؟",
+                    options: [
+                        "ترسبات صلبة تتكون في الكلى",
+                        "التهاب في الكلى",
+                        "تضخم في الكلى",
+                        "نقص في وظائف الكلى"
+                    ],
+                    correct: 0,
+                    explanation: "حصى الكلى هي ترسبات صلبة تتكون في الكلى من المعادن والأملاح."
+                },
+                {
+                    id: "B35",
+                    concept: "الجهاز التناسلي",
+                    question: "ما هو سرطان البروستاتا؟",
+                    options: [
+                        "سرطان يصيب غدة البروستاتا عند الرجال",
+                        "سرطان في الخصية",
+                        "التهاب في البروستاتا",
+                        "تضخم في البروستاتا"
+                    ],
+                    correct: 0,
+                    explanation: "سرطان البروستاتا هو سرطان يصيب غدة البروستاتا عند الرجال."
+                },
+                {
+                    id: "B36",
+                    concept: "الجهاز الليمفاوي",
+                    question: "ما هو مرض الإيدز؟",
+                    options: [
+                        "فيروس يهاجم جهاز المناعة ويضعفه",
+                        "بكتيريا تهاجم الرئتين",
+                        "طفيلي في الأمعاء",
+                        "فطريات في الجلد"
+                    ],
+                    correct: 0,
+                    explanation: "الإيدز هو فيروس يهاجم جهاز المناعة ويضعف قدرة الجسم على مكافحة العدوى."
+                },
+                {
+                    id: "B37",
+                    concept: "تقييم المخاطر",
+                    question: "ما هو تحليل شجرة الأخطاء؟",
+                    options: [
+                        "طريقة لتحديد الأسباب الجذرية للحوادث",
+                        "طريقة لزيادة الإنتاج",
+                        "طريقة لتقليل الرواتب",
+                        "طريقة لزيادة ساعات العمل"
+                    ],
+                    correct: 0,
+                    explanation: "تحليل شجرة الأخطاء هو طريقة لتحديد الأسباب الجذرية للحوادث."
+                },
+                {
+                    id: "B38",
+                    concept: "المعدات الوقائية الشخصية",
+                    question: "ما هي معايير اختيار المعدات الوقائية الشخصية؟",
+                    options: [
+                        "ملاءمة المخاطر، الراحة، الجودة",
+                        "السعر فقط",
+                        "المظهر فقط",
+                        "اللون فقط"
+                    ],
+                    correct: 0,
+                    explanation: "معايير اختيار PPE تشمل ملاءمة المخاطر، الراحة، والجودة."
+                },
+                {
+                    id: "B39",
+                    concept: "الاستجابة للطوارئ",
+                    question: "ما هي خطة الطوارئ؟",
+                    options: [
+                        "خطة مكتوبة لكيفية الاستجابة للحالات الطارئة",
+                        "خطة لزيادة الإنتاج",
+                        "خطة لتقليل الرواتب",
+                        "خطة لزيادة ساعات العمل"
+                    ],
+                    correct: 0,
+                    explanation: "خطة الطوارئ هي خطة مكتوبة لكيفية الاستجابة للحالات الطارئة."
+                },
+                {
+                    id: "B40",
+                    concept: "السلامة والصحة المهنية",
+                    question: "ما هو دور لجنة السلامة والصحة المهنية؟",
+                    options: [
+                        "مراقبة تطبيق إجراءات السلامة واقتراح التحسينات",
+                        "زيادة الإنتاج فقط",
+                        "تقليل الرواتب",
+                        "إلغاء الإجازات"
+                    ],
+                    correct: 0,
+                    explanation: "لجنة السلامة والصحة المهنية تراقب تطبيق الإجراءات واقتراح التحسينات."
+                }
+            ]
+        };
+        
+        // Flashcards Data
+        const flashcards = [
+            { term: "السلامة المهنية", definition: "حماية العمال من الإصابات المفاجئة الناتجة عن الحوادث المرتبطة بالعمل" },
+            { term: "الصحة المهنية", definition: "الحفاظ على الصحة في بيئة العمل بوسائلها ومواردها المادية والبشرية" },
+            { term: "بيئة العمل الآمنة", definition: "البيئة التي تتمتع بالشروط الضرورية لتوفير السلامة والصحة المهنية" },
+            { term: "المخاطر المهنية", definition: "العوامل في بيئة العمل التي قد تسبب ضرراً للعمال" },
+            { term: "الإصابات المهنية", definition: "الأضرار التي تصيب العمال نتيجة الحوادث في مكان العمل" },
+            { term: "الأمراض المهنية", definition: "الأمراض التي تنتج عن التعرض لعوامل ضارة في بيئة العمل" },
+            { term: "الوقاية", definition: "الإجراءات المتخذة لتجنب وقوع الحوادث والإصابات" },
+            { term: "المعدات الوقائية الشخصية (PPE)", definition: "المعدات التي يرتديها العمال لحمايتهم من المخاطر" },
+            { term: "الجهاز التكاملي (الجلد)", definition: "يحمي الجسم وينظم الحرارة وينتج فيتامين D" },
+            { term: "الجهاز الهيكلي (العظام)", definition: "يدعم الجسم ويحمي الأعضاء الداخلية وينتج خلايا الدم" },
+            { term: "الجهاز العضلي", definition: "يتحرك الجسم ويتكون من عضلات هيكلية وقلبية وملساء" },
+            { term: "الجهاز العصبي", definition: "يتحكم في وظائف الجسم ويتكون من الدماغ والنخاع الشوكي والأعصاب" },
+            { term: "الجهاز الغدي", definition: "يفرز الهرمونات التي تنظم وظائف الجسم" },
+            { term: "الجهاز القلبي وجهاز الدم", definition: "ينقل الدم والأكسجين والغذاء إلى جميع أجزاء الجسم" },
+            { term: "الجهاز التنفسي", definition: "يستبدل الأكسجين ويثاني أكسيد الكربون" },
+            { term: "الجهاز الهضمي", definition: "يهضم الطعام ويمتص العناصر الغذائية" },
+            { term: "الجهاز البولي", definition: "ينقي الدم من الفضلات وينظم الماء والأملاح" },
+            { term: "الجهاز التناسلي", definition: "ينتج الخلايا التناسلية والهرمونات الجنسية" },
+            { term: "الجهاز الليمفاوي", definition: "يدافع عن الجسم ضد العدوى والأمراض" },
+            { term: "تقييم المخاطر", definition: "عملية تحديد المخاطر وتقييم احتمالية حدوثها وشدة أثرها" }
+        ];
+        
+        // State Management
+        let currentState = {
+            currentTab: 'dashboard',
+            selectedModel: null,
+            examInProgress: false,
+            currentExam: null,
+            timer: null,
+            timeRemaining: 3600, // 60 minutes in seconds
+            answers: {},
+            flashcardIndex: 0,
+            flashcardFlipped: false,
+            attempts: JSON.parse(localStorage.getItem('osh_attempts') || '[]'),
+            conceptMastery: JSON.parse(localStorage.getItem('osh_mastery') || '{}')
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadLastTab();
+            updateDashboard();
+            setupEventListeners();
+        });
+        
+        // Tab Navigation
+        function setupEventListeners() {
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+            
+            // Model selection
+            document.querySelectorAll('.model-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('.model-card').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    currentState.selectedModel = this.getAttribute('data-model');
+                    document.getElementById('startExamBtn').disabled = false;
+                });
+            });
+        }
+        
+        function switchTab(tabId) {
+            // Save current tab
+            localStorage.setItem('osh_last_tab', tabId);
+            currentState.currentTab = tabId;
+            
+            // Update nav tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-selected', 'false');
+                if (tab.getAttribute('data-tab') === tabId) {
+                    tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
+                }
+            });
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update dashboard if needed
+            if (tabId === 'dashboard') {
+                updateDashboard();
+            }
+        }
+        
+        function loadLastTab() {
+            const lastTab = localStorage.getItem('osh_last_tab') || 'dashboard';
+            switchTab(lastTab);
+        }
+        
+        // Dashboard
+        function updateDashboard() {
+            const attempts = currentState.attempts;
+            
+            // Total attempts
+            document.getElementById('totalAttempts').textContent = attempts.length;
+            
+            // Best score
+            let bestScore = 0;
+            let avgScore = 0;
+            
+            if (attempts.length > 0) {
+                const scores = attempts.map(a => a.score);
+                bestScore = Math.max(...scores);
+                avgScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+            }
+            
+            document.getElementById('bestScore').textContent = bestScore + '%';
+            document.getElementById('avgScore').textContent = avgScore + '%';
+            
+            // Mastery rate
+            const mastery = currentState.conceptMastery;
+            const conceptIds = Object.keys(mastery);
+            let masteredCount = 0;
+            
+            conceptIds.forEach(id => {
+                if (mastery[id].score >= 70 && mastery[id].answered >= 3) {
+                    masteredCount++;
+                }
+            });
+            
+            const masteryRate = conceptIds.length > 0 ? Math.round((masteredCount / conceptIds.length) * 100) : 0;
+            document.getElementById('masteryRate').textContent = masteryRate + '%';
+            
+            // Update mastery card color
+            const masteryCard = document.getElementById('masteryCard');
+            masteryCard.className = 'stat-card';
+            if (masteryRate >= 70) {
+                masteryCard.classList.add('success');
+            } else if (masteryRate >= 50) {
+                masteryCard.classList.add('warning');
+            }
+            
+            // Last attempt info
+            if (attempts.length > 0) {
+                const lastAttempt = attempts[attempts.length - 1];
+                const passed = lastAttempt.score >= 70;
+                document.getElementById('lastAttemptInfo').innerHTML = `
+                    <div class="alert ${passed ? 'alert-success' : 'alert-warning'}">
+                        <strong>النتيجة:</strong> ${lastAttempt.score}% - ${passed ? 'ناجح' : 'راسب'}<br>
+                        <strong>التاريخ:</strong> ${new Date(lastAttempt.date).toLocaleDateString('ar-SA')}<br>
+                        <strong>النموذج:</strong> ${lastAttempt.model}
+                    </div>
+                `;
+            }
+            
+            // Concept mastery list
+            updateConceptMasteryList();
+            
+            // Recommendations
+            updateRecommendations();
+        }
+        
+        function updateConceptMasteryList() {
+            const mastery = currentState.conceptMastery;
+            const container = document.getElementById('conceptMasteryList');
+            
+            if (Object.keys(mastery).length === 0) {
+                container.innerHTML = '<p class="text-center" style="color: var(--text-light);">أكمل اختباراً لعرض إتقان المفاهيم</p>';
+                return;
+            }
+            
+            let html = '';
+            Object.entries(mastery).forEach(([concept, data]) => {
+                const isStrong = data.score >= 70 && data.answered >= 3;
+                html += `
+                    <div class="concept-mastery-item">
+                        <div class="concept-mastery-header">
+                            <span class="concept-mastery-name">${concept}</span>
+                            <span class="concept-mastery-score ${isStrong ? 'strong' : 'weak'}">${data.score}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill ${isStrong ? '' : 'warning'}" style="width: ${data.score}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function updateRecommendations() {
+            const mastery = currentState.conceptMastery;
+            const weakConcepts = [];
+            
+            Object.entries(mastery).forEach(([concept, data]) => {
+                if (data.score < 70 || data.answered < 3) {
+                    weakConcepts.push(concept);
+                }
+            });
+            
+            const container = document.getElementById('recommendations');
+            
+            if (weakConcepts.length === 0) {
+                if (Object.keys(mastery).length === 0) {
+                    container.innerHTML = `
+                        <div class="alert alert-info">
+                            ابدأ بدراسة المحتوى ثم اختبر معرفتك
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="alert alert-success">
+                            ممتاز! لقد أتقنت جميع المفاهيم. استمر في المراجعة للحفاظ على معرفتك.
+                        </div>
+                    `;
+                }
+            } else {
+                container.innerHTML = `
+                    <div class="alert alert-warning">
+                        <strong>المفاهيم التي تحتاج مراجعة:</strong><br>
+                        ${weakConcepts.join('، ')}
+                    </div>
+                `;
+            }
+        }
+        
+        // Exam Functions
+        function startExam() {
+            if (!currentState.selectedModel) return;
+            
+            const model = currentState.selectedModel;
+            const questions = questionBank[model];
+            
+            currentState.examInProgress = true;
+            currentState.currentExam = {
+                model: model,
+                questions: questions,
+                startTime: Date.now()
+            };
+            currentState.answers = {};
+            currentState.timeRemaining = 3600; // 60 minutes
+            
+            // Hide intro, show exam
+            document.getElementById('examIntro').classList.add('hidden');
+            document.getElementById('examContainer').classList.remove('hidden');
+            
+            // Update total questions
+            document.getElementById('totalQuestions').textContent = questions.length;
+            
+            // Render questions
+            renderQuestions();
+            
+            // Start timer
+            startTimer();
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            const questions = currentState.currentExam.questions;
+            
+            let html = '';
+            questions.forEach((q, index) => {
+                html += `
+                    <div class="question-card" id="question-${index}">
+                        <div class="question-text">
+                            <span class="question-number">${index + 1}</span>
+                            ${q.question}
+                        </div>
+                        <div class="options-list">
+                            ${q.options.map((opt, optIndex) => `
+                                <div class="option" onclick="selectAnswer(${index}, ${optIndex})" data-question="${index}" data-option="${optIndex}">
+                                    <span class="option-marker">${String.fromCharCode(1616 + optIndex)}</span>
+                                    <span>${opt}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="explanation" id="explanation-${index}">
+                            <strong>التفسير:</strong> ${q.explanation}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function selectAnswer(questionIndex, optionIndex) {
+            if (!currentState.examInProgress) return;
+            
+            // Save answer
+            currentState.answers[questionIndex] = optionIndex;
+            
+            // Update UI
+            const questionCard = document.getElementById(`question-${questionIndex}`);
+            questionCard.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            questionCard.querySelector(`[data-option="${optionIndex}"]`).classList.add('selected');
+            
+            // Update progress
+            updateExamProgress();
+            
+            // Enable submit if all answered
+            const totalQuestions = currentState.currentExam.questions.length;
+            const answeredCount = Object.keys(currentState.answers).length;
+            document.getElementById('submitExamBtn').disabled = answeredCount < totalQuestions;
+        }
+        
+        function updateExamProgress() {
+            const totalQuestions = currentState.currentExam.questions.length;
+            const answeredCount = Object.keys(currentState.answers).length;
+            const progress = (answeredCount / totalQuestions) * 100;
+            
+            document.getElementById('currentQuestion').textContent = answeredCount;
+            document.getElementById('examProgress').style.width = progress + '%';
+        }
+        
+        function startTimer() {
+            updateTimerDisplay();
+            
+            currentState.timer = setInterval(() => {
+                currentState.timeRemaining--;
+                updateTimerDisplay();
+                
+                // Warning at 5 minutes
+                if (currentState.timeRemaining === 300) {
+                    document.getElementById('timer').classList.add('warning');
+                    alert('تنبيه: بقي 5 دقائق فقط على انتهاء الاختبار!');
+                }
+                
+                // Auto submit at 0
+                if (currentState.timeRemaining <= 0) {
+                    clearInterval(currentState.timer);
+                    submitExam();
+                }
+            }, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(currentState.timeRemaining / 60);
+            const seconds = currentState.timeRemaining % 60;
+            document.getElementById('timerValue').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function submitExam() {
+            if (!currentState.examInProgress) return;
+            
+            // Stop timer
+            clearInterval(currentState.timer);
+            currentState.examInProgress = false;
+            
+            // Calculate score
+            const questions = currentState.currentExam.questions;
+            let correctCount = 0;
+            const results = [];
+            
+            questions.forEach((q, index) => {
+                const userAnswer = currentState.answers[index];
+                const isCorrect = userAnswer === q.correct;
+                
+                if (isCorrect) correctCount++;
+                
+                results.push({
+                    question: q.question,
+                    userAnswer: userAnswer,
+                    correctAnswer: q.correct,
+                    isCorrect: isCorrect,
+                    explanation: q.explanation,
+                    concept: q.concept
+                });
+                
+                // Update concept mastery
+                if (!currentState.conceptMastery[q.concept]) {
+                    currentState.conceptMastery[q.concept] = { score: 0, answered: 0, correct: 0 };
+                }
+                currentState.conceptMastery[q.concept].answered++;
+                if (isCorrect) {
+                    currentState.conceptMastery[q.concept].correct++;
+                }
+                currentState.conceptMastery[q.concept].score = 
+                    Math.round((currentState.conceptMastery[q.concept].correct / currentState.conceptMastery[q.concept].answered) * 100);
+            });
+            
+            const score = Math.round((correctCount / questions.length) * 100);
+            const passed = score >= 70;
+            
+            // Save attempt
+            const attempt = {
+                date: Date.now(),
+                model: currentState.currentExam.model,
+                score: score,
+                passed: passed,
+                timeUsed: 3600 - currentState.timeRemaining,
+                results: results
+            };
+            
+            currentState.attempts.push(attempt);
+            
+            // Save to localStorage
+            localStorage.setItem('osh_attempts', JSON.stringify(currentState.attempts));
+            localStorage.setItem('osh_mastery', JSON.stringify(currentState.conceptMastery));
+            
+            // Show results
+            showResults(attempt);
+        }
+        
+        function showResults(attempt) {
+            const container = document.getElementById('resultsContainer');
+            const passed = attempt.passed;
+            
+            let html = `
+                <div class="results-header">
+                    <div class="score-circle">
+                        <div class="score-value">${attempt.score}%</div>
+                        <div class="score-label">النتيجة</div>
+                    </div>
+                    <div class="pass-status ${passed ? 'passed' : 'failed'}">
+                        ${passed ? 'ناجح' : 'راسب'}
+                    </div>
+                    <p style="margin-top: 16px; opacity: 0.9;">
+                        النموذج: ${attempt.model} | الوقت: ${Math.floor(attempt.timeUsed / 60)} دقيقة
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">مراجعة الإجابات</h2>
+            `;
+            
+            attempt.results.forEach((r, index) => {
+                html += `
+                    <div class="review-item ${r.isCorrect ? 'correct' : 'wrong'}">
+                        <div class="review-header">
+                            <span>السؤال ${index + 1}</span>
+                            <span class="review-status ${r.isCorrect ? 'correct' : 'wrong'}">
+                                ${r.isCorrect ? 'صحيح' : 'خاطئ'}
+                            </span>
+                        </div>
+                        <p><strong>${r.question}</strong></p>
+                        <p style="color: var(--text-light); font-size: 14px; margin-top: 8px;">
+                            ${r.explanation}
+                        </p>
+                    </div>
+                `;
+            });
+            
+            html += `
+                </div>
+                
+                <div class="text-center mb-24">
+                    <button class="btn btn-primary" onclick="switchTab('dashboard')">
+                        العودة للوحة التحكم
+                    </button>
+                    <button class="btn btn-outline" onclick="retakeExam()">
+                        إعادة الاختبار
+                    </button>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            
+            // Switch to results tab
+            switchTab('results');
+        }
+        
+        function retakeExam() {
+            // Reset exam state
+            currentState.examInProgress = false;
+            currentState.currentExam = null;
+            currentState.answers = {};
+            currentState.selectedModel = null;
+            
+            // Reset UI
+            document.getElementById('examIntro').classList.remove('hidden');
+            document.getElementById('examContainer').classList.add('hidden');
+            document.querySelectorAll('.model-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('startExamBtn').disabled = true;
+            document.getElementById('timer').classList.remove('warning');
+            
+            // Switch to exam tab
+            switchTab('exam');
+        }
+        
+        // Flashcard Functions
+        function flipFlashcard() {
+            const flashcard = document.getElementById('flashcard');
+            currentState.flashcardFlipped = !currentState.flashcardFlipped;
+            flashcard.classList.toggle('flipped', currentState.flashcardFlipped);
+        }
+        
+        function updateFlashcard() {
+            const card = flashcards[currentState.flashcardIndex];
+            document.getElementById('flashcardTerm').textContent = card.term;
+            document.getElementById('flashcardDefinition').textContent = card.definition;
+            document.getElementById('flashcardCounter').textContent = 
+                `${currentState.flashcardIndex + 1} / ${flashcards.length}`;
+            
+            // Reset flip
+            currentState.flashcardFlipped = false;
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+        
+        function nextFlashcard() {
+            currentState.flashcardIndex = (currentState.flashcardIndex + 1) % flashcards.length;
+            updateFlashcard();
+        }
+        
+        function prevFlashcard() {
+            currentState.flashcardIndex = (currentState.flashcardIndex - 1 + flashcards.length) % flashcards.length;
+            updateFlashcard();
+        }
+        
+        // Initialize flashcards
+        updateFlashcard();
+    </script>
+</body>
+</html>

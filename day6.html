@@ -1,0 +1,3842 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام التقنية على إتقان التخطيط الأمني</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #2563eb;
+            --accent: #f59e0b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        
+        .course-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation Tabs */
+        .nav-tabs {
+            background: white;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-tab {
+            padding: 16px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary);
+            background: rgba(30, 58, 138, 0.05);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary);
+        }
+        
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 24px 0;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+        
+        .card h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .card h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin: 20px 0 12px;
+        }
+        
+        /* Study Section Styles - Scoped */
+        #study .concept-item {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-right: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+        
+        #study .concept-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateX(-4px);
+        }
+        
+        #study .concept-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        #study .concept-meta {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        #study .concept-meta span {
+            background: rgba(37, 99, 235, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        
+        #study .concept-def {
+            color: var(--text);
+            line-height: 1.9;
+            margin-bottom: 12px;
+        }
+        
+        #study .concept-def ul, #study .concept-def ol {
+            padding-right: 24px;
+            margin: 12px 0;
+        }
+        
+        #study .concept-def li {
+            margin-bottom: 8px;
+        }
+        
+        #study .concept-example {
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            border-right: 3px solid var(--accent);
+        }
+        
+        #study .concept-example strong {
+            color: var(--warning);
+        }
+        
+        #study .exam-angle {
+            background: rgba(22, 163, 74, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            border-right: 3px solid var(--success);
+        }
+        
+        #study .exam-angle strong {
+            color: var(--success);
+        }
+        
+        #study .confusion-box {
+            background: rgba(220, 38, 38, 0.08);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            border-right: 3px solid var(--danger);
+        }
+        
+        #study .confusion-box strong {
+            color: var(--danger);
+        }
+        
+        /* Risk Matrix */
+        #study .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        #study .matrix-header {
+            background: var(--primary);
+            color: white;
+            padding: 12px 8px;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+        
+        #study .matrix-cell {
+            padding: 16px 8px;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+        
+        #study .matrix-low {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        #study .matrix-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        #study .matrix-high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        #study .matrix-critical {
+            background: #dc2626;
+            color: white;
+        }
+        
+        /* SWOT Grid */
+        #study .swot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        #study .swot-box {
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 120px;
+        }
+        
+        #study .swot-s {
+            background: rgba(22, 163, 74, 0.15);
+            border: 2px solid var(--success);
+        }
+        
+        #study .swot-w {
+            background: rgba(220, 38, 38, 0.1);
+            border: 2px solid var(--danger);
+        }
+        
+        #study .swot-o {
+            background: rgba(37, 99, 235, 0.15);
+            border: 2px solid var(--secondary);
+        }
+        
+        #study .swot-t {
+            background: rgba(245, 158, 11, 0.15);
+            border: 2px solid var(--accent);
+        }
+        
+        #study .swot-box h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Comparison Table */
+        #study .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        
+        #study .comparison-table th,
+        #study .comparison-table td {
+            padding: 14px;
+            text-align: right;
+            border: 1px solid var(--border);
+        }
+        
+        #study .comparison-table th {
+            background: var(--primary);
+            color: white;
+        }
+        
+        #study .comparison-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        /* Glossary */
+        #study .glossary-term {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        
+        #study .glossary-term strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 6px;
+        }
+        
+        /* Infographic Slot */
+        #study .infographic-slot {
+            text-align: center;
+            padding: 40px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            border: 2px dashed var(--border);
+        }
+        
+        #study .infographic-slot img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        /* Exam Styles */
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .timer-badge {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .timer-badge.warning {
+            background: var(--warning);
+            animation: pulse 1s infinite;
+        }
+        
+        .timer-badge.danger {
+            background: var(--danger);
+            animation: pulse 0.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--secondary));
+            transition: width 0.3s ease;
+        }
+        
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .question-number {
+            background: var(--primary);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .bloom-level {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--secondary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option:hover {
+            border-color: var(--secondary);
+            background: rgba(37, 99, 235, 0.03);
+        }
+        
+        .option.selected {
+            border-color: var(--secondary);
+            background: rgba(37, 99, 235, 0.08);
+        }
+        
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(22, 163, 74, 0.1);
+        }
+        
+        .option.wrong {
+            border-color: var(--danger);
+            background: rgba(220, 38, 38, 0.1);
+        }
+        
+        .option-indicator {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-indicator {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: white;
+        }
+        
+        .option.correct .option-indicator {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+        
+        .option.wrong .option-indicator {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: white;
+        }
+        
+        .explanation {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .explanation-correct {
+            background: rgba(22, 163, 74, 0.1);
+            border-right: 4px solid var(--success);
+        }
+        
+        .explanation-wrong {
+            background: rgba(220, 38, 38, 0.08);
+            border-right: 4px solid var(--danger);
+        }
+        
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+        }
+        
+        .btn-primary:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #15803d;
+        }
+        
+        /* Results Dashboard */
+        .results-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .result-stat {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .result-stat .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .result-stat .label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .result-stat.pass .value {
+            color: var(--success);
+        }
+        
+        .result-stat.fail .value {
+            color: var(--danger);
+        }
+        
+        /* Mastery Chart */
+        .mastery-chart {
+            margin: 24px 0;
+        }
+        
+        .mastery-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+        
+        .mastery-label {
+            min-width: 140px;
+            font-size: 0.9rem;
+        }
+        
+        .mastery-track {
+            flex: 1;
+            height: 24px;
+            background: var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .mastery-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 0.5s ease;
+        }
+        
+        .mastery-fill.mastered {
+            background: var(--success);
+        }
+        
+        .mastery-fill.developing {
+            background: var(--accent);
+        }
+        
+        .mastery-fill.weak {
+            background: var(--danger);
+        }
+        
+        .mastery-value {
+            min-width: 50px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        /* Flashcards */
+        .flashcard-container {
+            perspective: 1000px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .flashcard {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        
+        .flashcard-front {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+        
+        .flashcard-back {
+            background: white;
+            color: var(--text);
+            transform: rotateY(180deg);
+            border: 2px solid var(--primary);
+        }
+        
+        .flashcard-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .flashcard-hint {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .flashcard-counter {
+            text-align: center;
+            margin-top: 16px;
+            color: var(--text-light);
+        }
+        
+        /* Model Selection */
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+        
+        .model-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .model-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        
+        .model-card h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        
+        .model-card .difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+        
+        .model-card .difficulty.easy {
+            background: rgba(22, 163, 74, 0.15);
+            color: var(--success);
+        }
+        
+        .model-card .difficulty.medium {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+        
+        .model-card .difficulty.hard {
+            background: rgba(220, 38, 38, 0.15);
+            color: var(--danger);
+        }
+        
+        /* Welcome Screen */
+        .welcome-screen {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .welcome-screen h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .welcome-screen p {
+            color: var(--text-light);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .input-group {
+            max-width: 400px;
+            margin: 0 auto 24px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        /* Info Banner */
+        .info-banner {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-item strong {
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-tab {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+            
+            #study .risk-matrix {
+                font-size: 0.7rem;
+            }
+            
+            #study .matrix-cell,
+            #study .matrix-header {
+                padding: 8px 4px;
+            }
+            
+            #study .swot-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-text {
+                font-size: 1rem;
+            }
+            
+            .option {
+                padding: 12px;
+            }
+            
+            .flashcard {
+                height: 400px;
+            }
+            
+            .mastery-label {
+                min-width: 100px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 24px; }
+        .mb-4 { margin-bottom: 24px; }
+        .hidden { display: none !important; }
+        
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background: rgba(22, 163, 74, 0.15);
+            color: var(--success);
+        }
+        
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+        
+        .badge-danger {
+            background: rgba(220, 38, 38, 0.15);
+            color: var(--danger);
+        }
+/* ===== Days Navigation Bar (Day 1..6) ===== */
+.days-bar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-top:16px;
+  padding:10px;
+  border-radius:14px;
+  background: rgba(255,255,255,.10);
+  backdrop-filter: blur(6px);
+}
+
+/* Link/button */
+.day-btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:12px;
+  text-decoration:none;
+  background: rgba(255,255,255,.10);
+  transition: .2s ease;
+}
+
+.days-bar .day-btn,
+.days-bar .day-btn:visited { color:#fff; }
+
+.day-btn:hover{
+  background: rgba(255,255,255,.18);
+  transform: translateY(-1px);
+}
+
+.day-btn.active{
+  background: rgba(255,255,255,.24);
+  outline: 2px solid rgba(255,255,255,.35);
+}
+
+/* Text */
+.day-txt{
+  font-weight:800;
+  font-size:14px;
+  white-space:nowrap;
+}
+
+/* Icon base */
+.day-ico{
+  --stroke:#ffffff;
+  --fill:#2563eb;
+
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  display:inline-grid;
+  place-items:center;
+
+  background: var(--fill);
+  color: var(--stroke);
+
+  border:none;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+}
+
+.day-ico svg{
+  width:20px;
+  height:20px;
+  display:block;
+  stroke: currentColor;
+  fill: none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Day colors (اختياري/مقترح) */
+.ico-d1{ --fill:#2563eb; --stroke:#ffffff; }  /* Day 1 */
+.ico-d2{ --fill:#16a34a; --stroke:#ffffff; }  /* Day 2 */
+.ico-d3{ --fill:#065f46; --stroke:#ffffff; }  /* Day 3 */
+
+/* NEW */
+.ico-d4{ --fill:#f59e0b; --stroke:#ffffff; }  /* Day 4: OHS */
+.ico-d5{ --fill:#9333ea; --stroke:#ffffff; }  /* Day 5: Media */
+.ico-d6{ --fill:#0f172a; --stroke:#ffffff; }  /* Day 6: Security */
+
+@media (max-width:768px){
+  .day-txt{ font-size:13px; }
+  .day-btn{ padding:9px 12px; }
+}
+/* ===== Tabs width fix (real, not visual-only) ===== */
+.nav-tabs{
+  background: transparent !important;
+  border-bottom: 0 !important;
+  display: block !important;
+}
+
+.nav-tabs-inner{
+  background: #fff;
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  margin: 12px auto 0;       /* يوازنها تحت الهيدر */
+  padding: 0;                /* لا تضيف padding إلا إذا رغبت */
+}
+
+.nav-tabs-inner::-webkit-scrollbar{ display:none; }
+
+/* اختياري: تقليل ضخامة التبويب */
+.nav-tab{
+  padding: 12px 18px !important;  /* كان 16px 24px */
+  font-size: .95rem !important;
+}
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">نظام التقنية على إتقان التخطيط الأمني</div>
+                <div class="course-info">مقرر 124 - التخطيط الأمني</div>
+            </div>
+<div aria-label="تنقّل أيام البرنامج" class="days-bar">
+
+  <!-- Day 1 -->
+  <a class="day-btn" href="index.html" title="اليوم الأول" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d1">
+      <!-- (اختياري) أيقونة اليوم الأول: اتركها كما عندك إن كانت مختلفة -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M12 15s-4-2.5-4-5.2C8 8.3 9.1 7.5 10.2 7.5c.7 0 1.3.3 1.8.8.5-.5 1.1-.8 1.8-.8 1.1 0 2.2.8 2.2 2.3 0 2.7-4 5.2-4 5.2z"/>
+      </svg>
+    </span>
+    <span class="day-txt">إدارة الأزمات والمخاطر الأمنية</span>
+  </a>
+
+  <!-- Day 2 -->
+  <a class="day-btn" href="day2.html" title="اليوم الثاني" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d2">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M8 10h8"/>
+        <path d="M10 10l-2 4h4l-2-4z"/>
+        <path d="M14 10l-2 4h4l-2-4z"/>
+      </svg>
+    </span>
+    <span class="day-txt">قوانين ومعايير السلامة</span>
+  </a>
+
+  <!-- Day 3 -->
+  <a class="day-btn" href="day3.html" title="اليوم الثالث" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d3">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M8 13a4 4 0 0 1 8 0"/>
+        <path d="M8 13h8"/>
+      </svg>
+    </span>
+    <span class="day-txt">إدارة السلامة ومنع الخسائر</span>
+  </a>
+
+  <!-- Day 4 (NEW) -->
+  <a class="day-btn" href="day4.html" title="اليوم الرابع" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d4">
+      <!-- Helmet / OHS -->
+      <svg viewBox="0 0 24 24">
+        <path d="M4 18h16"/>
+        <path d="M6 18v-3a6 6 0 0 1 12 0v3"/>
+        <path d="M12 9v6"/>
+      </svg>
+    </span>
+    <span class="day-txt">السلامة والصحة المهنية</span>
+  </a>
+
+  <!-- Day 5 (NEW) -->
+  <a class="day-btn" href="day5.html" title="اليوم الخامس" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d5">
+      <!-- Megaphone / Media -->
+      <svg viewBox="0 0 24 24">
+        <path d="M3 11v2"/>
+        <path d="M5 10v4"/>
+        <path d="M7 9l10-3v12l-10-3z"/>
+        <path d="M17 9l4-2v10l-4-2"/>
+      </svg>
+    </span>
+    <span class="day-txt">التعامل مع وسائل الإعلام</span>
+  </a>
+
+  <!-- Day 6 (NEW) -->
+  <a class="day-btn" href="day6.html" title="اليوم السادس" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d6">
+      <!-- Shield/Lock / Security Planning -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M9.5 12a2.5 2.5 0 0 1 5 0v2.5h-5V12z"/>
+        <path d="M10 14.5h4"/>
+      </svg>
+    </span>
+    <span class="day-txt">التخطيط الأمني</span>
+  </a>
+
+</div>
+
+        </div>
+    </header>
+    
+<nav class="nav-tabs">
+  <div class="container nav-tabs-inner">
+    <button class="nav-tab active" data-tab="study" aria-label="قسم الدراسة">الدراسة</button>
+    <button class="nav-tab" data-tab="flashcards" aria-label="البطاقات التعليمية">البطاقات</button>
+    <button class="nav-tab" data-tab="models" aria-label="نماذج الاختبار">نماذج الاختبار</button>
+    <button class="nav-tab" data-tab="exam" aria-label="الاختبار">الاختبار</button>
+    <button class="nav-tab" data-tab="results" aria-label="النتائج">النتائج</button>
+    <button class="nav-tab" data-tab="mastery" aria-label="لوحة الإتقان">لوحة الإتقان</button>
+  </div>
+</nav>
+
+    
+    <main class="container">
+        <!-- Study Tab -->
+        <div id="study" class="tab-content active">
+            <div class="info-banner">
+                <div class="info-item">
+                    <strong>درجة النجاح:</strong>
+                    <span>70%</span>
+                </div>
+                <div class="info-item">
+                    <strong>مدة الاختبار:</strong>
+                    <span>60 دقيقة</span>
+                </div>
+                <div class="info-item">
+                    <strong>عدد الأسئلة:</strong>
+                    <span>80 سؤال</span>
+                </div>
+            </div>
+
+            <!-- Lesson 1: Introduction to Security Planning -->
+            <div class="card">
+                <h2>الدرس الأول: مقدمة في التخطيط الأمني</h2>
+                
+                <div class="concept-item" id="concept-1-1">
+                    <div class="concept-title">التخطيط الأمني (Security Planning)</div>
+                    <div class="concept-meta">
+                        <span>الدرس الأول</span>
+                        <span>صفحة: 203-220</span>
+                    </div>
+                    <div class="concept-def">
+                        <p>هو عملية منظمة وعلمية ومدروسة لتحديد الأهداف والوسائل اللازمة لتحقيق الأمن والسلامة للأفراد والمنشآت والممتلكات من المخاطر المحتملة.</p>
+                        <p><strong>التعريف:</strong> إعداد خطة أمنية لمنشأة معينة لحماية الأفراد والمنشآت والممتلكات من المخاطر المحتملة بشكل علمي وعملي.</p>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> يُطلب التمييز بين الأمن كحالة والتخطيط الأمني كعملية استراتيجية منظمة.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-1-2">
+                    <div class="concept-title">أسس التخطيط الأمني</div>
+                    <div class="concept-meta">
+                        <span>الدرس الأول</span>
+                        <span>صفحة: 244-259</span>
+                    </div>
+                    <div class="concept-def">
+                        <ul>
+                            <li>التنبؤ بالتهديدات</li>
+                            <li>تحديد المخاطر وترتيبها</li>
+                            <li>وضع إجراءات وقائية واستباقية</li>
+                            <li>وضع خطط للاستجابة والتعافي بعد الحوادث</li>
+                            <li>التنسيق بين الجهات الأمنية والإدارية والتقنية</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> التعرف على عناصر الأسس الخمسة للتخطيط الأمني وترتيبها المنطقي.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-1-3">
+                    <div class="concept-title">خصائص الأمن</div>
+                    <div class="concept-meta">
+                        <span>الدرس الأول</span>
+                        <span>صفحة: 262-276</span>
+                    </div>
+                    <div class="concept-def">
+                        <ul>
+                            <li><strong>الحالة الاستباقية والرادعة:</strong> حالة يحقق فيها الأمن دوام الاستقرار والأمن</li>
+                            <li><strong>الوسيلة لتحقيق حالة الأمن:</strong> يتطلب دراسة وتحليل وإجراءات استراتيجية</li>
+                            <li><strong>علاج الحوادث عند حدوثها:</strong> يعالج الحوادث فور وقوعها</li>
+                            <li><strong>الوقاية من الحوادث قبل وقوعها:</strong> يحاول الوقاية من الحوادث قبل حدوثها</li>
+                            <li><strong>قصير المدى ومستمر طويل المدى:</strong> إجراءات أمنية مباشرة ومتابعة مستمرة</li>
+                            <li><strong>مراقبة المنشأة:</strong> إدارة وتنظيم وتغطية أحواز المنشأة</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> التمييز بين الخصائص الست للأمن وربط كل خاصية بمثال عملي.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-1-4">
+                    <div class="concept-title">أهمية التخطيط الأمني</div>
+                    <div class="concept-meta">
+                        <span>الدرس الأول</span>
+                        <span>صفحة: 290-347</span>
+                    </div>
+                    <div class="concept-def">
+                        <ol>
+                            <li><strong>الوقاية من المخاطر والحوادث:</strong> تقليل احتمالية الخسائر الداخلية والخارجية</li>
+                            <li><strong>حماية الأرواح:</strong> إخلاء آمن وإنذار مبكر وتوفير وسائل الإطفاء</li>
+                            <li><strong>تحقيق الالتزام للأنظمة والقوانين:</strong> تلبية المتطلبات القانونية والإدارية</li>
+                            <li><strong>تعزيز سمعة المنشأة:</strong> بناء بيئة آمنة ورفع مستوى الثقة</li>
+                            <li><strong>تعزيز القدرة على الاستجابة السريعة:</strong> تقليل زمن التعامل مع الأزمات</li>
+                            <li><strong>تحليل الأمن البيئي:</strong> دراسة المنطقة المحيطة وتحليل الحوادث السابقة</li>
+                        </ol>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> سيناريوهات تطبيقية لأهمية التخطيط الأمني في مواقف حقيقية.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-1-5">
+                    <div class="concept-title">عناصر عملية التخطيط</div>
+                    <div class="concept-meta">
+                        <span>الدرس الأول</span>
+                        <span>صفحة: 416-468</span>
+                    </div>
+                    <div class="concept-def">
+                        <ul>
+                            <li>المؤسسات الحيوية والموارد الحساسة</li>
+                            <li>المنافذ والموانئ والمطارات</li>
+                            <li>المستشفيات والمنشآت التعليمية</li>
+                            <li>المنشآت المالية والمصرفية</li>
+                            <li>الفعاليات الرياضية الهامة</li>
+                            <li>مراكز البيانات والبنية التحتية التقنية</li>
+                            <li>الآبار النفطية والبترولية</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> تحديد العناصر المشمولة في عملية التخطيط الأمني.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-1-6">
+                    <div class="concept-title">متطلبات إدارة التخطيط الأمني</div>
+                    <div class="concept-meta">
+                        <span>الدرس الأول</span>
+                        <span>صفحة: 416-468</span>
+                    </div>
+                    <div class="concept-def">
+                        <ul>
+                            <li>القدرة على الملاحظة والتحليل</li>
+                            <li>التركيز الاستراتيجي</li>
+                            <li>إدارة الوقت والموارد</li>
+                            <li>المعرفة بالتقنيات الحديثة</li>
+                            <li>تحمل المسؤولية</li>
+                            <li>الالتزام بالنزاهة والشرف المهني</li>
+                            <li>التطوير المستمر والتدريب الذاتي</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> تحليل الصفات المطلوبة لمدير التخطيط الأمني الناجح.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-1-7">
+                    <div class="concept-title">تحديات التخطيط الأمني</div>
+                    <div class="concept-meta">
+                        <span>الدرس الأول</span>
+                        <span>صفحة: 470-480</span>
+                    </div>
+                    <div class="concept-def">
+                        <ul>
+                            <li>تطور التقنيات والتهديدات الإلكترونية</li>
+                            <li>نقص الوعي الأمني لدى العاملين</li>
+                            <li>تغير الأنظمة والتشريعات</li>
+                            <li>صعوبة تنسيق الخطط بين الجهات المختلفة</li>
+                            <li>التعامل مع الأزمات الطارئة وقرارات الطوارئ</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> اقتراح حلول عملية لتحديات التخطيط الأمني.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lesson 2: Strategic Planning Concept -->
+            <div class="card">
+                <h2>الدرس الثاني: مفهوم التخطيط الاستراتيجي</h2>
+                
+                <div class="concept-item" id="concept-2-1">
+                    <div class="concept-title">مفهوم الأمن (Security Concept)</div>
+                    <div class="concept-meta">
+                        <span>الدرس الثاني</span>
+                        <span>صفحة: 569-620</span>
+                    </div>
+                    <div class="concept-def">
+                        <p>الأمن هو حالة من الاستقرار والطمأنينة يشعر فيها الفرد بأنه آمن على نفسه وماله، بعيداً عن أي خطر يهدده. وهو الشعور بالحرية من أي خوف من خطر قد يهدده.</p>
+                        <p>تتنوع أنواع الأمن حسب المجال:</p>
+                        <ul>
+                            <li><strong>الأمن النفسي:</strong> يقوم بالرفاهية النفسية للفرد</li>
+                            <li><strong>الأمن العام:</strong> يشمل الأمن والأمان على المستوى العام للمجتمع</li>
+                            <li><strong>الأمن الشخصي:</strong> يقوم على حماية الفرد من التهديدات المباشرة</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> التمييز بين مفهوم الأمن كحالة نفسية والأمن كمنظومة حماية.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-2-2">
+                    <div class="concept-title">أنواع الأمن حسب المستوى الجغرافي</div>
+                    <div class="concept-meta">
+                        <span>الدرس الثاني</span>
+                        <span>صفحة: 665-681</span>
+                    </div>
+                    <div class="concept-def">
+                        <ul>
+                            <li><strong>الأمن القومي:</strong> يتمتع بالوصول إلى الظروف التي تساعد على تحقيق أهداف الدولة</li>
+                            <li><strong>الأمن الإقليمي:</strong> يشترك فيه عدد من الدول في قاطن جغرافي واحد</li>
+                            <li><strong>الأمن الدولي:</strong> يقوم على أمن مجموعة من دول العالم في تحقيق مصالحها</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> ربط كل نوع من أنواع الأمن بمثال عملي من الواقع.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-2-3">
+                    <div class="concept-title">المنشآت المهمة (Critical Facilities)</div>
+                    <div class="concept-meta">
+                        <span>الدرس الثاني</span>
+                        <span>صفحة: 682-728</span>
+                    </div>
+                    <div class="concept-def">
+                        <p>هي المنشآت التي تكون مخصصة لتقديم خدمات مميزة للدولة وللمستهلكين، وتصنف حسب:</p>
+                        <ul>
+                            <li><strong>المنشآت العامة:</strong> تقدم خدمات عامة للناس (ماء، كهرباء)</li>
+                            <li><strong>المنشآت الإعلامية:</strong> نشاط إعلامي وصحفي وإذاعي</li>
+                            <li><strong>المنشآت الاقتصادية:</strong> تخدم الاقتصاد الوطني والإنتاج</li>
+                            <li><strong>المنشآت العسكرية:</strong> تقوم القوات المسلحة بالدفاع عنها</li>
+                            <li><strong>المنشآت الحيوية:</strong> تقدم خدمات مهمة لاستمرار الدولة</li>
+                            <li><strong>المنشآت غير الحيوية:</strong> لا تؤثر على استمرار الدولة بشكل مباشر</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> تصنيف المنشآت المهمة حسب نوع الخدمة المقدمة.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-2-4">
+                    <div class="concept-title">أنواع الخطط الأمنية</div>
+                    <div class="concept-meta">
+                        <span>الدرس الثاني</span>
+                        <span>صفحة: 909-1024</span>
+                    </div>
+                    <div class="concept-def">
+                        <ol>
+                            <li><strong>الخطط التكتيكية:</strong> خطط لمواجهة أحداث فورية في ظروف معينة</li>
+                            <li><strong>الخطط الإرشادية:</strong> خطط تتمتع بإجراءات وقائية عامة</li>
+                            <li><strong>خطط العمليات:</strong> تخطيط مسؤولية الأنشطة والميزانيات والمشتريات</li>
+                            <li><strong>خطط الإخلاء:</strong> خطط لإخلاء آمن في ظروف طارئة</li>
+                        </ol>
+                        <p><strong>العناصر الأساسية للخطط:</strong></p>
+                        <ul>
+                            <li>العائدة المالية: تدعم تطوير الخطة وتنفيذها</li>
+                            <li>العائدة التنظيمية: تنظيم المهام والمسؤوليات</li>
+                            <li>العائدة البشرية: العمل والتعاون والقرارات التنفيذية</li>
+                            <li>العائدة التشريعية: القرارات والأوامر الصادرة عن التشريعات</li>
+                            <li>العائدة العلمية: الاستعانة بالدراسات العلمية</li>
+                            <li>العائدة المازلية: تكيف الأفراد مع متطلبات العمل</li>
+                            <li>العائدة النورمية: استيعاب الظروف الطارئة</li>
+                            <li>العائدة العقائدية: ثقة بالموارد المتاحة</li>
+                            <li>العائدة الاستراتيجية: استمرارية الخطة بشكل دائم</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> التمييز بين أنواع الخطط الأمنية وربط كل نوع بالموقف المناسب.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-2-5">
+                    <div class="concept-title">أسس خطة السلامة</div>
+                    <div class="concept-meta">
+                        <span>الدرس الثاني</span>
+                        <span>صفحة: 1203-1341</span>
+                    </div>
+                    <div class="concept-def">
+                        <ol>
+                            <li><strong>ثقة العاملين بالمنشأة:</strong> بعدد العاملين ومعرفة مسؤولياتهم</li>
+                            <li><strong>التحكم في الدخول والخروج:</strong> حرص على هوية العاملين ومنحهم تصاريح الدخول</li>
+                            <li><strong>أمن المعلومات والأوراق:</strong> حماية المعلومات الهامة والممتلكات</li>
+                        </ol>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> تطبيق أسس خطة السلامة على منشأة محددة.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lesson 3: Strategic Planning Benefits -->
+            <div class="card">
+                <h2>الدرس الثالث: دوافع وأهداف التخطيط الاستراتيجي</h2>
+                
+                <div class="concept-item" id="concept-3-1">
+                    <div class="concept-title">فوائد التخطيط الاستراتيجي</div>
+                    <div class="concept-meta">
+                        <span>الدرس الثالث</span>
+                        <span>صفحة: 1538-1741</span>
+                    </div>
+                    <div class="concept-def">
+                        <ul>
+                            <li>تحديد السياسات والقرارات</li>
+                            <li>وضع خطط عمل للمستقبل</li>
+                            <li>محاولة للتنبؤ بالمستقبل</li>
+                            <li>اكتشاف المشكلات</li>
+                            <li>تحقيق رضا العاملين</li>
+                            <li>تحديد مسارات العمل</li>
+                            <li>تحقيق المراقبة</li>
+                            <li>تحقيق الأمن النفسي</li>
+                            <li>تنسيق الجهود بين مختلف الإدارات</li>
+                        </ul>
+                    </div>
+                    <div class="concept-example">
+                        <strong>مثال تطبيقي:</strong> عند وضع خطة أمنية لمصرف، تساعد الفوائد على تحديد نقاط الضعف وتخصيص الموارد بشكل فعال.
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> ربط كل فائدة بالأثر المباشر على المنشأة.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-3-2">
+                    <div class="concept-title">أهمية التخطيط الاستراتيجي</div>
+                    <div class="concept-meta">
+                        <span>الدرس الثالث</span>
+                        <span>صفحة: 1574-1612</span>
+                    </div>
+                    <div class="concept-def">
+                        <p>التخطيط الاستراتيجي يعتبر من الوظائف الإدارية الأساسية التي تساعد على:</p>
+                        <ul>
+                            <li>تحديد الأولويات بشكل واضح</li>
+                            <li>ترشيد استخدام الموارد</li>
+                            <li>تقليل المخاطر المحتملة</li>
+                            <li>تحقيق الأهداف بكفاءة عالية</li>
+                            <li>المعرفة بالمعايير والمقاييس اللازمة للتقييم</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> تحليل أهمية التخطيط في مواقف إدارية مختلفة.
+                    </div>
+                </div>
+                
+                <div class="concept-item" id="concept-3-3">
+                    <div class="concept-title">معوقات التخطيط الاستراتيجي</div>
+                    <div class="concept-meta">
+                        <span>الدرس الثالث</span>
+                        <span>صفحة: 1613-1620</span>
+                    </div>
+                    <div class="concept-def">
+                        <ul>
+                            <li>مقاومة التغيير من بعض العاملين</li>
+                            <li>نقص الموارد المالية</li>
+                            <li>عدم وضوح الأهداف</li>
+                            <li>البيئة الخارجية المتغيرة</li>
+                            <li>صعوبة التنبؤ بالمستقبل</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">
+                        <strong>زاوية الاختبار:</strong> اقتراح حلول لمعوقات التخطيط الاستراتيجي.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analytical Models Card -->
+            <div class="card">
+                <h2>النماذج التحليلية</h2>
+                
+                <h3>مصفوفة تقييم المخاطر (Risk Matrix)</h3>
+                <div class="risk-matrix" role="table" aria-label="Risk Matrix">
+                    <div class="matrix-header" role="columnheader">التأثير →<br>الاحتمال ↓</div>
+                    <div class="matrix-header" role="columnheader">ضئيل</div>
+                    <div class="matrix-header" role="columnheader">متوسط</div>
+                    <div class="matrix-header" role="columnheader">كبير</div>
+                    <div class="matrix-header" role="columnheader">حرِج</div>
+
+                    <div class="matrix-header" role="rowheader">نادر</div>
+                    <div class="matrix-cell matrix-low">منخفض</div>
+                    <div class="matrix-cell matrix-low">منخفض</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+
+                    <div class="matrix-header" role="rowheader">محتمل</div>
+                    <div class="matrix-cell matrix-low">منخفض</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+
+                    <div class="matrix-header" role="rowheader">مرجّح</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+
+                    <div class="matrix-header" role="rowheader">شبه مؤكد</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+                    <div class="matrix-cell matrix-critical">حرِج</div>
+                </div>
+                
+                <h3>تحليل SWOT</h3>
+                <div class="swot-grid">
+                    <div class="swot-box swot-s">
+                        <h4>نقاط القوة (Strengths)</h4>
+                        <ul>
+                            <li>كفاءة فريق العمل</li>
+                            <li>موارد مالية متاحة</li>
+                            <li>تقنيات حديثة</li>
+                            <li>خبرة سابقة</li>
+                        </ul>
+                    </div>
+                    <div class="swot-box swot-w">
+                        <h4>نقاط الضعف (Weaknesses)</h4>
+                        <ul>
+                            <li>نقص التدريب</li>
+                            <li>ضعف التواصل</li>
+                            <li>موارد محدودة</li>
+                            <li>مقاومة للتغيير</li>
+                        </ul>
+                    </div>
+                    <div class="swot-box swot-o">
+                        <h4>الفرص (Opportunities)</h4>
+                        <ul>
+                            <li>تطور التقنية</li>
+                            <li>دعم إداري</li>
+                            <li>شراكات جديدة</li>
+                            <li>تمويل إضافي</li>
+                        </ul>
+                    </div>
+                    <div class="swot-box swot-t">
+                        <h4>التهديدات (Threats)</h4>
+                        <ul>
+                            <li>تهديدات إلكترونية</li>
+                            <li>تغيرات قانونية</li>
+                            <li>منافسة شديدة</li>
+                            <li>أزمات اقتصادية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Glossary Card -->
+            <div class="card">
+                <h2>قاموس المصطلحات</h2>
+                
+                <div class="glossary-term">
+                    <strong>التخطيط الأمني (Security Planning)</strong>
+                    عملية منظمة لتحديد الأهداف والوسائل اللازمة لتحقيق الأمن والسلامة.
+                </div>
+                
+                <div class="glossary-term">
+                    <strong>المنشآت المهمة (Critical Facilities)</strong>
+                    المنشآت التي تقدم خدمات أساسية للدولة والمجتمع.
+                </div>
+                
+                <div class="glossary-term">
+                    <strong>الأمن القومي (National Security)</strong>
+                    حالة تساعد على تحقيق أهداف الدولة وحماية مصالحها.
+                </div>
+                
+                <div class="glossary-term">
+                    <strong>التخطيط الاستراتيجي (Strategic Planning)</strong>
+                    عملية تحديد الرؤية المستقبلية والأهداف ووسائل تحقيقها.
+                </div>
+                
+                <div class="glossary-term">
+                    <strong>المخاطر (Risks)</strong>
+                    التهديدات المحتملة التي قد تؤثر سلباً على المنشأة.
+                </div>
+                
+                <div class="glossary-term">
+                    <strong>الوقاية (Prevention)</strong>
+                    الإجراءات الاستباقية لمنع حدوث المخاطر.
+                </div>
+                
+                <div class="glossary-term">
+                    <strong>الاستجابة (Response)</strong>
+                    الإجراءات المتخذة عند حدوث حادث أمني.
+                </div>
+                
+                <div class="glossary-term">
+                    <strong>التعافي (Recovery)</strong>
+                    العودة إلى الحالة الطبيعية بعد حدوث حادث.
+                </div>
+                
+                <div class="glossary-term">
+                    <strong>المراقبة (Monitoring)</strong>
+                    متابعة وتقييم أداء الخطة الأمنية باستمرار.
+                </div>
+                
+                <div class="glossary-term">
+                    <strong>التهديدات (Threats)</strong>
+                    أي مصدر محتمل للخطر على الأمن.
+                </div>
+            </div>
+            
+            <!-- Infographic Slot -->
+            <div class="card">
+                <h2>الإنفوجرافيك</h2>
+                <div class="infographic-slot">
+                    <img src="unit6.png" alt="Unit Infographic" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; padding: 40px; color: var(--text-light);">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 16px;">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Flashcards Tab -->
+        <div id="flashcards" class="tab-content">
+            <div class="card">
+                <h2>البطاقات التعليمية</h2>
+                <p class="text-center" style="color: var(--text-light); margin-bottom: 24px;">اضغط على البطاقة لقلبها</p>
+                
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-face flashcard-front">
+                            <div class="flashcard-title" id="card-front">التخطيط الأمني</div>
+                            <div class="flashcard-hint">اضغط لرؤية التعريف</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <div id="card-back">
+                                <p style="font-size: 1.1rem; margin-bottom: 16px;">عملية منظمة وعلمية ومدروسة لتحديد الأهداف والوسائل اللازمة لتحقيق الأمن والسلامة للأفراد والمنشآت.</p>
+                                <div style="background: rgba(30, 58, 138, 0.1); padding: 12px; border-radius: 8px;">
+                                    <strong>نصيحة الاختبار:</strong> تمييز بين الأمن كحالة والتخطيط الأمني كعملية
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flashcard-controls">
+                    <button class="btn btn-secondary" onclick="prevCard()">السابق</button>
+                    <button class="btn btn-primary" onclick="nextCard()">التالي</button>
+                </div>
+                
+                <div class="flashcard-counter">
+                    <span id="card-current">1</span> / <span id="card-total">15</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Models Tab -->
+        <div id="models" class="tab-content">
+            <div class="card">
+                <h2>نماذج الاختبار</h2>
+                <p style="color: var(--text-light); margin-bottom: 24px;">اختر نموذج الاختبار المناسب لمستواك</p>
+                
+                <div class="model-grid">
+                    <div class="model-card" onclick="startExam('A')">
+                        <h3>النموذج أ</h3>
+                        <span class="difficulty easy">سهل - متوازن</span>
+                        <p>26 سؤالاً تغطي المفاهيم الأساسية بشكل متوازن. مناسب للمراجعة الأولى.</p>
+                    </div>
+                    
+                    <div class="model-card" onclick="startExam('B')">
+                        <h3>النموذج ب</h3>
+                        <span class="difficulty medium">متوسط - تركيز على المفاهيم</span>
+                        <p>27 سؤالاً مع تركيز على التطبيق والتحليل. اختبر فهمك العميق.</p>
+                    </div>
+                    
+                    <div class="model-card" onclick="startExam('C')">
+                        <h3>النموذج ج</h3>
+                        <span class="difficulty hard">صعب - سيناريوهات</span>
+                        <p>27 سؤالاً مع سيناريوهات عملية وأسئلة تحليلية متقدمة.</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 24px;">
+                    <h3>اختبار النقاط الضعيفة</h3>
+                    <p style="margin-bottom: 16px;">اختبار مخصص يركز على المفاهيم التي تحتاج إلى مزيد من المراجعة بناءً على اختباراتك السابقة.</p>
+                    <button class="btn btn-success" onclick="startWeaknessRetest()" id="weakness-btn" disabled>بدء اختبار النقاط الضعيفة</button>
+                    <p id="weakness-msg" style="margin-top: 12px; color: var(--text-light); font-size: 0.9rem;">أكمل اختباراً واحداً على الأقل لتفعيل هذه الميزة</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Exam Tab -->
+        <div id="exam" class="tab-content">
+            <div id="exam-welcome" class="welcome-screen">
+                <h1>اختبار التقنية على إتقان التخطيط الأمني</h1>
+                <p>هذا الاختبار يقيس مدى فهمك لمقرر التخطيط الأمني (124). اجب عن جميع الأسئلة في غضون 60 دقيقة.</p>
+                
+                <div class="input-group">
+                    <input type="text" id="student-name" placeholder="أدخل اسمك" maxlength="50">
+                </div>
+                
+                <button class="btn btn-primary" onclick="startExamFromWelcome()">بدء الاختبار</button>
+            </div>
+            
+            <div id="exam-container" class="hidden">
+                <div class="exam-header">
+                    <div>
+                        <span class="badge badge-success" id="exam-model-badge">النموذج أ</span>
+                    </div>
+                    <div class="timer-badge" id="timer">
+                        <span>⏱</span>
+                        <span id="timer-display">60:00</span>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                
+                <div id="questions-container"></div>
+                
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary" id="submit-btn" onclick="submitExam()" disabled>تسليم الاختبار</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Tab -->
+        <div id="results" class="tab-content">
+            <div id="results-empty" class="card text-center" style="padding: 60px 20px;">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" stroke-width="1.5" style="margin-bottom: 20px;">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <h3 style="color: var(--text-light); margin-bottom: 12px;">لا توجد نتائج بعد</h3>
+                <p style="color: var(--text-light);">أكمل اختباراً لعرض نتائجك</p>
+            </div>
+            
+            <div id="results-content" class="hidden">
+                <div class="card">
+                    <h2>نتيجة الاختبار</h2>
+                    
+                    <div class="results-summary">
+                        <div class="result-stat" id="result-score">
+                            <div class="value">--</div>
+                            <div class="label">الدرجة</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="value" id="result-correct">--</div>
+                            <div class="label">إجابات صحيحة</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="value" id="result-total">--</div>
+                            <div class="label">إجمالي الأسئلة</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="value" id="result-percentage">--%</div>
+                            <div class="label">النسبة المئوية</div>
+                        </div>
+                    </div>
+                    
+                    <div id="result-message" class="text-center" style="margin: 24px 0; padding: 20px; border-radius: 12px;"></div>
+                    
+                    <div class="text-center">
+                        <button class="btn btn-secondary" onclick="showTab('study')">العودة للدراسة</button>
+                        <button class="btn btn-primary" onclick="showTab('models')">اختبار آخر</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2>سجل الاختبارات</h2>
+                    <div id="attempts-history"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mastery Dashboard Tab -->
+        <div id="mastery" class="tab-content">
+            <div id="mastery-empty" class="card text-center" style="padding: 60px 20px;">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" stroke-width="1.5" style="margin-bottom: 20px;">
+                    <path d="M12 20v-6M6 20V10M18 20V4"></path>
+                </svg>
+                <h3 style="color: var(--text-light); margin-bottom: 12px;">لوحة الإتقان</h3>
+                <p style="color: var(--text-light);">أكمل اختباراً لعرض تحليل مستوى إتقانك للمفاهيم</p>
+            </div>
+            
+            <div id="mastery-content" class="hidden">
+                <div class="card">
+                    <h2>مستوى إتقان المفاهيم</h2>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">الدرس الأول: مقدمة في التخطيط الأمني</p>
+                    
+                    <div class="mastery-chart" id="mastery-chart"></div>
+                    
+                    <div style="margin-top: 24px; padding: 16px; background: #f8fafc; border-radius: 8px;">
+                        <h4 style="margin-bottom: 12px;">دليل الألوان:</h4>
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 20px; height: 20px; background: var(--success); border-radius: 4px;"></div>
+                                <span>مُتقن (70%+)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 20px; height: 20px; background: var(--accent); border-radius: 4px;"></div>
+                                <span>قيد التطوير (40-69%)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 20px; height: 20px; background: var(--danger); border-radius: 4px;"></div>
+                                <span>ضعيف (<40%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" id="weak-concepts-card">
+                    <h2>التوصيات</h2>
+                    <div id="recommendations"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ==================== DATA: Question Bank ====================
+        const questionBank = [
+            // Concept 1-1: Security Planning Definition (4 questions)
+            {
+                id: "q1-1-1",
+                conceptId: "concept-1-1",
+                lesson: "الدرس الأول",
+                bloomLevel: "تذكر",
+                question: "ما هو تعريف التخطيط الأمني بشكل عام؟",
+                options: [
+                    "عملية عشوائية لحماية المنشآت",
+                    "عملية منظمة وعلمية ومدروسة لتحديد الأهداف والوسائل اللازمة لتحقيق الأمن والسلامة",
+                    "مجرد وضع حراس على الأبواب",
+                    "تنفيذ إجراءات أمنية بدون تخطيط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التخطيط الأمني هو عملية منظمة وعلمية ومدروسة لتحديد الأهداف والوسائل اللازمة لتحقيق الأمن والسلامة للأفراد والمنشآت والممتلكات.",
+                explanationWrong: [
+                    "التخطيط الأمني ليس عشوائياً بل هو عملية منظمة وممنهجة.",
+                    "صحيح",
+                    "التخطيط الأمني أشمل من مجرد حراسة الأبواب.",
+                    "التخطيط الأمني يتطلب تخطيطاً مسبقاً وليس إجراءات عشوائية."
+                ],
+                evidenceText: "عملية منظمة وعلمية ومدروسة لتحديد الأهداف والوسائل اللازمة لتحقيق الأمن والسلامة للأفراد والمنشآت والممتلكات من المخاطر المحتملة."
+            },
+            {
+                id: "q1-1-2",
+                conceptId: "concept-1-1",
+                lesson: "الدرس الأول",
+                bloomLevel: "فهم",
+                question: "ما الفرق الأساسي بين الأمن كحالة والتخطيط الأمني كعملية؟",
+                options: [
+                    "لا يوجد فرق بينهما",
+                    "الأمن حالة نفسية بينما التخطيط الأمني هو عملية استراتيجية منظمة",
+                    "التخطيط الأمني أهم من الأمن",
+                    "الأمن يتحقق بدون تخطيط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الأمن هو حالة نفسية من الطمأنينة، بينما التخطيط الأمني هو عملية استراتيجية منظمة لتحقيق هذه الحالة.",
+                explanationWrong: [
+                    "هناك فرق جوهري بينهما.",
+                    "صحيح",
+                    "كلاهما مكمل للآخر.",
+                    "الأمن يتطلب تخطيطاً منظماً لتحقيقه."
+                ],
+                evidenceText: "الأمن هو حالة من الاستقرار والطمأنينة يشعر فيها الفرد بأنه آمن على نفسه وماله."
+            },
+            {
+                id: "q1-1-3",
+                conceptId: "concept-1-1",
+                lesson: "الدرس الأول",
+                bloomLevel: "تطبيق",
+                question: "في سيناريو عملي، أي من التالي يمثل تخطيطاً أمنياً صحيحاً لمصرف؟",
+                options: [
+                    "توظيف حارس واحد فقط",
+                    "وضع خطة شاملة تشمل تحديد المخاطر والإجراءات الوقائية وخطط الطوارئ",
+                    "الاعتماد على الشرطة فقط",
+                    "تركيب كاميرات بدون تخطيط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التخطيط الأمني الصحيح يتطلب خطة شاملة تشمل جميع العناصر: تحديد المخاطر، الإجراءات الوقائية، وخطط الطوارئ.",
+                explanationWrong: [
+                    "الحراسة جزء فقط من الخطة الأمنية الشاملة.",
+                    "صحيح",
+                    "التخطيط الأمني مسؤولية المنشأة قبل الاستعانة بالخارج.",
+                    "الكاميرات جزء من النظام الأمني ولكنها تحتاج لتخطيط."
+                ],
+                evidenceText: "إعداد خطة أمنية لمنشأة معينة لحماية الأفراد والمنشآت والممتلكات من المخاطر المحتملة بشكل علمي وعملي."
+            },
+            {
+                id: "q1-1-4",
+                conceptId: "concept-1-1",
+                lesson: "الدرس الأول",
+                bloomLevel: "تحليل",
+                question: "لماذا يُعتبر التخطيط الأمني 'عملية استراتيجية' وليس مجرد إجراءات يومية؟",
+                options: [
+                    "لأنه يتطلب موارد مالية كبيرة فقط",
+                    "لأنه يتضمن رؤية مستقبلية وتحديد أهداف طويلة المدى ووسائل تحقيقها",
+                    "لأنه يتم مرة واحدة فقط",
+                    "لأنه لا يتطلب مراجعة"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التخطيط الأمني استراتيجي لأنه يتضمن رؤية مستقبلية وتحديد أهداف طويلة المدى ووسائل تحقيقها بشكل منظم.",
+                explanationWrong: [
+                    "الموارد المالية جزء من التخطيط وليست السبب الوحيد.",
+                    "صحيح",
+                    "التخطيط الأمني عملية مستمرة وليست لمرة واحدة.",
+                    "التخطيط الأمني يتطلب مراجعة وتطوير مستمر."
+                ],
+                evidenceText: "التخطيط الأمني كعملية استراتيجية منظمة لتحقيق الأمن والسلامة للأفراد والمنشآت."
+            },
+            
+            // Concept 1-2: Security Planning Foundations (4 questions)
+            {
+                id: "q1-2-1",
+                conceptId: "concept-1-2",
+                lesson: "الدرس الأول",
+                bloomLevel: "تذكر",
+                question: "ما هي أولى أسس التخطيط الأمني؟",
+                options: [
+                    "وضع خطط للاستجابة",
+                    "التنبؤ بالتهديدات",
+                    "التنسيق بين الجهات",
+                    "تحديد المخاطر"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التنبؤ بالتهديدات هو الأساس الأول للتخطيط الأمني، حيث يتم تحديد ما قد يواجه المنشأة من مخاطر محتملة.",
+                explanationWrong: [
+                    "الاستجابة تأتي بعد التنبؤ وتحديد المخاطر.",
+                    "صحيح",
+                    "التنسيق يأتي في مراحل لاحقة.",
+                    "تحديد المخاطر يأتي بعد التنبؤ بالتهديدات."
+                ],
+                evidenceText: "التنبؤ بالتهديدات، تحديد المخاطر وترتيبها، وضع إجراءات وقائية واستباقية."
+            },
+            {
+                id: "q1-2-2",
+                conceptId: "concept-1-2",
+                lesson: "الدرس الأول",
+                bloomLevel: "فهم",
+                question: "ما الفرق بين الإجراءات الوقائية والإجراءات الاستباقية في التخطيط الأمني؟",
+                options: [
+                    "لا فرق بينهما",
+                    "الوقائية تمنع الحدوث، والاستباقية تستعد له قبل وقوعه",
+                    "الاستباقية بعد الحادث والوقائية قبله",
+                    "كلاهما يتم بعد الحادث"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الإجراءات الوقائية تهدف لمنع حدوث المخاطر، بينما الاستباقية تستعد للتعامل مع المخاطر قبل وقوعها.",
+                explanationWrong: [
+                    "هناك فرق واضح بين المفهومين.",
+                    "صحيح",
+                    "الاستباقية قبل الحادث وليس بعده.",
+                    "كلاهما قبل الحادث."
+                ],
+                evidenceText: "وضع إجراءات وقائية واستباقية، وضع خطط للاستجابة والتعافي بعد الحوادث."
+            },
+            {
+                id: "q1-2-3",
+                conceptId: "concept-1-2",
+                lesson: "الدرس الأول",
+                bloomLevel: "تطبيق",
+                question: "في منشأة صناعية، أي من التالي يمثل إجراءً استباقياً؟",
+                options: [
+                    "إصلاح الأضرار بعد الحريق",
+                    "إجراء تدريبات دورية للعاملين على الإخلاء",
+                    "استدعاء الشرطة بعد السرقة",
+                    "ترميم المبنى بعد التلف"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التدريبات الدورية على الإخلاء إجراء استباقي يستعد للتعامل مع الحوادث المحتملة قبل وقوعها.",
+                explanationWrong: [
+                    "الإصلاح بعد الحادث ليس استباقياً.",
+                    "صحيح",
+                    "استدعاء الشرطة بعد الحادث رد فعل وليس استباقاً.",
+                    "الترميم بعد التلف ليس إجراءً استباقياً."
+                ],
+                evidenceText: "وضع خطط للاستجابة والتعافي بعد الحوادث، الإجراءات الاستباقية تستعد للتعامل مع المخاطر."
+            },
+            {
+                id: "q1-2-4",
+                conceptId: "concept-1-2",
+                lesson: "الدرس الأول",
+                bloomLevel: "تحليل",
+                question: "لماذا يُعتبر التنسيق بين الجهات الأمنية والإدارية والتقنية من أسس التخطيط الأمني؟",
+                options: [
+                    "لأنه إجراء شكلي فقط",
+                    "لأن نجاح الخطة الأمنية يتطلب تكاملاً بين جميع الجهات المعنية",
+                    "لأنه يقلل من المسؤولية",
+                    "لأنه يزيد من التكلفة"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التنسيق ضروري لأن نجاح الخطة الأمنية يتطلب تكاملاً وتعاوناً بين جميع الجهات الأمنية والإدارية والتقنية.",
+                explanationWrong: [
+                    "التنسيق ليس شكلياً بل هو جوهري لنجاح الخطة.",
+                    "صحيح",
+                    "التنسيق يوضح المسؤوليات وليس يقللها.",
+                    "التنسيق يقلل التكلفة عبر تجنب التكرار."
+                ],
+                evidenceText: "التنسيق بين الجهات الأمنية والإدارية والتقنية من أسس التخطيط الأمني."
+            },
+            
+            // Concept 1-3: Security Characteristics (4 questions)
+            {
+                id: "q1-3-1",
+                conceptId: "concept-1-3",
+                lesson: "الدرس الأول",
+                bloomLevel: "تذكر",
+                question: "كم خاصية رئيسية للأمن تم ذكرها في المقرر؟",
+                options: [
+                    "4 خصائص",
+                    "5 خصائص",
+                    "6 خصائص",
+                    "7 خصائص"
+                ],
+                correctIndex: 2,
+                explanationCorrect: "تم ذكر 6 خصائص رئيسية للأمن في المقرر: الحالة الاستباقية والرادعة، الوسيلة لتحقيق حالة الأمن، علاج الحوادث، الوقاية، قصير وطويل المدى، مراقبة المنشأة.",
+                explanationWrong: [
+                    "العدد أكثر من 4.",
+                    "العدد أكثر من 5.",
+                    "صحيح",
+                    "العدد هو 6 وليس 7."
+                ],
+                evidenceText: "خصائص الأمن الست: الحالة الاستباقية والرادعة، الوسيلة لتحقيق حالة الأمن، علاج الحوادث، الوقاية، قصير وطويل المدى، مراقبة المنشأة."
+            },
+            {
+                id: "q1-3-2",
+                conceptId: "concept-1-3",
+                lesson: "الدرس الأول",
+                bloomLevel: "فهم",
+                question: "ما معنى 'الأمن كوسيلة لتحقيق حالة الأمن'؟",
+                options: [
+                    "الأمن غير مهم",
+                    "الأمن وسيلة تساعد على تحقيق الاستقرار والطمأنينة",
+                    "الأمن هو الهدف النهائي فقط",
+                    "الأمن لا يحتاج إلى وسائل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الأمن يُعتبر وسيلة تساعد على تحقيق حالة الاستقرار والطمأنينة للأفراد والمنشآت.",
+                explanationWrong: [
+                    "الأمن مهم جداً.",
+                    "صحيح",
+                    "الأمن وسيلة وهدف في آن واحد.",
+                    "الأمن يحتاج إلى وسائل وإجراءات."
+                ],
+                evidenceText: "الوسيلة لتحقيق حالة الأمن: يتطلب دراسة وتحليل وإجراءات استراتيجية."
+            },
+            {
+                id: "q1-3-3",
+                conceptId: "concept-1-3",
+                lesson: "الدرس الأول",
+                bloomLevel: "تطبيق",
+                question: "أي من السيناريوهات التالية يعكس خاصية 'الوقاية من الحوادث قبل وقوعها'؟",
+                options: [
+                    "معالجة إصابة عامل بعد الحادث",
+                    "تركيب نظام إنذار حريق وإجراء تدريبات دورية",
+                    "إصلاح المعدات بعد العطل",
+                    "تحليل سبب الحادث بعد وقوعه"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "تركيب نظام إنذار حريق والتدريبات الدورية يعكس الوقاية من الحوادث قبل وقوعها.",
+                explanationWrong: [
+                    "معالجة الإصابة بعد الحادث ليس وقاية.",
+                    "صحيح",
+                    "الإصلاح بعد العطل ليس وقاية.",
+                    "التحليل بعد الحادث ليس وقاية."
+                ],
+                evidenceText: "الوقاية من الحوادث قبل وقوعها: يحاول الوقاية من الحوادث قبل حدوثها."
+            },
+            {
+                id: "q1-3-4",
+                conceptId: "concept-1-3",
+                lesson: "الدرس الأول",
+                bloomLevel: "تحليل",
+                question: "كيف تتكامل خاصيتا 'قصير المدى' و'طويل المدى' في التخطيط الأمني؟",
+                options: [
+                    "لا تتكاملان",
+                    "الإجراءات قصيرة المدى تدعم تحقيق الأهداف طويلة المدى",
+                    "أحدهما أهم من الآخر",
+                    "يتم تطبيق واحدة فقط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الإجراءات قصيرة المدى (المباشرة) تدعم وتساهم في تحقيق الأهداف والاستراتيجيات طويلة المدى.",
+                explanationWrong: [
+                    "الخصيتان متكاملتان.",
+                    "صحيح",
+                    "كلاهما مهم ومتكامل.",
+                    "كلاهما يُطبق معاً."
+                ],
+                evidenceText: "قصير المدى ومستمر طويل المدى: إجراءات أمنية مباشرة ومتابعة مستمرة."
+            },
+            
+            // Concept 1-4: Importance of Security Planning (4 questions)
+            {
+                id: "q1-4-1",
+                conceptId: "concept-1-4",
+                lesson: "الدرس الأول",
+                bloomLevel: "تذكر",
+                question: "ما أولى أهميات التخطيط الأمني المذكورة في المقرر؟",
+                options: [
+                    "حماية الأرواح",
+                    "الوقاية من المخاطر والحوادث",
+                    "تعزيز السمعة",
+                    "تحقيق الالتزام"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "أولى أهميات التخطيط الأمني هي الوقاية من المخاطر والحوادث من خلال تقليل احتمالية الخسائر.",
+                explanationWrong: [
+                    "حماية الأرواح أهمية رئيسية ولكنها الثالثة.",
+                    "صحيح",
+                    "تعزيز السمعة أهمية ولكنها الرابعة.",
+                    "الالتزام أهمية ولكنه الثالث."
+                ],
+                evidenceText: "الوقاية من المخاطر والحوادث: تقليل احتمالية الخسائر الداخلية والخارجية."
+            },
+            {
+                id: "q1-4-2",
+                conceptId: "concept-1-4",
+                lesson: "الدرس الأول",
+                bloomLevel: "فهم",
+                question: "كيف يساهم التخطيط الأمني في 'تعزيز سمعة المنشأة'؟",
+                options: [
+                    "عن طريق الإعلان فقط",
+                    "من خلال بناء بيئة آمنة ترفع مستوى الثقة لدى العملاء والعاملين",
+                    "عن طريق تقليل الموظفين",
+                    "من خلال رفع الأسعار"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التخطيط الأمني يعزز السمعة من خلال بناء بيئة آمنة ترفع مستوى الثقة لدى العملاء والعاملين والشركاء.",
+                explanationWrong: [
+                    "الإعلان وحده لا يكفي.",
+                    "صحيح",
+                    "تقليل الموظفين لا يرتبط بالسمعة الأمنية.",
+                    "رفع الأسعار لا يرتبط بالتخطيط الأمني."
+                ],
+                evidenceText: "تعزيز سمعة المنشأة: بناء بيئة آمنة ورفع مستوى الثقة."
+            },
+            {
+                id: "q1-4-3",
+                conceptId: "concept-1-4",
+                lesson: "الدرس الأول",
+                bloomLevel: "تطبيق",
+                question: "في حالة حريق في مصنع، أي أهمية من أهميات التخطيط الأمني تكون الأكثر حيوية؟",
+                options: [
+                    "تعزيز السمعة",
+                    "حماية الأرواح",
+                    "التحقق من الالتزام",
+                    "تقليل الخسائر المالية"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "في حالة الحريق، حماية الأرواح تكون الأولوية القصوى من خلال الإخلاء الآمن والإنذار المبكر.",
+                explanationWrong: [
+                    "السمعة مهمة ولكن ليست الأولوية في حالة الطوارئ.",
+                    "صحيح",
+                    "الالتزام مهم ولكن ليس الأولوية المباشرة.",
+                    "الخسائر المالية مهمة ولكن الأرواح أولى."
+                ],
+                evidenceText: "حماية الأرواح: إخلاء آمن وإنذار مبكر وتوفير وسائل الإطفاء."
+            },
+            {
+                id: "q1-4-4",
+                conceptId: "concept-1-4",
+                lesson: "الدرس الأول",
+                bloomLevel: "تحليل",
+                question: "كيف ترتبط أهمية 'تعزيز القدرة على الاستجابة السريعة' ببقية الأهميات؟",
+                options: [
+                    "لا ترتبط",
+                    "هي حلقة وصل بين الوقاية والتعافي",
+                    "أقل أهمية من غيرها",
+                    "تأتي في النهاية فقط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الاستجابة السريعة هي حلقة وصل حاسمة بين الوقاية (قبل الحادث) والتعافي (بعد الحادث).",
+                explanationWrong: [
+                    "ترتبط ارتباطاً وثيقاً بالأهميات الأخرى.",
+                    "صحيح",
+                    "جميع الأهميات متكافئة ومتكاملة.",
+                    "تأتي في جميع مراحل التخطيط."
+                ],
+                evidenceText: "تعزيز القدرة على الاستجابة السريعة: تقليل زمن التعامل مع الأزمات."
+            },
+            
+            // Concept 1-5: Planning Process Elements (4 questions)
+            {
+                id: "q1-5-1",
+                conceptId: "concept-1-5",
+                lesson: "الدرس الأول",
+                bloomLevel: "تذكر",
+                question: "كم عدد عناصر عملية التخطيط الأمني المذكورة في المقرر؟",
+                options: [
+                    "5 عناصر",
+                    "6 عناصر",
+                    "7 عناصر",
+                    "8 عناصر"
+                ],
+                correctIndex: 2,
+                explanationCorrect: "تم ذكر 7 عناصر رئيسية لعملية التخطيط الأمني في المقرر.",
+                explanationWrong: [
+                    "العدد أكبر من 5.",
+                    "العدد أكبر من 6.",
+                    "صحيح",
+                    "العدد هو 7 وليس 8."
+                ],
+                evidenceText: "عناصر عملية التخطيط: المؤسسات الحيوية، المنافذ والموانئ، المستشفيات، المنشآت المالية، الفعاليات الرياضية، مراكز البيانات، الآبار النفطية."
+            },
+            {
+                id: "q1-5-2",
+                conceptId: "concept-1-5",
+                lesson: "الدرس الأول",
+                bloomLevel: "فهم",
+                question: "لماذا تُعتبر المؤسسات الحيوية والموارد الحساسة من عناصر عملية التخطيط؟",
+                options: [
+                    "لأنها مكلفة فقط",
+                    "لأنها ضرورية لاستمرار الدولة والمجتمع",
+                    "لأنها كبيرة الحجم",
+                    "لأنها قديمة"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "المؤسسات الحيوية ضرورية لاستمرار الدولة والمجتمع، لذا يجب حمايتها بشكل خاص.",
+                explanationWrong: [
+                    "التكلفة ليست المعيار الوحيد.",
+                    "صحيح",
+                    "الحجم ليس المعيار.",
+                    "العمر ليس المعيار."
+                ],
+                evidenceText: "المؤسسات الحيوية والموارد الحساسة: ضرورية لاستمرار الدولة."
+            },
+            {
+                id: "q1-5-3",
+                conceptId: "concept-1-5",
+                lesson: "الدرس الأول",
+                bloomLevel: "تطبيق",
+                question: "أي من العناصر السبعة يحتاج إلى تخطيط أمني خاص في فعالية رياضية كبرى؟",
+                options: [
+                    "المستشفيات",
+                    "الفعاليات الرياضية الهامة",
+                    "المنشآت المالية",
+                    "الآبار النفطية"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الفعاليات الرياضية الهامة تحتاج إلى تخطيط أمني خاص بسبب تجمع الجماهير الكبير.",
+                explanationWrong: [
+                    "المستشفيات مهمة ولكن ليست العنصر المباشر للفعاليات.",
+                    "صحيح",
+                    "المنشآت المالية ليست العنصر المناسب.",
+                    "الآبار النفطية ليست العنصر المناسب."
+                ],
+                evidenceText: "الفعاليات الرياضية الهامة: تتطلب تخطيطاً أمنياً خاصاً لحماية الجماهير."
+            },
+            {
+                id: "q1-5-4",
+                conceptId: "concept-1-5",
+                lesson: "الدرس الأول",
+                bloomLevel: "تحليل",
+                question: "كيف تتكامل عناصر عملية التخطيط الأمني السبعة معاً؟",
+                options: [
+                    "كل عنصر منفصل",
+                    "تتكامل لتشكل منظومة أمنية شاملة",
+                    "بعضها أهم من البعض",
+                    "لا حاجة للتكامل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "العناصر السبعة تتكامل لتشكل منظومة أمنية شاملة تحمي جميع جوانب الدولة والمجتمع.",
+                explanationWrong: [
+                    "العناصر مترابطة ومتكاملة.",
+                    "صحيح",
+                    "جميع العناصر مهمة ومتكافئة.",
+                    "التكامل ضروري لنجاح الخطة."
+                ],
+                evidenceText: "عناصر عملية التخطيط الأمني السبعة تتكامل لتشكل منظومة أمنية شاملة."
+            },
+            
+            // Concept 1-6: Requirements of Security Planning Management (4 questions)
+            {
+                id: "q1-6-1",
+                conceptId: "concept-1-6",
+                lesson: "الدرس الأول",
+                bloomLevel: "تذكر",
+                question: "كم متطلباً لإدارة التخطيط الأمني تم ذكرها في المقرر؟",
+                options: [
+                    "5 متطلبات",
+                    "6 متطلبات",
+                    "7 متطلبات",
+                    "8 متطلبات"
+                ],
+                correctIndex: 2,
+                explanationCorrect: "تم ذكر 7 متطلبات رئيسية لإدارة التخطيط الأمني في المقرر.",
+                explanationWrong: [
+                    "العدد أكبر من 5.",
+                    "العدد أكبر من 6.",
+                    "صحيح",
+                    "العدد هو 7 وليس 8."
+                ],
+                evidenceText: "متطلبات إدارة التخطيط الأمني: القدرة على الملاحظة والتحليل، التركيز الاستراتيجي، إدارة الوقت والموارد، المعرفة بالتقنيات الحديثة، تحمل المسؤولية، الالتزام بالنزاهة والشرف المهني، التطوير المستمر."
+            },
+            {
+                id: "q1-6-2",
+                conceptId: "concept-1-6",
+                lesson: "الدرس الأول",
+                bloomLevel: "فهم",
+                question: "لماذا يُعتبر 'التركيز الاستراتيجي' من متطلبات إدارة التخطيط الأمني؟",
+                options: [
+                    "لأنه يزيد من التكلفة",
+                    "لأن التخطيط يتطلب رؤية طويلة المدى وأهدافاً واضحة",
+                    "لأنه يقلل من عدد الموظفين",
+                    "لأنه غير مهم"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التركيز الاستراتيجي مهم لأن التخطيط الأمني يتطلب رؤية طويلة المدى وأهدافاً واضحة لتحقيق الأمن.",
+                explanationWrong: [
+                    "التركيز الاستراتيجي يقلل التكلفة على المدى الطويل.",
+                    "صحيح",
+                    "التركيز الاستراتيجي لا يرتبط بعدد الموظفين.",
+                    "التركيز الاستراتيجي مهم جداً."
+                ],
+                evidenceText: "التركيز الاستراتيجي: رؤية طويلة المدى وأهداف واضحة."
+            },
+            {
+                id: "q1-6-3",
+                conceptId: "concept-1-6",
+                lesson: "الدرس الأول",
+                bloomLevel: "تطبيق",
+                question: "أي من المتطلبات السبعة يُعتبر الأكثر أهمية عند التعامل مع تهديد إلكتروني؟",
+                options: [
+                    "تحمل المسؤولية فقط",
+                    "المعرفة بالتقنيات الحديثة",
+                    "الالتزام بالنزاهة فقط",
+                    "إدارة الوقت فقط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "المعرفة بالتقنيات الحديثة ضرورية جداً عند التعامل مع التهديدات الإلكترونية.",
+                explanationWrong: [
+                    "تحمل المسؤولية مهم ولكن المعرفة التقنية أساسية.",
+                    "صحيح",
+                    "النزاهة مهمة ولكن المعرفة التقنية أساسية.",
+                    "إدارة الوقت مهمة ولكن المعرفة التقنية أساسية."
+                ],
+                evidenceText: "المعرفة بالتقنيات الحديثة: ضرورية للتعامل مع التهديدات الحديثة."
+            },
+            {
+                id: "q1-6-4",
+                conceptId: "concept-1-6",
+                lesson: "الدرس الأول",
+                bloomLevel: "تحليل",
+                question: "كيف تتكامل متطلبات 'الالتزام بالنزاهة' و'تحمل المسؤولية' في إدارة التخطيط الأمني؟",
+                options: [
+                    "لا تتكاملان",
+                    "النزاهة توفر الأساس الأخلاقي والمسؤولية توفر الإطار التنفيذي",
+                    "أحدهما أهم من الآخر",
+                    "كلاهما غير مهم"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "النزاهة توفر الأساس الأخلاقي للتخطيط، بينما تحمل المسؤولية يوفر الإطار التنفيذي لتطبيق الخطة.",
+                explanationWrong: [
+                    "المتطلبان متكاملان.",
+                    "صحيح",
+                    "كلاهما مهم ومتكامل.",
+                    "كلاهما مهم جداً."
+                ],
+                evidenceText: "الالتزام بالنزاهة والشرف المهني، تحمل المسؤولية: متطلبان متكاملان."
+            },
+            
+            // Concept 1-7: Challenges of Security Planning (4 questions)
+            {
+                id: "q1-7-1",
+                conceptId: "concept-1-7",
+                lesson: "الدرس الأول",
+                bloomLevel: "تذكر",
+                question: "كم تحدياً للتخطيط الأمني تم ذكرها في المقرر؟",
+                options: [
+                    "3 تحديات",
+                    "4 تحديات",
+                    "5 تحديات",
+                    "6 تحديات"
+                ],
+                correctIndex: 2,
+                explanationCorrect: "تم ذكر 5 تحديات رئيسية للتخطيط الأمني في المقرر.",
+                explanationWrong: [
+                    "العدد أكبر من 3.",
+                    "العدد أكبر من 4.",
+                    "صحيح",
+                    "العدد هو 5 وليس 6."
+                ],
+                evidenceText: "تحديات التخطيط الأمني: تطور التقنيات والتهديدات الإلكترونية، نقص الوعي الأمني، تغير الأنظمة والتشريعات، صعوبة التنسيق، التعامل مع الأزمات الطارئة."
+            },
+            {
+                id: "q1-7-2",
+                conceptId: "concept-1-7",
+                lesson: "الدرس الأول",
+                bloomLevel: "فهم",
+                question: "لماذا يُعتبر 'تطور التقنيات والتهديدات الإلكترونية' تحدياً رئيسياً؟",
+                options: [
+                    "لأنه لا يؤثر",
+                    "لأن سرعة التطور تجعل من الصعب مواكبة التهديدات الجديدة",
+                    "لأنه تحدٍ قديم",
+                    "لأنه سهل الحل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "سرعة تطور التقنيات والتهديدات الإلكترونية تجعل من الصعب مواكبة الحماية ضد التهديدات الجديدة.",
+                explanationWrong: [
+                    "التطور التقني يؤثر بشكل كبير.",
+                    "صحيح",
+                    "هو تحدٍ حديث ومستمر.",
+                    "هو تحدٍ معقد ويحتاج لجهود مستمرة."
+                ],
+                evidenceText: "تطور التقنيات والتهديدات الإلكترونية: سرعة التطور تجعل المواكبة صعبة."
+            },
+            {
+                id: "q1-7-3",
+                conceptId: "concept-1-7",
+                lesson: "الدرس الأول",
+                bloomLevel: "تطبيق",
+                question: "ما الحل الأنسب لتحدي 'نقص الوعي الأمني لدى العاملين'؟",
+                options: [
+                    "فصل الموظفين",
+                    "إجراء برامج تدريبية دورية على الأمن والسلامة",
+                    "تجاهل المشكلة",
+                    "زيادة العقوبات فقط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "برامج التدريب الدورية هي الحل الأنسب لرفع الوعي الأمني لدى العاملين.",
+                explanationWrong: [
+                    "الفصل ليس حلاً عملياً.",
+                    "صحيح",
+                    "التجاهل يزيد المشكلة.",
+                    "العقوبات وحدها غير كافية."
+                ],
+                evidenceText: "نقص الوعي الأمني لدى العاملين: يمكن معالجته بالتدريب الدوري."
+            },
+            {
+                id: "q1-7-4",
+                conceptId: "concept-1-7",
+                lesson: "الدرس الأول",
+                bloomLevel: "تحليل",
+                question: "كيف ترتبط تحديات التخطيط الأمني الخمسة ببعضها؟",
+                options: [
+                    "كل تحدٍ منفصل",
+                    "ترتبط بشكل متسلسل حيث يؤدي أحدهما إلى الآخر",
+                    "بعضها أهم من البعض",
+                    "لا ترتبط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التحديات مترابطة بشكل متسلسل، فتطور التقنيات قد يؤدي إلى نقص الوعي، مما يزيد صعوبة التنسيق.",
+                explanationWrong: [
+                    "التحديات مترابطة.",
+                    "صحيح",
+                    "جميع التحديات مهمة.",
+                    "التحديات مترابطة ارتباطاً وثيقاً."
+                ],
+                evidenceText: "تحديات التخطيط الأمني مترابطة وتتأثر ببعضها البعض."
+            },
+            
+            // Concept 2-1: Security Concept (4 questions)
+            {
+                id: "q2-1-1",
+                conceptId: "concept-2-1",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تذكر",
+                question: "ما هو تعريف الأمن في المقرر؟",
+                options: [
+                    "مجرد حراسة المباني",
+                    "حالة من الاستقرار والطمأنينة يشعر فيها الفرد بأنه آمن على نفسه وماله",
+                    "تنفيذ إجراءات عشوائية",
+                    "الاعتماد على الشرطة فقط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الأمن هو حالة من الاستقرار والطمأنينة يشعر فيها الفرد بأنه آمن على نفسه وماله، بعيداً عن أي خطر.",
+                explanationWrong: [
+                    "الحراسة جزء فقط من الأمن.",
+                    "صحيح",
+                    "الأمن منظم وليس عشوائياً.",
+                    "الأمن مسؤولية مشتركة."
+                ],
+                evidenceText: "الأمن هو حالة من الاستقرار والطمأنينة يشعر فيها الفرد بأنه آمن على نفسه وماله، بعيداً عن أي خطر يهدده."
+            },
+            {
+                id: "q2-1-2",
+                conceptId: "concept-2-1",
+                lesson: "الدرس الثاني",
+                bloomLevel: "فهم",
+                question: "ما الفرق بين الأمن النفسي والأمن العام؟",
+                options: [
+                    "لا فرق بينهما",
+                    "الأمن النفسي يقوم بالرفاهية النفسية للفرد، والأمن العام يشمل المستوى العام للمجتمع",
+                    "الأمن النفسي أهم من العام",
+                    "الأمن العام غير مهم"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الأمن النفسي يركز على الرفاهية النفسية للفرد، بينما الأمن العام يشمل المستوى العام للمجتمع.",
+                explanationWrong: [
+                    "هناك فرق واضح بينهما.",
+                    "صحيح",
+                    "كلاهما مهم.",
+                    "الأمن العام مهم جداً."
+                ],
+                evidenceText: "الأمن النفسي: يقوم بالرفاهية النفسية للفرد. الأمن العام: يشمل الأمن والأمان على المستوى العام للمجتمع."
+            },
+            {
+                id: "q2-1-3",
+                conceptId: "concept-2-1",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تطبيق",
+                question: "أي نوع من أنواع الأمن يكون الأكثر أهمية لموظف يعمل في منشأة عسكرية؟",
+                options: [
+                    "الأمن النفسي فقط",
+                    "الأمن الشخصي والعام معاً",
+                    "الأمن الشخصي فقط",
+                    "لا أمن مطلوب"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "في المنشأة العسكرية، يكون الأمن الشخصي (للحماية من التهديدات المباشرة) والأمن العام (لحماية المنشأة) مهمان معاً.",
+                explanationWrong: [
+                    "الأمن النفسي مهم ولكن ليس الوحيد.",
+                    "صحيح",
+                    "الأمن الشخصي مهم ولكن العام أيضاً مهمة.",
+                    "الأمن ضروري جداً."
+                ],
+                evidenceText: "الأمن الشخصي: يقوم على حماية الفرد من التهديدات المباشرة. الأمن العام: يشمل المستوى العام للمجتمع."
+            },
+            {
+                id: "q2-1-4",
+                conceptId: "concept-2-1",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تحليل",
+                question: "كيف تتكامل أنواع الأمن الثلاثة (النفسي، العام، الشخصي) معاً؟",
+                options: [
+                    "كل نوع منفصل",
+                    "تتكامل لتوفير حماية شاملة للفرد والمجتمع",
+                    "أحدهما أهم من الآخر",
+                    "لا حاجة للتكامل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "أنواع الأمن الثلاثة تتكامل لتوفير حماية شاملة: النفسي للرفاهية، العام للمجتمع، الشخصي للحماية الفردية.",
+                explanationWrong: [
+                    "الأنواع مترابطة.",
+                    "صحيح",
+                    "جميع الأنواع مهمة.",
+                    "التكامل ضروري."
+                ],
+                evidenceText: "أنواع الأمن: النفسي، العام، الشخصي - تتكامل لتوفير حماية شاملة."
+            },
+            
+            // Concept 2-2: Types of Security by Geographic Level (4 questions)
+            {
+                id: "q2-2-1",
+                conceptId: "concept-2-2",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تذكر",
+                question: "كم نوعاً للأمن حسب المستوى الجغرافي تم ذكره في المقرر؟",
+                options: [
+                    "2 نوع",
+                    "3 أنواع",
+                    "4 أنواع",
+                    "5 أنواع"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "تم ذكر 3 أنواع للأمن حسب المستوى الجغرافي: القومي، الإقليمي، الدولي.",
+                explanationWrong: [
+                    "العدد أكبر من 2.",
+                    "صحيح",
+                    "العدد هو 3 وليس 4.",
+                    "العدد هو 3 وليس 5."
+                ],
+                evidenceText: "أنواع الأمن حسب المستوى الجغرافي: الأمن القومي، الأمن الإقليمي، الأمن الدولي."
+            },
+            {
+                id: "q2-2-2",
+                conceptId: "concept-2-2",
+                lesson: "الدرس الثاني",
+                bloomLevel: "فهم",
+                question: "ما الفرق بين الأمن القومي والأمن الإقليمي؟",
+                options: [
+                    "لا فرق بينهما",
+                    "القومي يخص دولة واحدة، والإقليمي يشمل عدة دول في قاطن جغرافي واحد",
+                    "الإقليمي أهم من القومي",
+                    "القومي غير مهم"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الأمن القومي يخص دولة واحدة، بينما الأمن الإقليمي يشمل عدة دول في قاطن جغرافي واحد.",
+                explanationWrong: [
+                    "هناك فرق واضح.",
+                    "صحيح",
+                    "كلاهما مهم.",
+                    "القومي مهم جداً."
+                ],
+                evidenceText: "الأمن القومي: يتمتع بالوصول إلى الظروف التي تساعد على تحقيق أهداف الدولة. الأمن الإقليمي: يشترك فيه عدد من الدول في قاطن جغرافي واحد."
+            },
+            {
+                id: "q2-2-3",
+                conceptId: "concept-2-2",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تطبيق",
+                question: "أي نوع من أنواع الأمن يكون الأكثر أهمية في حالة تعاون دول الخليج العربي؟",
+                options: [
+                    "الأمن القومي فقط",
+                    "الأمن الإقليمي",
+                    "الأمن الدولي فقط",
+                    "لا أمن مطلوب"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "في حالة تعاون دول الخليج، يكون الأمن الإقليمي الأكثر أهمية لأنه يشمل التعاون بين دول المنطقة.",
+                explanationWrong: [
+                    "القومي مهم ولكن الإقليمي أكثر ملاءمة.",
+                    "صحيح",
+                    "الدولي أوسع من اللازم.",
+                    "الأمن ضروري."
+                ],
+                evidenceText: "الأمن الإقليمي: يشترك فيه عدد من الدول في قاطن جغرافي واحد."
+            },
+            {
+                id: "q2-2-4",
+                conceptId: "concept-2-2",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تحليل",
+                question: "كيف تتكامل أنواع الأمن الثلاثة (القومي، الإقليمي، الدولي) في حماية المصالح؟",
+                options: [
+                    "كل نوع منفصل",
+                    "تتكامل حيث يشكل القومي الأساس والإقليمي التعاون والدولي الإطار العالمي",
+                    "الدولي أهم من غيره",
+                    "لا تتكامل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الأنواع تتكامل: القومي يحمي مصالح الدولة، الإقليمي يسهل التعاون، الدولي يوفر الإطار العالمي.",
+                explanationWrong: [
+                    "الأنواع مترابطة.",
+                    "صحيح",
+                    "جميع الأنواع مهمة.",
+                    "التكامل ضروري."
+                ],
+                evidenceText: "أنواع الأمن القومي والإقليمي والدولي تتكامل لحماية المصالح على المستويات كافة."
+            },
+            
+            // Concept 2-3: Critical Facilities (4 questions)
+            {
+                id: "q2-3-1",
+                conceptId: "concept-2-3",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تذكر",
+                question: "كم نوعاً من المنشآت المهمة تم ذكره في المقرر؟",
+                options: [
+                    "4 أنواع",
+                    "5 أنواع",
+                    "6 أنواع",
+                    "7 أنواع"
+                ],
+                correctIndex: 2,
+                explanationCorrect: "تم ذكر 6 أنواع من المنشآت المهمة: العامة، الإعلامية، الاقتصادية، العسكرية، الحيوية، غير الحيوية.",
+                explanationWrong: [
+                    "العدد أكبر من 4.",
+                    "العدد أكبر من 5.",
+                    "صحيح",
+                    "العدد هو 6 وليس 7."
+                ],
+                evidenceText: "أنواع المنشآت المهمة: العامة، الإعلامية، الاقتصادية، العسكرية، الحيوية، غير الحيوية."
+            },
+            {
+                id: "q2-3-2",
+                conceptId: "concept-2-3",
+                lesson: "الدرس الثاني",
+                bloomLevel: "فهم",
+                question: "ما الفرق بين المنشآت الحيوية وغير الحيوية؟",
+                options: [
+                    "لا فرق بينهما",
+                    "الحيوية تقدم خدمات مهمة لاستمرار الدولة، وغير الحيوية لا تؤثر بشكل مباشر",
+                    "غير الحيوية أهم",
+                    "الحيوية غير مهمة"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "المنشآت الحيوية تقدم خدمات مهمة لاستمرار الدولة، بينما غير الحيوية لا تؤثر على استمرار الدولة بشكل مباشر.",
+                explanationWrong: [
+                    "هناك فرق واضح.",
+                    "صحيح",
+                    "الحيوية أهم.",
+                    "الحيوية مهمة جداً."
+                ],
+                evidenceText: "المنشآت الحيوية: تقدم خدمات مهمة لاستمرار الدولة. المنشآت غير الحيوية: لا تؤثر على استمرار الدولة بشكل مباشر."
+            },
+            {
+                id: "q2-3-3",
+                conceptId: "concept-2-3",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تطبيق",
+                question: "أي نوع من المنشآت المهمة يُعتبر محطة توليد الكهرباء الرئيسية؟",
+                options: [
+                    "المنشأة الإعلامية",
+                    "المنشأة الحيوية",
+                    "المنشأة العسكرية",
+                    "المنشأة غير الحيوية"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "محطة توليد الكهرباء تُعتبر منشأة حيوية لأنها تقدم خدمة أساسية لاستمرار الدولة.",
+                explanationWrong: [
+                    "الإعلامية للأنشطة الإعلامية.",
+                    "صحيح",
+                    "العسكرية للأنشطة العسكرية.",
+                    "الكهرباء حيوية وليست غير حيوية."
+                ],
+                evidenceText: "المنشآت الحيوية: تقدم خدمات مهمة لاستمرار الدولة مثل الكهرباء والماء."
+            },
+            {
+                id: "q2-3-4",
+                conceptId: "concept-2-3",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تحليل",
+                question: "كيف تتكامل أنواع المنشآت المهمة الستة في دعم الاقتصاد الوطني؟",
+                options: [
+                    "كل نوع منفصل",
+                    "تتكامل حيث تدعم المنشآت الاقتصادية الأساس والعسكرية الحماية والعامة الخدمات",
+                    "العسكرية فقط هي المهمة",
+                    "لا تتكامل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "المنشآت تتكامل: الاقتصادية تدعم الاقتصاد، العسكرية توفر الحماية، العامة تقدم الخدمات الأساسية.",
+                explanationWrong: [
+                    "المنشآت مترابطة.",
+                    "صحيح",
+                    "جميع المنشآت مهمة.",
+                    "التكامل ضروري."
+                ],
+                evidenceText: "المنشآت المهمة تتكامل لدعم الاقتصاد الوطني وتوفير الخدمات الأساسية."
+            },
+            
+            // Concept 2-4: Types of Security Plans (4 questions)
+            {
+                id: "q2-4-1",
+                conceptId: "concept-2-4",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تذكر",
+                question: "كم نوعاً من الخطط الأمنية تم ذكره في المقرر؟",
+                options: [
+                    "3 أنواع",
+                    "4 أنواع",
+                    "5 أنواع",
+                    "6 أنواع"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "تم ذكر 4 أنواع من الخطط الأمنية: التكتيكية، الإرشادية، العمليات، الإخلاء.",
+                explanationWrong: [
+                    "العدد أكبر من 3.",
+                    "صحيح",
+                    "العدد هو 4 وليس 5.",
+                    "العدد هو 4 وليس 6."
+                ],
+                evidenceText: "أنواع الخطط الأمنية: التكتيكية، الإرشادية، العمليات، الإخلاء."
+            },
+            {
+                id: "q2-4-2",
+                conceptId: "concept-2-4",
+                lesson: "الدرس الثاني",
+                bloomLevel: "فهم",
+                question: "ما الفرق بين الخطة التكتيكية والخطة الإرشادية؟",
+                options: [
+                    "لا فرق بينهما",
+                    "التكتيكية لمواجهة أحداث فورية، والإرشادية إجراءات وقائية عامة",
+                    "الإرشادية أهم",
+                    "التكتيكية غير مهمة"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الخطة التكتيكية لمواجهة أحداث فورية، بينما الإرشادية تحتوي على إجراءات وقائية عامة.",
+                explanationWrong: [
+                    "هناك فرق واضح.",
+                    "صحيح",
+                    "كلاهما مهم.",
+                    "التكتيكية مهمة جداً."
+                ],
+                evidenceText: "الخطط التكتيكية: خطط لمواجهة أحداث فورية. الخطط الإرشادية: خطط تتمتع بإجراءات وقائية عامة."
+            },
+            {
+                id: "q2-4-3",
+                conceptId: "concept-2-4",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تطبيق",
+                question: "أي نوع من الخطط يكون الأنسب لحالة اندلاع حريق في مبنى إداري؟",
+                options: [
+                    "الخطة التكتيكية فقط",
+                    "خطة الإخلاء",
+                    "الخطة العمليات فقط",
+                    "لا خطة مطلوبة"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "خطة الإخلاء هي الأنسب لحالة الحريق لأنها تضمن إخلاءاً آمناً للأفراد.",
+                explanationWrong: [
+                    "التكتيكية جزء من الحل.",
+                    "صحيح",
+                    "العمليات جزء من الحل.",
+                    "الخطة ضرورية جداً."
+                ],
+                evidenceText: "خطط الإخلاء: خطط لإخلاء آمن في ظروف طارئة."
+            },
+            {
+                id: "q2-4-4",
+                conceptId: "concept-2-4",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تحليل",
+                question: "كيف تتكامل العناصر التسعة للخطط الأمنية معاً؟",
+                options: [
+                    "كل عنصر منفصل",
+                    "تتكامل لتوفير أساس متكامل للخطة الأمنية الناجحة",
+                    "المالية فقط هي المهمة",
+                    "لا تتكامل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "العناصر التسعة تتكامل لتوفير أساس متكامل: المالية للدعم، التنظيمية للهيكل، البشرية للتنفيذ، إلخ.",
+                explanationWrong: [
+                    "العناصر مترابطة.",
+                    "صحيح",
+                    "جميع العناصر مهمة.",
+                    "التكامل ضروري."
+                ],
+                evidenceText: "العناصر التسعة للخطط: المالية، التنظيمية، البشرية، التشريعية، العلمية، المازلية، النورمية، العقائدية، الاستراتيجية."
+            },
+            
+            // Concept 2-5: Safety Plan Foundations (4 questions)
+            {
+                id: "q2-5-1",
+                conceptId: "concept-2-5",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تذكر",
+                question: "كم أساساً لخطة السلامة تم ذكره في المقرر؟",
+                options: [
+                    "2 أساس",
+                    "3 أسس",
+                    "4 أسس",
+                    "5 أسس"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "تم ذكر 3 أسس لخطة السلامة: ثقة العاملين، التحكم في الدخول والخروج، أمن المعلومات والأوراق.",
+                explanationWrong: [
+                    "العدد أكبر من 2.",
+                    "صحيح",
+                    "العدد هو 3 وليس 4.",
+                    "العدد هو 3 وليس 5."
+                ],
+                evidenceText: "أسس خطة السلامة: ثقة العاملين بالمنشأة، التحكم في الدخول والخروج، أمن المعلومات والأوراق."
+            },
+            {
+                id: "q2-5-2",
+                conceptId: "concept-2-5",
+                lesson: "الدرس الثاني",
+                bloomLevel: "فهم",
+                question: "لماذا يُعتبر 'التحكم في الدخول والخروج' من أسس خطة السلامة؟",
+                options: [
+                    "لأنه يزيد من التكلفة",
+                    "لأنه يضمن هوية العاملين ويحمي المنشأة من الدخول غير المصرح به",
+                    "لأنه غير مهم",
+                    "لأنه يبطئ العمل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التحكم في الدخول والخروج يضمن هوية العاملين ويحمي المنشأة من الدخول غير المصرح به.",
+                explanationWrong: [
+                    "التحكم يقلل المخاطر.",
+                    "صحيح",
+                    "التحكم مهم جداً.",
+                    "التحكم يمكن أن يكون سريعاً وفعالاً."
+                ],
+                evidenceText: "التحكم في الدخول والخروج: حرص على هوية العاملين ومنحهم تصاريح الدخول."
+            },
+            {
+                id: "q2-5-3",
+                conceptId: "concept-2-5",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تطبيق",
+                question: "في شركة تقنية، أي أساس من أسس السلامة يكون الأكثر أهمية لحماية الأسرار التجارية؟",
+                options: [
+                    "ثقة العاملين فقط",
+                    "أمن المعلومات والأوراق",
+                    "التحكم في الدخول فقط",
+                    "لا أساس مطلوب"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "أمن المعلومات والأوراق هو الأكثر أهمية لحماية الأسرار التجارية في شركة تقنية.",
+                explanationWrong: [
+                    "الثقة مهمة ولكن ليست الكافية.",
+                    "صحيح",
+                    "التحكم مهم ولكن أمن المعلومات أولوية.",
+                    "الأسس ضرورية."
+                ],
+                evidenceText: "أمن المعلومات والأوراق: حماية المعلومات الهامة والممتلكات."
+            },
+            {
+                id: "q2-5-4",
+                conceptId: "concept-2-5",
+                lesson: "الدرس الثاني",
+                bloomLevel: "تحليل",
+                question: "كيف تتكامل أسس خطة السلامة الثلاثة معاً؟",
+                options: [
+                    "كل أساس منفصل",
+                    "تتكامل حيث توفر الثقة الأساس والتحكم الحماية الفعلية وأمن المعلومات الحماية الفكرية",
+                    "أحدهما أهم من الآخر",
+                    "لا تتكامل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الأسس تتكامل: الثقة توفر الأساس البشري، التحكم يوفر الحماية الفعلية، أمن المعلومات يوفر الحماية الفكرية.",
+                explanationWrong: [
+                    "الأسس مترابطة.",
+                    "صحيح",
+                    "جميع الأسس مهمة.",
+                    "التكامل ضروري."
+                ],
+                evidenceText: "أسس خطة السلامة الثلاثة تتكامل لتوفير حماية شاملة للمنشأة."
+            },
+            
+            // Concept 3-1: Strategic Planning Benefits (4 questions)
+            {
+                id: "q3-1-1",
+                conceptId: "concept-3-1",
+                lesson: "الدرس الثالث",
+                bloomLevel: "تذكر",
+                question: "كم فائدة للتخطيط الاستراتيجي تم ذكرها في المقرر؟",
+                options: [
+                    "7 فوائد",
+                    "8 فوائد",
+                    "9 فوائد",
+                    "10 فوائد"
+                ],
+                correctIndex: 2,
+                explanationCorrect: "تم ذكر 9 فوائد رئيسية للتخطيط الاستراتيجي في المقرر.",
+                explanationWrong: [
+                    "العدد أكبر من 7.",
+                    "العدد أكبر من 8.",
+                    "صحيح",
+                    "العدد هو 9 وليس 10."
+                ],
+                evidenceText: "فوائد التخطيط الاستراتيجي: تحديد السياسات والقرارات، وضع خطط عمل، محاولة للتنبؤ بالمستقبل، اكتشاف المشكلات، تحقيق رضا العاملين، تحديد مسارات العمل، تحقيق المراقبة، تحقيق الأمن النفسي، تنسيق الجهود."
+            },
+            {
+                id: "q3-1-2",
+                conceptId: "concept-3-1",
+                lesson: "الدرس الثالث",
+                bloomLevel: "فهم",
+                question: "كيف يساهم التخطيط الاستراتيجي في 'اكتشاف المشكلات'؟",
+                options: [
+                    "عن طريق إخفائها",
+                    "من خلال التحليل المسبق الذي يكشف عن نقاط الضعف المحتملة",
+                    "عن طريق تجاهلها",
+                    "لا يساهم"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التخطيط الاستراتيجي يساهم في اكتشاف المشكلات من خلال التحليل المسبق الذي يكشف عن نقاط الضعف المحتملة.",
+                explanationWrong: [
+                    "التخطيط يكشف المشكلات لا يخفيها.",
+                    "صحيح",
+                    "التخطيط يواجه المشكلات.",
+                    "التخطيط يساهم بشكل كبير."
+                ],
+                evidenceText: "اكتشاف المشكلات: التحليل المسبق يكشف عن نقاط الضعف المحتملة."
+            },
+            {
+                id: "q3-1-3",
+                conceptId: "concept-3-1",
+                lesson: "الدرس الثالث",
+                bloomLevel: "تطبيق",
+                question: "في شركة تواجه تنافساً شديداً، أي فائدة من فوائد التخطيط الاستراتيجي تكون الأكثر أهمية؟",
+                options: [
+                    "تحقيق الأمن النفسي فقط",
+                    "تحديد مسارات العمل واكتشاف المشكلات",
+                    "تحقيق رضا العاملين فقط",
+                    "لا فائدة مطلوبة"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "في حالة التنافس، تحديد مسارات العمل واكتشاف المشكلات يكونان الأكثر أهمية للبقاء competitive.",
+                explanationWrong: [
+                    "الأمن النفسي مهم ولكن ليس الأكثر ملاءمة.",
+                    "صحيح",
+                    "رضا العاملين مهم ولكن ليس الأكثر ملاءمة.",
+                    "الفوائد ضرورية."
+                ],
+                evidenceText: "تحديد مسارات العمل، اكتشاف المشكلات: فوائد تساعد في مواجهة التحديات."
+            },
+            {
+                id: "q3-1-4",
+                conceptId: "concept-3-1",
+                lesson: "الدرس الثالث",
+                bloomLevel: "تحليل",
+                question: "كيف تتكامل فوائد التخطيط الاستراتيجي التسع معاً؟",
+                options: [
+                    "كل فائدة منفصلة",
+                    "تتكامل لتشكل إطاراً شاملاً لإدارة ناجحة",
+                    "بعضها أهم من البعض",
+                    "لا تتكامل"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "الفوائد تتكامل لتشكل إطاراً شاملاً: تحديد السياسات، وضع الخطط، التنبؤ، اكتشاف المشكلات، رضا العاملين، المسارات، المراقبة، الأمن النفسي، التنسيق.",
+                explanationWrong: [
+                    "الفوائد مترابطة.",
+                    "صحيح",
+                    "جميع الفوائد مهمة.",
+                    "التكامل ضروري."
+                ],
+                evidenceText: "فوائد التخطيط الاستراتيجي التسع تتكامل لتوفير إطار شامل لإدارة ناجحة."
+            },
+            
+            // Concept 3-2: Importance of Strategic Planning (4 questions)
+            {
+                id: "q3-2-1",
+                conceptId: "concept-3-2",
+                lesson: "الدرس الثالث",
+                bloomLevel: "تذكر",
+                question: "كم عنصراً لأهمية التخطيط الاستراتيجي تم ذكره في المقرر؟",
+                options: [
+                    "4 عناصر",
+                    "5 عناصر",
+                    "6 عناصر",
+                    "7 عناصر"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "تم ذكر 5 عناصر رئيسية لأهمية التخطيط الاستراتيجي في المقرر.",
+                explanationWrong: [
+                    "العدد أكبر من 4.",
+                    "صحيح",
+                    "العدد هو 5 وليس 6.",
+                    "العدد هو 5 وليس 7."
+                ],
+                evidenceText: "أهمية التخطيط الاستراتيجي: تحديد الأولويات، ترشيد استخدام الموارد، تقليل المخاطر، تحقيق الأهداف بكفاءة، المعرفة بالمعايير والمقاييس."
+            },
+            {
+                id: "q3-2-2",
+                conceptId: "concept-3-2",
+                lesson: "الدرس الثالث",
+                bloomLevel: "فهم",
+                question: "ما معنى 'ترشيد استخدام الموارد' في التخطيط الاستراتيجي؟",
+                options: [
+                    "تقليل الموارد المستخدمة",
+                    "استخدام الموارد بشكل فعال وفعال لتحقيق الأهداف",
+                    "زيادة الموارد",
+                    "إهدار الموارد"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "ترشيد استخدام الموارد يعني استخدامها بشكل فعال وفعال لتحقيق الأهداف بدون إهدار.",
+                explanationWrong: [
+                    "الترشيد ليس تقليلاً بل استخداماً فعالاً.",
+                    "صحيح",
+                    "الترشيد ليس زيادة.",
+                    "الترشيد عكس الإهدار."
+                ],
+                evidenceText: "ترشيد استخدام الموارد: استخدام فعال وفعال للموارد."
+            },
+            {
+                id: "q3-2-3",
+                conceptId: "concept-3-2",
+                lesson: "الدرس الثالث",
+                bloomLevel: "تطبيق",
+                question: "في مؤسسة مالية محدودة الموارد، أي عنصر من أهمية التخطيط يكون الأكثر أهمية؟",
+                options: [
+                    "تحديد الأولويات فقط",
+                    "ترشيد استخدام الموارد",
+                    "تقليل المخاطر فقط",
+                    "لا عنصر مطلوب"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "في حالة محدودية الموارد، ترشيد استخدام الموارد يكون الأكثر أهمية لتحقيق أقصى استفادة.",
+                explanationWrong: [
+                    "تحديد الأولويات مهم ولكن الترشيد أكثر ملاءمة.",
+                    "صحيح",
+                    "تقليل المخاطر مهم ولكن الترشيد أكثر ملاءمة.",
+                    "العناصر ضرورية."
+                ],
+                evidenceText: "ترشيد استخدام الموارد: مهم جداً في حالة محدودية الموارد."
+            },
+            {
+                id: "q3-2-4",
+                conceptId: "concept-3-2",
+                lesson: "الدرس الثالث",
+                bloomLevel: "تحليل",
+                question: "كيف ترتبط عناصر أهمية التخطيط الاستراتيجي ببعضها؟",
+                options: [
+                    "كل عنصر منفصل",
+                    "ترتبط بشكل تسلسلي حيث يمهد أحدهم للآخر",
+                    "بعضها أهم من البعض",
+                    "لا ترتبط"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "العناصر ترتبط بشكل تسلسلي: تحديد الأولويات يمهد لترشيد الموارد، مما يقلل المخاطر ويحقق الأهداف.",
+                explanationWrong: [
+                    "العناصر مترابطة.",
+                    "صحيح",
+                    "جميع العناصر مهمة.",
+                    "الترابط ضروري."
+                ],
+                evidenceText: "عناصر أهمية التخطيط الاستراتيجي ترتبط بشكل تسلسلي لتحقيق النجاح."
+            },
+            
+            // Concept 3-3: Strategic Planning Obstacles (4 questions)
+            {
+                id: "q3-3-1",
+                conceptId: "concept-3-3",
+                lesson: "الدرس الثالث",
+                bloomLevel: "تذكر",
+                question: "كم معوقاً للتخطيط الاستراتيجي تم ذكره في المقرر؟",
+                options: [
+                    "3 معوقات",
+                    "4 معوقات",
+                    "5 معوقات",
+                    "6 معوقات"
+                ],
+                correctIndex: 2,
+                explanationCorrect: "تم ذكر 5 معوقات رئيسية للتخطيط الاستراتيجي في المقرر.",
+                explanationWrong: [
+                    "العدد أكبر من 3.",
+                    "العدد أكبر من 4.",
+                    "صحيح",
+                    "العدد هو 5 وليس 6."
+                ],
+                evidenceText: "معوقات التخطيط الاستراتيجي: مقاومة التغيير، نقص الموارد المالية، عدم وضوح الأهداف، البيئة الخارجية المتغيرة، صعوبة التنبؤ بالمستقبل."
+            },
+            {
+                id: "q3-3-2",
+                conceptId: "concept-3-3",
+                lesson: "الدرس الثالث",
+                bloomLevel: "فهم",
+                question: "لماذا يُعتبر 'عدم وضوح الأهداف' معوقاً رئيسياً للتخطيط الاستراتيجي؟",
+                options: [
+                    "لأنه لا يؤثر",
+                    "لأن عدم الوضوح يجعل من الصعب تحديد المسارات ووسائل تحقيقها",
+                    "لأنه سهل الحل",
+                    "لأنه غير مهم"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "عدم وضوح الأهداف يجعل من الصعب تحديد المسارات ووسائل تحقيقها، مما يعيق نجاح التخطيط.",
+                explanationWrong: [
+                    "عدم الوضوح يؤثر بشكل كبير.",
+                    "صحيح",
+                    "وضوح الأهداف يحتاج جهوداً كبيرة.",
+                    "وضوح الأهداف أساسي."
+                ],
+                evidenceText: "عدم وضوح الأهداف: يجعل من الصعب تحديد المسارات ووسائل تحقيقها."
+            },
+            {
+                id: "q3-3-3",
+                conceptId: "concept-3-3",
+                lesson: "الدرس الثالث",
+                bloomLevel: "تطبيق",
+                question: "ما الحل الأنسب لمعوق 'مقاومة التغيير من بعض العاملين'؟",
+                options: [
+                    "فصل الموظفين المقاومين",
+                    "التواصل الفعال وإشراك العاملين في عملية التخطيط",
+                    "تجاهل المقاومة",
+                    "فرض التغيير بالقوة"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "التواصل الفعال وإشراك العاملين في عملية التخطيط هو الحل الأنسب للتغلب على مقاومة التغيير.",
+                explanationWrong: [
+                    "الفصل ليس حلاً عملياً.",
+                    "صحيح",
+                    "التجاهل يزيد المشكلة.",
+                    "الفرض بالقوة يزيد المقاومة."
+                ],
+                evidenceText: "مقاومة التغيير: يمكن معالجتها بالتواصل وإشراك العاملين."
+            },
+            {
+                id: "q3-3-4",
+                conceptId: "concept-3-3",
+                lesson: "الدرس الثالث",
+                bloomLevel: "تحليل",
+                question: "كيف تتأثر معوقات التخطيط الاستراتيجي ببعضها؟",
+                options: [
+                    "كل معوق منفصل",
+                    "تتأثر بشكل متسلسل حيث يؤدي أحدهم إلى تفاقم الآخر",
+                    "بعضها أهم من البعض",
+                    "لا تتأثر"
+                ],
+                correctIndex: 1,
+                explanationCorrect: "المعوقات تتأثر بشكل متسلسل: نقص الموارد قد يؤدي لعدم وضوح الأهداف، مما يزيد صعوبة التنبؤ.",
+                explanationWrong: [
+                    "المعوقات مترابطة.",
+                    "صحيح",
+                    "جميع المعوقات مهمة.",
+                    "المعوقات مترابطة."
+                ],
+                evidenceText: "معوقات التخطيط الاستراتيجي مترابطة وتتأثر ببعضها البعض."
+            }
+        ];
+
+        // ==================== DATA: Flashcards ====================
+        const flashcardsData = [
+            {
+                front: "التخطيط الأمني (Security Planning)",
+                back: "عملية منظمة وعلمية ومدروسة لتحديد الأهداف والوسائل اللازمة لتحقيق الأمن والسلامة للأفراد والمنشآت.",
+                tip: "تمييز بين الأمن كحالة والتخطيط الأمني كعملية"
+            },
+            {
+                front: "أسس التخطيط الأمني",
+                back: "1. التنبؤ بالتهديدات\n2. تحديد المخاطر وترتيبها\n3. وضع إجراءات وقائية واستباقية\n4. وضع خطط للاستجابة والتعافي\n5. التنسيق بين الجهات",
+                tip: "تذكر الترتيب المنطقي: التنبؤ → التحديد → الإجراءات → الخطط → التنسيق"
+            },
+            {
+                front: "خصائص الأمن",
+                back: "1. الحالة الاستباقية والرادعة\n2. الوسيلة لتحقيق حالة الأمن\n3. علاج الحوادث عند حدوثها\n4. الوقاية من الحوادث قبل وقوعها\n5. قصير المدى ومستمر طويل المدى\n6. مراقبة المنشأة",
+                tip: "6 خصائص رئيسية - حفظها بالترتيب"
+            },
+            {
+                front: "أهمية التخطيط الأمني",
+                back: "1. الوقاية من المخاطر والحوادث\n2. حماية الأرواح\n3. تحقيق الالتزام للأنظمة\n4. تعزيز سمعة المنشأة\n5. تعزيز القدرة على الاستجابة\n6. تحليل الأمن البيئي",
+                tip: "6 أهميات - الوقاية أولاً، ثم حماية الأرواح"
+            },
+            {
+                front: "عناصر عملية التخطيط الأمني",
+                back: "1. المؤسسات الحيوية والموارد الحساسة\n2. المنافذ والموانئ والمطارات\n3. المستشفيات والمنشآت التعليمية\n4. المنشآت المالية والمصرفية\n5. الفعاليات الرياضية الهامة\n6. مراكز البيانات\n7. الآبار النفطية والبترولية",
+                tip: "7 عناصر - تغطي جميع جوانب الدولة"
+            },
+            {
+                front: "متطلبات إدارة التخطيط الأمني",
+                back: "1. القدرة على الملاحظة والتحليل\n2. التركيز الاستراتيجي\n3. إدارة الوقت والموارد\n4. المعرفة بالتقنيات الحديثة\n5. تحمل المسؤولية\n6. الالتزام بالنزاهة والشرف المهني\n7. التطوير المستمر",
+                tip: "7 متطلبات - التقنية ضرورية للتهديدات الحديثة"
+            },
+            {
+                front: "تحديات التخطيط الأمني",
+                back: "1. تطور التقنيات والتهديدات الإلكترونية\n2. نقص الوعي الأمني لدى العاملين\n3. تغير الأنظمة والتشريعات\n4. صعوبة تنسيق الخطط بين الجهات\n5. التعامل مع الأزمات الطارئة",
+                tip: "5 تحديات - التقنية والوعي أبرز التحديات"
+            },
+            {
+                front: "الأمن (Security)",
+                back: "حالة من الاستقرار والطمأنينة يشعر فيها الفرد بأنه آمن على نفسه وماله، بعيداً عن أي خطر يهدده.",
+                tip: "الأمن حالة نفسية قبل أن يكون إجراءات"
+            },
+            {
+                front: "أنواع الأمن",
+                back: "1. الأمن النفسي: رفاهية الفرد\n2. الأمن العام: مستوى المجتمع\n3. الأمن الشخصي: حماية الفرد من التهديدات المباشرة",
+                tip: "3 أنواع - نفسي (فرد)، عام (مجتمع)، شخصي (حماية)"
+            },
+            {
+                front: "أنواع الأمن حسب المستوى الجغرافي",
+                back: "1. الأمن القومي: دولة واحدة\n2. الأمن الإقليمي: عدة دول في قاطن واحد\n3. الأمن الدولي: دول العالم",
+                tip: "3 مستويات - قومي (دولة)، إقليمي (منطقة)، دولي (عالم)"
+            },
+            {
+                front: "المنشآت المهمة (Critical Facilities)",
+                back: "المنشآت التي تكون مخصصة لتقديم خدمات مميزة للدولة وللمستهلكين، وتصنف حسب نوع الخدمة المقدمة.",
+                tip: "تصنف حسب نوع الخدمة: عامة، إعلامية، اقتصادية، عسكرية، حيوية، غير حيوية"
+            },
+            {
+                front: "أنواع الخطط الأمنية",
+                back: "1. التكتيكية: مواجهة أحداث فورية\n2. الإرشادية: إجراءات وقائية عامة\n3. العمليات: الأنشطة والميزانيات\n4. الإخلاء: إخلاء آمن في الطوارئ",
+                tip: "4 أنواع - تكتيكية (فوري)، إرشادية (وقائي)، عمليات (تنفيذ)، إخلاء (طوارئ)"
+            },
+            {
+                front: "أسس خطة السلامة",
+                back: "1. ثقة العاملين بالمنشأة\n2. التحكم في الدخول والخروج\n3. أمن المعلومات والأوراق",
+                tip: "3 أسس - الثقة (بشري)، التحكم (فعلي)، المعلومات (فكري)"
+            },
+            {
+                front: "فوائد التخطيط الاستراتيجي",
+                back: "1. تحديد السياسات والقرارات\n2. وضع خطط عمل للمستقبل\n3. محاولة للتنبؤ بالمستقبل\n4. اكتشاف المشكلات\n5. تحقيق رضا العاملين\n6. تحديد مسارات العمل\n7. تحقيق المراقبة\n8. تحقيق الأمن النفسي\n9. تنسيق الجهود",
+                tip: "9 فوائد - التحديد والتنبؤ أهم الفوائد"
+            },
+            {
+                front: "معوقات التخطيط الاستراتيجي",
+                back: "1. مقاومة التغيير\n2. نقص الموارد المالية\n3. عدم وضوح الأهداف\n4. البيئة الخارجية المتغيرة\n5. صعوبة التنبؤ بالمستقبل",
+                tip: "5 معوقات - الموارد والأهداف أبرز المعوقات"
+            }
+        ];
+        
+        // ==================== DATA: Exam Models ====================
+        const examModels = {
+            'A': {
+                name: 'النموذج أ',
+                difficulty: 'easy',
+                description: 'سهل - متوازن',
+                questionCount: 26,
+                questionIds: ['q1-1-1', 'q1-1-2', 'q1-2-1', 'q1-2-2', 'q1-3-1', 'q1-3-2', 'q1-4-1', 'q1-4-2', 'q1-5-1', 'q1-5-2', 'q1-6-1', 'q1-6-2', 'q1-7-1', 'q1-7-2', 'q2-1-1', 'q2-1-2', 'q2-2-1', 'q2-2-2', 'q2-3-1', 'q2-3-2', 'q2-4-1', 'q2-4-2', 'q2-5-1', 'q2-5-2', 'q3-1-1', 'q3-1-2']
+            },
+            'B': {
+                name: 'النموذج ب',
+                difficulty: 'medium',
+                description: 'متوسط - تركيز على المفاهيم',
+                questionCount: 27,
+                questionIds: ['q1-1-3', 'q1-1-4', 'q1-2-3', 'q1-2-4', 'q1-3-3', 'q1-3-4', 'q1-4-3', 'q1-4-4', 'q1-5-3', 'q1-5-4', 'q1-6-3', 'q1-6-4', 'q1-7-3', 'q1-7-4', 'q2-1-3', 'q2-1-4', 'q2-2-3', 'q2-2-4', 'q2-3-3', 'q2-3-4', 'q2-4-3', 'q2-4-4', 'q2-5-3', 'q2-5-4', 'q3-1-3', 'q3-1-4', 'q3-2-1']
+            },
+            'C': {
+                name: 'النموذج ج',
+                difficulty: 'hard',
+                description: 'صعب - سيناريوهات',
+                questionCount: 27,
+                questionIds: ['q1-1-1', 'q1-1-3', 'q1-2-2', 'q1-2-4', 'q1-3-1', 'q1-3-3', 'q1-4-2', 'q1-4-4', 'q1-5-2', 'q1-5-4', 'q1-6-1', 'q1-6-3', 'q1-7-2', 'q1-7-4', 'q2-1-2', 'q2-1-4', 'q2-2-1', 'q2-2-3', 'q2-3-2', 'q2-3-4', 'q2-4-1', 'q2-4-3', 'q2-5-2', 'q2-5-4', 'q3-1-2', 'q3-1-4', 'q3-2-3']
+            }
+        };
+        
+        // ==================== STATE ====================
+        let currentTab = 'study';
+        let currentCard = 0;
+        let currentExam = null;
+        let currentQuestions = [];
+        let userAnswers = {};
+        let examTimer = null;
+        let timeRemaining = 3600; // 60 minutes
+        let examStartTime = null;
+        let examResults = [];
+        let conceptMastery = {};
+        
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            setupTabs();
+            setupFlashcards();
+            updateUI();
+        });
+        
+        // ==================== TABS ====================
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    showTab(tabId);
+                });
+            });
+        }
+        
+        function showTab(tabId) {
+            // Update tab buttons
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.getAttribute('data-tab') === tabId);
+            });
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.toggle('active', content.id === tabId);
+            });
+            
+            currentTab = tabId;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Update specific tab content
+            if (tabId === 'results') {
+                updateResultsTab();
+            } else if (tabId === 'mastery') {
+                updateMasteryTab();
+            }
+        }
+        
+        // ==================== FLASHCARDS ====================
+        function setupFlashcards() {
+            document.getElementById('card-total').textContent = flashcardsData.length;
+            updateCard();
+        }
+        
+        function updateCard() {
+            const card = flashcardsData[currentCard];
+            document.getElementById('card-front').textContent = card.front;
+            document.getElementById('card-back').innerHTML = `
+                <p style="font-size: 1.1rem; margin-bottom: 16px; white-space: pre-line;">${card.back}</p>
+                <div style="background: rgba(30, 58, 138, 0.1); padding: 12px; border-radius: 8px;">
+                    <strong>نصيحة الاختبار:</strong> ${card.tip}
+                </div>
+            `;
+            document.getElementById('card-current').textContent = currentCard + 1;
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+        
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+        
+        function nextCard() {
+            if (currentCard < flashcardsData.length - 1) {
+                currentCard++;
+                updateCard();
+            }
+        }
+        
+        function prevCard() {
+            if (currentCard > 0) {
+                currentCard--;
+                updateCard();
+            }
+        }
+        
+        // ==================== EXAM ====================
+        function startExam(modelId) {
+            const model = examModels[modelId];
+            if (!model) return;
+            
+            currentExam = modelId;
+            currentQuestions = model.questionIds.map(id => questionBank.find(q => q.id === id)).filter(q => q);
+            userAnswers = {};
+            timeRemaining = 3600; // Reset timer
+            examStartTime = Date.now();
+            
+            // Show exam container
+            document.getElementById('exam-welcome').classList.add('hidden');
+            document.getElementById('exam-container').classList.remove('hidden');
+            document.getElementById('exam-model-badge').textContent = model.name;
+            
+            // Render questions
+            renderQuestions();
+            
+            // Start timer
+            startTimer();
+            
+            // Switch to exam tab
+            showTab('exam');
+        }
+        
+        function startExamFromWelcome() {
+            const name = document.getElementById('student-name').value.trim();
+            if (!name) {
+                alert('الرجاء إدخال اسمك');
+                return;
+            }
+            localStorage.setItem('studentName', name);
+            startExam('A');
+        }
+        
+        function startWeaknessRetest() {
+            // Get weak concepts
+            const weakConcepts = Object.entries(conceptMastery)
+                .filter(([_, data]) => data.percentage < 70)
+                .map(([concept, _]) => concept);
+            
+            if (weakConcepts.length === 0) {
+                alert('لا توجد نقاط ضعف محددة. أكمل اختباراً أولاً.');
+                return;
+            }
+            
+            // Get questions for weak concepts (max 3 per concept)
+            const weakQuestions = [];
+            weakConcepts.forEach(concept => {
+                const conceptQs = questionBank.filter(q => q.conceptId === concept);
+                weakQuestions.push(...conceptQs.slice(0, 3));
+            });
+            
+            if (weakQuestions.length === 0) {
+                alert('لا توجد أسئلة متاحة للنقاط الضعيفة.');
+                return;
+            }
+            
+            // Limit to 20 questions
+            currentQuestions = weakQuestions.slice(0, 20);
+            currentExam = 'weakness';
+            userAnswers = {};
+            timeRemaining = 3600;
+            examStartTime = Date.now();
+            
+            document.getElementById('exam-welcome').classList.add('hidden');
+            document.getElementById('exam-container').classList.remove('hidden');
+            document.getElementById('exam-model-badge').textContent = 'اختبار النقاط الضعيفة';
+            
+            renderQuestions();
+            startTimer();
+            showTab('exam');
+        }
+        
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            currentQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-card';
+                questionDiv.innerHTML = `
+                    <div class="question-header">
+                        <span class="question-number">سؤال ${index + 1}</span>
+                        <span class="bloom-level">${q.bloomLevel}</span>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-list">
+                        ${q.options.map((opt, optIndex) => `
+                            <div class="option" onclick="selectOption('${q.id}', ${optIndex})" data-question="${q.id}" data-option="${optIndex}">
+                                <div class="option-indicator">${String.fromCharCode(1611 + optIndex)}</div>
+                                <div>${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="explanation explanation-correct" id="exp-correct-${q.id}">
+                        <strong>الإجابة الصحيحة:</strong> ${q.explanationCorrect}
+                    </div>
+                    <div class="explanation explanation-wrong" id="exp-wrong-${q.id}">
+                        <strong>الإجابة خاطئة:</strong> <span id="wrong-reason-${q.id}"></span>
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+            });
+            
+            updateProgress();
+        }
+        
+        function selectOption(questionId, optionIndex) {
+            userAnswers[questionId] = optionIndex;
+            
+            // Update UI
+            document.querySelectorAll(`[data-question="${questionId}"]`).forEach(el => {
+                el.classList.remove('selected');
+            });
+            document.querySelector(`[data-question="${questionId}"][data-option="${optionIndex}"]`).classList.add('selected');
+            
+            updateProgress();
+            
+            // Enable submit if all answered
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = Object.keys(userAnswers).length < currentQuestions.length;
+        }
+        
+        function updateProgress() {
+            const answered = Object.keys(userAnswers).length;
+            const total = currentQuestions.length;
+            const percentage = (answered / total) * 100;
+            document.getElementById('progress-fill').style.width = percentage + '%';
+        }
+        
+        function startTimer() {
+            if (examTimer) clearInterval(examTimer);
+            
+            examTimer = setInterval(() => {
+                timeRemaining--;
+                
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById('timer-display').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                const timerBadge = document.getElementById('timer');
+                timerBadge.classList.remove('warning', 'danger');
+                
+                if (timeRemaining <= 300) { // 5 minutes
+                    timerBadge.classList.add('danger');
+                } else if (timeRemaining <= 600) { // 10 minutes
+                    timerBadge.classList.add('warning');
+                }
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(examTimer);
+                    submitExam();
+                }
+            }, 1000);
+        }
+        
+        function submitExam() {
+            clearInterval(examTimer);
+            
+            // Calculate results
+            let correct = 0;
+            const conceptResults = {};
+            
+            currentQuestions.forEach(q => {
+                const userAnswer = userAnswers[q.id];
+                const isCorrect = userAnswer === q.correctIndex;
+                
+                if (isCorrect) correct++;
+                
+                // Track by concept
+                if (!conceptResults[q.conceptId]) {
+                    conceptResults[q.conceptId] = { correct: 0, total: 0 };
+                }
+                conceptResults[q.conceptId].total++;
+                if (isCorrect) conceptResults[q.conceptId].correct++;
+                
+                // Show explanations
+                const correctExp = document.getElementById(`exp-correct-${q.id}`);
+                const wrongExp = document.getElementById(`exp-wrong-${q.id}`);
+                const wrongReason = document.getElementById(`wrong-reason-${q.id}`);
+                
+                document.querySelectorAll(`[data-question="${q.id}"]`).forEach((el, idx) => {
+                    el.classList.remove('selected');
+                    if (idx === q.correctIndex) {
+                        el.classList.add('correct');
+                    } else if (idx === userAnswer && !isCorrect) {
+                        el.classList.add('wrong');
+                    }
+                    el.onclick = null;
+                });
+                
+                if (isCorrect) {
+                    correctExp.classList.add('show');
+                } else {
+                    wrongReason.textContent = q.explanationWrong[userAnswer] || 'إجابة غير صحيحة';
+                    wrongExp.classList.add('show');
+                    correctExp.classList.add('show');
+                }
+            });
+            
+            // Update concept mastery
+            Object.entries(conceptResults).forEach(([concept, result]) => {
+                if (!conceptMastery[concept]) {
+                    conceptMastery[concept] = { correct: 0, total: 0, attempts: 0 };
+                }
+                conceptMastery[concept].correct += result.correct;
+                conceptMastery[concept].total += result.total;
+                conceptMastery[concept].attempts++;
+                conceptMastery[concept].percentage = Math.round((conceptMastery[concept].correct / conceptMastery[concept].total) * 100);
+            });
+            
+            // Save result
+            const result = {
+                date: new Date().toISOString(),
+                model: currentExam,
+                correct: correct,
+                total: currentQuestions.length,
+                percentage: Math.round((correct / currentQuestions.length) * 100),
+                timeUsed: 3600 - timeRemaining,
+                conceptResults: conceptResults
+            };
+            
+            examResults.push(result);
+            saveData();
+            
+            // Show results
+            setTimeout(() => {
+                showTab('results');
+            }, 2000);
+        }
+        
+        // ==================== RESULTS ====================
+        function updateResultsTab() {
+            const emptyDiv = document.getElementById('results-empty');
+            const contentDiv = document.getElementById('results-content');
+            
+            if (examResults.length === 0) {
+                emptyDiv.classList.remove('hidden');
+                contentDiv.classList.add('hidden');
+                return;
+            }
+            
+            emptyDiv.classList.add('hidden');
+            contentDiv.classList.remove('hidden');
+            
+            // Show latest result
+            const latest = examResults[examResults.length - 1];
+            const passed = latest.percentage >= 70;
+            
+            document.getElementById('result-score').querySelector('.value').textContent = 
+                `${latest.correct}/${latest.total}`;
+            document.getElementById('result-correct').textContent = latest.correct;
+            document.getElementById('result-total').textContent = latest.total;
+            document.getElementById('result-percentage').textContent = latest.percentage + '%';
+            
+            const scoreStat = document.getElementById('result-score');
+            scoreStat.classList.remove('pass', 'fail');
+            scoreStat.classList.add(passed ? 'pass' : 'fail');
+            
+            const messageDiv = document.getElementById('result-message');
+            messageDiv.className = 'text-center';
+            messageDiv.style.background = passed ? 'rgba(22, 163, 74, 0.1)' : 'rgba(220, 38, 38, 0.1)';
+            messageDiv.innerHTML = passed 
+                ? '<h3 style="color: var(--success);">تهانينا! لقد نجحت في الاختبار</h3><p>أكملت الاختبار بنجاح بدرجة ' + latest.percentage + '%</p>'
+                : '<h3 style="color: var(--danger);">لم تنجح في الاختبار</h3><p>درجتك ' + latest.percentage + '% - يجب مراجعة المواد والمحاولة مرة أخرى</p>';
+            
+            // Show attempts history
+            const historyDiv = document.getElementById('attempts-history');
+            historyDiv.innerHTML = examResults.slice().reverse().map((r, i) => {
+                const date = new Date(r.date);
+                const p = r.percentage >= 70;
+                return `
+                    <div style="padding: 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>محاولة ${examResults.length - i}</strong>
+                            <div style="color: var(--text-light); font-size: 0.85rem;">
+                                ${date.toLocaleDateString('ar-SA')} - ${r.model === 'weakness' ? 'اختبار النقاط الضعيفة' : examModels[r.model]?.name || r.model}
+                            </div>
+                        </div>
+                        <div style="text-align: left;">
+                            <span class="badge ${p ? 'badge-success' : 'badge-danger'}">${r.percentage}%</span>
+                            <div style="color: var(--text-light); font-size: 0.85rem;">${r.correct}/${r.total}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // ==================== MASTERY DASHBOARD ====================
+        function updateMasteryTab() {
+            const emptyDiv = document.getElementById('mastery-empty');
+            const contentDiv = document.getElementById('mastery-content');
+            
+            if (examResults.length === 0) {
+                emptyDiv.classList.remove('hidden');
+                contentDiv.classList.add('hidden');
+                return;
+            }
+            
+            emptyDiv.classList.add('hidden');
+            contentDiv.classList.remove('hidden');
+            
+            // Build mastery chart
+            const chartDiv = document.getElementById('mastery-chart');
+            const concepts = Object.entries(conceptMastery);
+            
+            if (concepts.length === 0) {
+                chartDiv.innerHTML = '<p style="color: var(--text-light);">لا توجد بيانات كافية</p>';
+                return;
+            }
+            
+            chartDiv.innerHTML = concepts.map(([conceptId, data]) => {
+                const conceptName = getConceptName(conceptId);
+                const status = data.percentage >= 70 ? 'mastered' : data.percentage >= 40 ? 'developing' : 'weak';
+                const statusText = data.percentage >= 70 ? 'مُتقن' : data.percentage >= 40 ? 'قيد التطوير' : 'ضعيف';
+                
+                return `
+                    <div class="mastery-bar">
+                        <div class="mastery-label">${conceptName}</div>
+                        <div class="mastery-track">
+                            <div class="mastery-fill ${status}" style="width: ${data.percentage}%"></div>
+                        </div>
+                        <div class="mastery-value">${data.percentage}%</div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Build recommendations
+            const recDiv = document.getElementById('recommendations');
+            const weakConcepts = concepts.filter(([_, d]) => d.percentage < 70);
+            
+            if (weakConcepts.length === 0) {
+                recDiv.innerHTML = '<p style="color: var(--success);">تهانينا! لقد أتقنت جميع المفاهيم.</p>';
+                document.getElementById('weak-concepts-card').style.display = 'none';
+            } else {
+                document.getElementById('weak-concepts-card').style.display = 'block';
+                recDiv.innerHTML = weakConcepts.map(([conceptId, _]) => {
+                    const conceptName = getConceptName(conceptId);
+                    return `
+                        <div style="padding: 12px; background: rgba(220, 38, 38, 0.05); border-radius: 8px; margin-bottom: 8px;">
+                            <strong>${conceptName}</strong>
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 4px;">
+                                نوصي بمراجعة <a href="#${conceptId}" onclick="showTab('study'); setTimeout(() => document.getElementById('${conceptId}').scrollIntoView({behavior: 'smooth'}), 100); return false;" style="color: var(--secondary);">هذا المفهوم</a>
+                            </p>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            // Enable weakness retest button
+            const weaknessBtn = document.getElementById('weakness-btn');
+            const weaknessMsg = document.getElementById('weakness-msg');
+            if (weakConcepts.length > 0) {
+                weaknessBtn.disabled = false;
+                weaknessMsg.textContent = `لديك ${weakConcepts.length} مفاهيم تحتاج مراجعة`;
+            }
+        }
+        
+        function getConceptName(conceptId) {
+            const names = {
+                'concept-1-1': 'التخطيط الأمني',
+                'concept-1-2': 'أسس التخطيط الأمني',
+                'concept-1-3': 'خصائص الأمن',
+                'concept-1-4': 'أهمية التخطيط الأمني',
+                'concept-1-5': 'عناصر عملية التخطيط',
+                'concept-1-6': 'متطلبات إدارة التخطيط',
+                'concept-1-7': 'تحديات التخطيط الأمني',
+                'concept-2-1': 'مفهوم الأمن',
+                'concept-2-2': 'أنواع الأمن الجغرافي',
+                'concept-2-3': 'المنشآت المهمة',
+                'concept-2-4': 'أنواع الخطط الأمنية',
+                'concept-2-5': 'أسس خطة السلامة',
+                'concept-3-1': 'فوائد التخطيط الاستراتيجي',
+                'concept-3-2': 'أهمية التخطيط الاستراتيجي',
+                'concept-3-3': 'معوقات التخطيط الاستراتيجي'
+            };
+            return names[conceptId] || conceptId;
+        }
+        
+        // ==================== LOCAL STORAGE ====================
+        function saveData() {
+            const data = {
+                examResults: examResults,
+                conceptMastery: conceptMastery,
+                studentName: localStorage.getItem('studentName') || ''
+            };
+            localStorage.setItem('securityPlanningMastery', JSON.stringify(data));
+        }
+        
+        function loadData() {
+            const saved = localStorage.getItem('securityPlanningMastery');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    examResults = data.examResults || [];
+                    conceptMastery = data.conceptMastery || {};
+                    if (data.studentName) {
+                        document.getElementById('student-name').value = data.studentName;
+                    }
+                } catch (e) {
+                    console.error('Error loading data:', e);
+                }
+            }
+        }
+        
+        // ==================== UI UPDATE ====================
+        function updateUI() {
+            // Update weakness button state
+            const hasWeaknesses = Object.values(conceptMastery).some(d => d.percentage < 70);
+            const weaknessBtn = document.getElementById('weakness-btn');
+            const weaknessMsg = document.getElementById('weakness-msg');
+            
+            if (examResults.length > 0 && hasWeaknesses) {
+                weaknessBtn.disabled = false;
+                weaknessMsg.textContent = 'يمكنك الآن اختبار النقاط الضعيفة';
+            }
+        }
+    </script>
+</body>
+</html>
