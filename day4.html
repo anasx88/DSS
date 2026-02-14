@@ -3625,10 +3625,9 @@
             // Update progress
             updateExamProgress();
             
-            // Enable submit if all answered
-            const totalQuestions = currentState.currentExam.questions.length;
+            // Enable submit if at least one question is answered
             const answeredCount = Object.keys(currentState.answers).length;
-            document.getElementById('submitExamBtn').disabled = answeredCount < totalQuestions;
+            document.getElementById('submitExamBtn').disabled = answeredCount < 1;
         }
         
         function updateExamProgress() {
@@ -3753,16 +3752,46 @@
             `;
             
             attempt.results.forEach((r, index) => {
+                // Get the question to access options
+                const question = currentState.currentExam.questions[index];
+                
                 html += `
                     <div class="review-item ${r.isCorrect ? 'correct' : 'wrong'}">
                         <div class="review-header">
                             <span>السؤال ${index + 1}</span>
                             <span class="review-status ${r.isCorrect ? 'correct' : 'wrong'}">
-                                ${r.isCorrect ? 'صحيح' : 'خاطئ'}
+                                ${r.isCorrect ? '✓ صحيح' : '✗ خاطئ'}
                             </span>
                         </div>
                         <p><strong>${r.question}</strong></p>
-                        <p style="color: var(--text-light); font-size: 14px; margin-top: 8px;">
+                        
+                        ${r.userAnswer !== undefined ? `
+                            <div style="margin-top: 12px; padding: 12px; background: ${r.isCorrect ? '#dcfce7' : '#fee2e2'}; border-radius: 8px;">
+                                <p style="font-size: 14px; margin-bottom: 8px;">
+                                    <strong style="color: ${r.isCorrect ? '#166534' : '#991b1b'};">إجابتك:</strong> 
+                                    ${question.options[r.userAnswer]}
+                                </p>
+                                ${!r.isCorrect ? `
+                                    <p style="font-size: 14px; color: #166534;">
+                                        <strong>الإجابة الصحيحة:</strong> 
+                                        ${question.options[r.correctAnswer]}
+                                    </p>
+                                ` : ''}
+                            </div>
+                        ` : `
+                            <div style="margin-top: 12px; padding: 12px; background: #fef3c7; border-radius: 8px;">
+                                <p style="font-size: 14px; color: #92400e;">
+                                    <strong>⚠️ لم تجب على هذا السؤال</strong>
+                                </p>
+                                <p style="font-size: 14px; color: #166534; margin-top: 8px;">
+                                    <strong>الإجابة الصحيحة:</strong> 
+                                    ${question.options[r.correctAnswer]}
+                                </p>
+                            </div>
+                        `}
+                        
+                        <p style="color: var(--text-light); font-size: 14px; margin-top: 12px; padding: 12px; background: var(--bg); border-radius: 8px; border-right: 3px solid var(--primary);">
+                            <strong>💡 التفسير:</strong><br>
                             ${r.explanation}
                         </p>
                     </div>
