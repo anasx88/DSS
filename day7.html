@@ -1,0 +1,3458 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام التدريب على إتقان التعامل مع مسرح الحادث</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #2563eb;
+            --accent: #f59e0b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 3px 16px rgba(0,0,0,0.12);
+        }
+
+        .header-content {
+            display: flex;
+	       flex-direction:column; 
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 800;
+  margin:0;
+  line-height:1.3;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+        }
+
+        .header-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0;
+            position: sticky;
+            top: 58px;
+            z-index: 90;
+        }
+
+        .tabs-container {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            padding: 16px 24px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            font-family: inherit;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background: #f1f5f9;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 24px 0;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Study Section Styles */
+        #study .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        #study .card h2 {
+            color: var(--primary);
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        #study .card h3 {
+            color: var(--secondary);
+            font-size: 18px;
+            margin: 20px 0 12px 0;
+        }
+
+        #study .concept-item {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-right: 4px solid var(--secondary);
+        }
+
+        #study .concept-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        #study .concept-meta {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            background: #e0e7ff;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        #study .concept-def {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        #study .concept-def ul,
+        #study .concept-def ol {
+            margin: 12px 0;
+            padding-right: 24px;
+        }
+
+        #study .concept-def li {
+            margin-bottom: 8px;
+        }
+
+        #study .concept-example {
+            background: #ecfdf5;
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-right: 3px solid var(--success);
+        }
+
+        #study .concept-example::before {
+            content: "مثال: ";
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        #study .exam-angle {
+            background: #fff7ed;
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-right: 3px solid var(--accent);
+        }
+
+        #study .exam-angle::before {
+            content: "زاوية الامتحان: ";
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        #study .confusion-box {
+            background: #fef2f2;
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-right: 3px solid var(--danger);
+        }
+
+        #study .confusion-box::before {
+            content: "نقطة الالتباس: ";
+            font-weight: 700;
+            color: var(--danger);
+        }
+
+        #study .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        #study .comparison-table th,
+        #study .comparison-table td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: right;
+        }
+
+        #study .comparison-table th {
+            background: var(--primary);
+            color: white;
+        }
+
+        #study .comparison-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        /* Risk Matrix */
+        #study .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2px;
+            background: var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+
+        #study .matrix-header {
+            background: var(--primary);
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        #study .matrix-cell {
+            padding: 16px 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        #study .matrix-low {
+            background: #86efac;
+            color: #14532d;
+        }
+
+        #study .matrix-medium {
+            background: #fde047;
+            color: #713f12;
+        }
+
+        #study .matrix-high {
+            background: #fb923c;
+            color: #7c2d12;
+        }
+
+        #study .matrix-critical {
+            background: #f87171;
+            color: #7f1d1d;
+        }
+
+        /* SWOT Grid */
+        #study .swot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        #study .swot-box {
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        #study .swot-strengths {
+            background: #dcfce7;
+            border: 2px solid #86efac;
+        }
+
+        #study .swot-weaknesses {
+            background: #fee2e2;
+            border: 2px solid #fca5a5;
+        }
+
+        #study .swot-opportunities {
+            background: #dbeafe;
+            border: 2px solid #93c5fd;
+        }
+
+        #study .swot-threats {
+            background: #fef3c7;
+            border: 2px solid #fcd34d;
+        }
+
+        #study .swot-box h4 {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        /* Glossary */
+        #study .glossary-term {
+            background: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        #study .glossary-term strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* Infographic Slot */
+        #study .infographic-slot {
+            text-align: center;
+            padding: 40px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 2px dashed var(--border);
+        }
+
+        #study .infographic-slot img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Exam Section */
+        .exam-header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .exam-info {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .exam-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .exam-info-item .label {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .exam-info-item .value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .timer {
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        .timer.warning {
+            background: var(--warning);
+            animation: pulse 1s infinite;
+        }
+
+        .timer.danger {
+            background: var(--danger);
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            border-color: var(--secondary);
+            background: #f8fafc;
+        }
+
+        .option.selected {
+            border-color: var(--secondary);
+            background: #eff6ff;
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .option.wrong {
+            border-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .option-marker {
+            width: 28px;
+            height: 28px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .option.selected .option-marker {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: white;
+        }
+
+        .option.correct .option-marker {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .option.wrong .option-marker {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: white;
+        }
+
+        .explanation {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+        }
+
+        .explanation-correct {
+            background: #f0fdf4;
+            border-right: 4px solid var(--success);
+        }
+
+        .explanation-wrong {
+            background: #fef2f2;
+            border-right: 4px solid var(--danger);
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e40af;
+        }
+
+        .btn-primary:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #15803d;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #b45309;
+        }
+
+        .exam-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        /* Results Section */
+        .results-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            border: 8px solid;
+        }
+
+        .score-circle.pass {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .score-circle.fail {
+            border-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .score-value {
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .score-circle.pass .score-value {
+            color: var(--success);
+        }
+
+        .score-circle.fail .score-value {
+            color: var(--danger);
+        }
+
+        .score-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .result-status {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .result-status.pass {
+            color: var(--success);
+        }
+
+        .result-status.fail {
+            color: var(--danger);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* Mastery Dashboard */
+        .mastery-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .mastery-card h3 {
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+
+        .concept-mastery {
+            margin-bottom: 20px;
+        }
+
+        .concept-mastery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .concept-name {
+            font-weight: 600;
+        }
+
+        .concept-score {
+            font-weight: 700;
+        }
+
+        .concept-bar {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .concept-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .concept-bar-fill.mastered {
+            background: var(--success);
+        }
+
+        .concept-bar-fill.developing {
+            background: var(--accent);
+        }
+
+        .concept-bar-fill.weak {
+            background: var(--danger);
+        }
+
+        .recommendation {
+            background: #fff7ed;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 12px;
+            border-right: 4px solid var(--accent);
+        }
+
+        .recommendation strong {
+            color: var(--warning);
+        }
+
+        /* Flashcards */
+        .flashcard-container {
+            perspective: 1000px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .flashcard {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            min-height: 300px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: #f8fafc;
+            border-radius: 16px;
+        }
+
+        .flashcard-term {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .flashcard-definition {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .flashcard-tip {
+            margin-top: 20px;
+            padding: 16px;
+            background: #fff7ed;
+            border-radius: 8px;
+            border-right: 4px solid var(--accent);
+        }
+
+        .flashcard-tip::before {
+            content: "تلميح: ";
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .flashcard-counter {
+            text-align: center;
+            margin-top: 16px;
+            color: var(--text-light);
+        }
+
+        /* Home Section */
+        .welcome-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .welcome-card h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .welcome-card p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 28px;
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .last-attempt {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .last-attempt h3 {
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        /* User Form */
+        .user-form {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 500px;
+            margin: 0 auto 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        /* Model Selection */
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .model-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .model-card:hover {
+            border-color: var(--secondary);
+        }
+
+        .model-card.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .model-card h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .model-card .model-meta {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .model-card .model-description {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .header-meta {
+                font-size: 12px;
+                gap: 12px;
+            }
+
+            .tab-btn {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+
+            #study .risk-matrix {
+                font-size: 11px;
+            }
+
+            #study .matrix-cell {
+                padding: 10px 4px;
+            }
+
+            #study .swot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exam-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .exam-info {
+                justify-content: center;
+            }
+
+            .timer {
+                text-align: center;
+            }
+
+            .question-card {
+                padding: 16px;
+            }
+
+            .option {
+                padding: 12px;
+            }
+
+            .score-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .score-value {
+                font-size: 36px;
+            }
+
+            .flashcard {
+                padding: 24px;
+                min-height: 250px;
+            }
+
+            .flashcard-term {
+                font-size: 20px;
+            }
+
+            .flashcard-definition {
+                font-size: 16px;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 16px;
+        }
+
+        .mt-4 {
+            margin-top: 16px;
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            border-right: 4px solid var(--secondary);
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            border-right: 4px solid var(--warning);
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            border-right: 4px solid var(--success);
+        }
+/* ===== Days Navigation Bar (Day 1..6) ===== */
+.days-bar{
+  display:flex;
+  flex-wrap:nowrap;        /* أهم سطر */
+  justify-content:center;
+  gap:10px;
+  align-items:center;
+
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+
+  overflow-x:auto;         /* لو الشاشة ضيقة */
+  scrollbar-width:none;
+}
+.days-bar::-webkit-scrollbar{ display:none; }
+/* Link/button */
+.day-btn{
+  padding:8px 10px;
+  gap:8px;
+  border-radius:12px;
+  flex:0 0 auto;
+}
+
+.days-bar .day-btn,
+.days-bar .day-btn:visited { color:#fff; }
+
+.day-btn:hover{
+  background: rgba(255,255,255,.18);
+  transform: translateY(-1px);
+}
+
+.day-btn.active{
+  background: rgba(255,255,255,.24);
+  outline: 2px solid rgba(255,255,255,.35);
+}
+
+/* Text */
+.day-txt{
+  font-weight:800;
+  font-size:12.5px;        /* أصغر */
+  white-space:nowrap;
+}
+
+/* Icon base */
+.day-ico{
+  --stroke:#ffffff;
+  --fill:#2563eb;
+
+  width:28px;
+  height:28px;
+  border-radius:999px;
+  display:inline-grid;
+  place-items:center;
+
+  background: var(--fill);
+  color: var(--stroke);
+
+  border:none;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+}
+
+.day-ico svg{
+  width:16px;
+  height:16px;
+  display:block;
+  stroke: currentColor;
+  fill: none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Day colors (اختياري/مقترح) */
+.ico-d1{ --fill:#2563eb; --stroke:#ffffff; }  /* Day 1 */
+.ico-d2{ --fill:#16a34a; --stroke:#ffffff; }  /* Day 2 */
+.ico-d3{ --fill:#065f46; --stroke:#ffffff; }  /* Day 3 */
+
+/* NEW */
+.ico-d4{ --fill:#f59e0b; --stroke:#ffffff; }  /* Day 4: OHS */
+.ico-d5{ --fill:#9333ea; --stroke:#ffffff; }  /* Day 5: Media */
+.ico-d6{ --fill:#0f172a; --stroke:#ffffff; }  /* Day 6: Security */
+.ico-d7{ --fill:#b91c1c; --stroke:#ffffff; }  /* Day 7: Incident Scene */
+
+@media (max-width:768px){
+  .day-txt{ font-size:13px; }
+  .day-btn{ padding:9px 12px; }
+}
+/* ===== Tabs width fix (real, not visual-only) ===== */
+.nav-tabs{
+  background: transparent !important;
+  border-bottom: 0 !important;
+  display: block !important;
+}
+
+.nav-tabs-inner{
+  background: #fff;
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  margin: 12px auto 0;       /* يوازنها تحت الهيدر */
+  padding: 0;                /* لا تضيف padding إلا إذا رغبت */
+}
+
+.nav-tabs-inner::-webkit-scrollbar{ display:none; }
+
+/* اختياري: تقليل ضخامة التبويب */
+.nav-tab{
+  padding: 12px 18px !important;  /* كان 16px 24px */
+  font-size: .95rem !important;
+}
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1>نظام التدريب على إتقان التعامل مع مسرح الحادث</h1>
+<div aria-label="تنقّل أيام البرنامج" class="days-bar">
+
+  <!-- Day 1 -->
+  <a class="day-btn" href="index.html" title="اليوم الأول" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d1">
+      <!-- (اختياري) أيقونة اليوم الأول: اتركها كما عندك إن كانت مختلفة -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M12 15s-4-2.5-4-5.2C8 8.3 9.1 7.5 10.2 7.5c.7 0 1.3.3 1.8.8.5-.5 1.1-.8 1.8-.8 1.1 0 2.2.8 2.2 2.3 0 2.7-4 5.2-4 5.2z"/>
+      </svg>
+    </span>
+    <span class="day-txt">إدارة الأزمات والمخاطر الأمنية</span>
+  </a>
+
+  <!-- Day 2 -->
+  <a class="day-btn" href="day2.html" title="اليوم الثاني" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d2">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M8 10h8"/>
+        <path d="M10 10l-2 4h4l-2-4z"/>
+        <path d="M14 10l-2 4h4l-2-4z"/>
+      </svg>
+    </span>
+    <span class="day-txt">قوانين ومعايير السلامة</span>
+  </a>
+
+  <!-- Day 3 -->
+  <a class="day-btn" href="day3.html" title="اليوم الثالث" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d3">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M8 13a4 4 0 0 1 8 0"/>
+        <path d="M8 13h8"/>
+      </svg>
+    </span>
+    <span class="day-txt">إدارة السلامة ومنع الخسائر</span>
+  </a>
+
+  <!-- Day 4 (NEW) -->
+  <a class="day-btn" href="day4.html" title="اليوم الرابع" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d4">
+      <!-- Helmet / OHS -->
+      <svg viewBox="0 0 24 24">
+        <path d="M4 18h16"/>
+        <path d="M6 18v-3a6 6 0 0 1 12 0v3"/>
+        <path d="M12 9v6"/>
+      </svg>
+    </span>
+    <span class="day-txt">السلامة والصحة المهنية</span>
+  </a>
+
+  <!-- Day 5 (NEW) -->
+  <a class="day-btn" href="day5.html" title="اليوم الخامس" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d5">
+      <!-- Megaphone / Media -->
+      <svg viewBox="0 0 24 24">
+        <path d="M3 11v2"/>
+        <path d="M5 10v4"/>
+        <path d="M7 9l10-3v12l-10-3z"/>
+        <path d="M17 9l4-2v10l-4-2"/>
+      </svg>
+    </span>
+    <span class="day-txt">التعامل مع وسائل الإعلام</span>
+  </a>
+
+  <!-- Day 6 (NEW) -->
+  <a class="day-btn" href="day6.html" title="اليوم السادس" target="_self" rel="noopener">
+    <span aria-hidden="true" class="day-ico ico-d6">
+      <!-- Shield/Lock / Security Planning -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 6-3.5 10-7 11-3.5-1-7-5-7-11V6l7-4z"/>
+        <path d="M9.5 12a2.5 2.5 0 0 1 5 0v2.5h-5V12z"/>
+        <path d="M10 14.5h4"/>
+      </svg>
+    </span>
+    <span class="day-txt">التخطيط الأمني</span>
+  </a>
+<!-- Day 7 -->
+<a class="day-btn active" href="day7.html" title="مسرح الحادث" target="_self" rel="noopener">
+  <span aria-hidden="true" class="day-ico ico-d7">
+    <!-- أيقونة شريط تحذيري + مخروط تحذير -->
+    <svg viewBox="0 0 24 24">
+      <path d="M3 18h18"/>
+      <path d="M8 18v-6l4-6 4 6v6"/>
+      <path d="M12 10v2"/>
+      <path d="M12 14h.01"/>
+    </svg>
+  </span>
+  <span class="day-txt">مسرح الحادث</span>
+</a>
+
+</div>
+
+
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-tabs">
+        <div class="container">
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="home" aria-label="الرئيسية">الرئيسية</button>
+                <button class="tab-btn" data-tab="study" aria-label="المذاكرة">المذاكرة</button>
+                <button class="tab-btn" data-tab="flashcards" aria-label="البطاقات">البطاقات التعليمية</button>
+                <button class="tab-btn" data-tab="exam" aria-label="الاختبار">الاختبار</button>
+                <button class="tab-btn" data-tab="results" aria-label="النتائج">النتائج</button>
+                <button class="tab-btn" data-tab="mastery" aria-label="لوحة الإتقان">لوحة الإتقان</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Home Tab -->
+        <div id="home" class="tab-content active">
+            <div class="welcome-card">
+                <h2>مرحباً بك في نظام التدريب على إتقان التعامل مع مسرح الحادث</h2>
+                <p>نظام متكامل للتدريب على إدارة مسرح الحادث وفق معايير OSHA و NEBOSH الدولية. يشمل المقرر مفاهيم التقييم، التحقيق الفني، جمع الأدلة، وتحليل الأسباب الجذرية.</p>
+            </div>
+
+            <div id="user-info-section">
+                <div class="user-form">
+                    <div class="form-group">
+                        <label for="user-name">الاسم الكامل</label>
+                        <input type="text" id="user-name" placeholder="أدخل اسمك الكامل">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveUserInfo()" style="width: 100%;">حفظ المعلومات</button>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>المذاكرة الشاملة</h3>
+                    <p>محتوى تعليمي مفصل يغطي جميع مفاهيم التعامل مع مسرح الحادث</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>نماذج اختبار متنوعة</h3>
+                    <p>أكثر من 80 سؤال متنوع بمستويات صعوبة مختلفة</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗂️</div>
+                    <h3>بطاقات تعليمية</h3>
+                    <p>بطاقات مراجعة تفاعلية لجميع المفاهيم الأساسية</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>تتبع الإتقان</h3>
+                    <p>لوحة تحكم تظهر مستوى إتقانك لكل مفهوم على حدة</p>
+                </div>
+            </div>
+
+            <div id="last-attempt-container" class="hidden">
+                <div class="last-attempt">
+                    <h3>آخر محاولة</h3>
+                    <div id="last-attempt-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Study Tab -->
+        <div id="study" class="tab-content">
+            <!-- Lesson 1: Introduction -->
+            <div class="card">
+                <h2>الدرس الأول: مقدمة في التعامل مع مسرح الحادث</h2>
+
+                <div class="concept-item" id="concept-incident-scene">
+                    <div class="concept-title">مسرح الحادث (Incident Scene)</div>
+                    <div class="concept-meta">الدرس الأول | صفحة: 165</div>
+                    <div class="concept-def">
+                        هو المكان الذي يقع فيه الحادث. يشمل الأفراد المصابين، المعدات المتضررة، البيئة المحيطة، والظروف المرتبطة بالحادث. لا ينظر إلى مسرح الحادث كمكان مجرد، بل كمجموعة متكاملة من العوامل المدنية التي يجب التعامل معها بحذر و احترافية.
+                    </div>
+                    <div class="exam-angle">التركيز على فهم أن مسرح الحادث ليس مجرد موقع جغرافي بل نظام متكامل من العوامل المتداخلة.</div>
+                </div>
+
+                <div class="concept-item" id="concept-accident-vs-incident">
+                    <div class="concept-title">الفرق بين الحادث (Accident) والحدث (Incident)</div>
+                    <div class="concept-meta">الدرس الأول | صفحة: 286-295</div>
+                    <div class="concept-def">
+                        <table class="comparison-table">
+                            <tr>
+                                <th>الحدث (Incident)</th>
+                                <th>الحادث (Accident)</th>
+                            </tr>
+                            <tr>
+                                <td>أي حدث غير مرغوب فيه</td>
+                                <td>حدث يؤدي إلى إصابة أو خسارة</td>
+                            </tr>
+                            <tr>
+                                <td>قد يكون أو لا يكون له نتائج سلبية</td>
+                                <td>له نتائج سلبية مؤكدة</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="concept-example">حادث شبه (Near Miss): حادث كاد يقع لكنه لم يقع</div>
+                    <div class="exam-angle">التمييز الدقيق بين المصطلحات في سياق الامتحان.</div>
+                </div>
+
+                <div class="concept-item" id="concept-incident-types">
+                    <div class="concept-title">أنواع الحوادث تحت إدارة الطوارئ</div>
+                    <div class="concept-meta">الدرس الأول | صفحة: 252-276</div>
+                    <div class="concept-def">
+                        <ul>
+                            <li><strong>الحوادث الكهربائية:</strong> سامتلا يئابرهك، قيرح ةرارش، داوم راجفنا</li>
+                            <li><strong>الحوادث الكيميائية:</strong> تازاغ برست، قحس، تادعم نيب راشحنا</li>
+                            <li><strong>الحوادث الميكانيكية:</strong> يضرأ رايهنا، ةريزغ راطمأ</li>
+                            <li><strong>الحوادث البيئية:</strong> تاعفارلا، تانحاشلا</li>
+                            <li><strong>الحوادث المرتبطة بالإشعاع:</strong> تازاغلا فشك زاهج مادختسا</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">تصنيف نوع الحادث بناءً على الوصف المقدم في السؤال.</div>
+                </div>
+
+                <div class="concept-item" id="concept-zones">
+                    <div class="concept-title">تقسيم مناطق مسرح الحادث</div>
+                    <div class="concept-meta">الدرس الأول | صفحة: 331-342</div>
+                    <div class="concept-def">
+                        <ul>
+                            <li><strong>المنطقة الساخنة (Hot Zone):</strong> منطقة الخطر المباشر - لا يدخل إلا بمعدات حماية كاملة</li>
+                            <li><strong>المنطقة الدافئة (Warm Zone):</strong> منطقة الدعم والمساعدة - نقطة تجمع للإدارة والتوثيق</li>
+                            <li><strong>المنطقة الباردة (Cold Zone):</strong> منطقة الأمن والإدارة - تجمع العاملين للإدارة والتنسيق</li>
+                        </ul>
+                    </div>
+                    <div class="concept-example">في حالة تسرب غاز الكلور في معمل معالجة مياه: المنطقة الساخنة هي غرفة المعالجة، المنطقة الدافئة هي محيط المصنع، المنطقة الباردة هي مركز القيادة</div>
+                    <div class="exam-angle">تحديد المنطقة المناسبة لكل نشاط بناءً على مستوى الخطر.</div>
+                </div>
+
+                <div class="concept-item" id="concept-entry-prohibitions">
+                    <div class="concept-title">الأخطاء الشائعة في بداية التعامل مع الحوادث</div>
+                    <div class="concept-meta">الدرس الأول | صفحة: 319-331</div>
+                    <div class="concept-def">
+                        <ul>
+                            <li>الدخول المباشر للموقع بدون تقييم</li>
+                            <li>تحريك المصابين بدون تثبيت أو حماية</li>
+                            <li>التعامل مع الموقع قبل تنظيفه أو تطهيره</li>
+                            <li>إطلاق إشاعات أو معلومات غير دقيقة</li>
+                            <li>دخول غير المدربين أو المتخصصين</li>
+                        </ul>
+                    </div>
+                    <div class="confusion-box">غير مذكور صراحة في المقرر</div>
+                </div>
+            </div>
+
+            <!-- Lesson 2: Technical Investigation -->
+            <div class="card">
+                <h2>الدرس الثاني: التحقيق الفني في أسباب الحوادث</h2>
+
+                <div class="concept-item" id="concept-technical-investigation">
+                    <div class="concept-title">التحقيق الفني (Technical Investigation)</div>
+                    <div class="concept-meta">الدرس الثاني | صفحة: 487-521</div>
+                    <div class="concept-def">
+                        هو أداة علمية وتقنية تهدف إلى كشف الأسباب الحقيقية التي أدت إلى وقوع الحادث. يختلف عن التحقيق القانائي الذي يهدف إلى تحديد المسؤولية. 80-90% من الحوادث يمكن التحكم فيها، مما يجعـل التحقيق الفني أمراً حيوياً لتحقيق بيئة عمل آمنة ومستقرة.
+                    </div>
+                    <div class="concept-example">في حادث انفجار في مصنع، يكشف التحقيق الفني عن خلل في صمام الأمان كسبب جذري، بينما يحدد التحقيق القانوني المسؤول عن الصيانة</div>
+                    <div class="exam-angle">التمييز بين أهداف التحقيق الفني والتحقيق القانوني.</div>
+                </div>
+
+                <div class="concept-item" id="concept-investigation-objectives">
+                    <div class="concept-title">أهداف التحقيق الفني</div>
+                    <div class="concept-meta">الدرس الثاني | صفحة: 536-547</div>
+                    <div class="concept-def">
+                        <ul>
+                            <li>تحديد السبب الجذري للحادث ("كيف حدث" و"لماذا حدث")</li>
+                            <li>تحليل العوامل المساعدة (الأفراد، المعدات، الإدارة، البيئة)</li>
+                            <li>منع تكرار الحوادث في المستقبل</li>
+                            <li>تحسين أنظمة وإجراءات السلامة</li>
+                            <li>تحديد العوامل التنظيمية والسلوكية المؤثرة</li>
+                            <li>تحسين ثقافة السلامة في بيئة العمل</li>
+                            <li>المساعدة في اتخاذ قرارات قانونية عادلة</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">ربط كل هدف بالنتيجة المتوقعة منه.</div>
+                </div>
+
+                <div class="concept-item" id="concept-investigation-team">
+                    <div class="concept-title">فريق التحقيق الفني</div>
+                    <div class="concept-meta">الدرس الثاني | صفحة: 656-717</div>
+                    <div class="concept-def">
+                        يشكل فريق التحقيق من عدة أعضاء:
+                        <ul>
+                            <li><strong>رئيس اللجنة:</strong> مسؤول عن التنسيق والإدارة</li>
+                            <li><strong>ممثل إدارة السلامة المهنية:</strong> الخبير التقني</li>
+                            <li><strong>ممثل عن العمليات أو الإنتاج:</strong> معرفة عملية</li>
+                            <li><strong>ممثل عن الهندسة أو الصيانة:</strong> الخبرة الفنية</li>
+                            <li><strong>متخصص قانوني أو بموارد بشرية:</strong> الجانب القانوني</li>
+                            <li><strong>ممثل عن العمال:</strong> وجهة نظر الميدان</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">تحديد العضو المناسب لكل مهمة في التحقيق.</div>
+                </div>
+
+                <div class="concept-item" id="concept-investigation-steps">
+                    <div class="concept-title">خطوات التحقيق الفني في الحوادث</div>
+                    <div class="concept-meta">الدرس الثاني | صفحة: 717-743</div>
+                    <div class="concept-def">
+                        <ol>
+                            <li>تأمين وحماية موقع الحادث - منع أي تعديل أو تعبث</li>
+                            <li>تشكيل لجنة التحقيق</li>
+                            <li>وضع إجراءات وتحذيرات احترازية</li>
+                            <li>الحفاظ على المعدات والأشياء في أماكنها الأصلية</li>
+                            <li>إيقاف أي أعمال أو تنظيم مع الأخذ باحتياطات السلامة</li>
+                            <li>استجابة المقابلات والمعلومات</li>
+                            <li>معرفة الشهادات والسجلات</li>
+                            <li>تطوير الوقائع والسجلات</li>
+                            <li>تحديد الأسباب المباشرة والجذرية</li>
+                            <li>تحليل سلسلة الأحداث</li>
+                            <li>إعداد التقرير النهائي</li>
+                        </ol>
+                    </div>
+                    <div class="exam-angle">ترتيب خطوات التحقيق بشكل صحيح.</div>
+                </div>
+
+                <div class="concept-item" id="concept-5whys">
+                    <div class="concept-title">طريقة 5 أسباب (5 Whys)</div>
+                    <div class="concept-meta">الدرس الثاني | صفحة: 878-914</div>
+                    <div class="concept-def">
+                        أداة تحليل بسيطة تسأل "لماذا" 5 مرات للوصول إلى السبب الجذري. يُسَمَّى خطم السمكة لأنه يُمَثَّل مسار السبب والنتيجة كهيكل عظمي للسمكة.
+                        <br><br>
+                        <strong>مثال تطبيقي:</strong>
+                        <ul>
+                            <li>لماذا حدث الانفجار؟ لأن غازاً اشتعل</li>
+                            <li>لماذا اشتعل الغاز؟ لأن عامل الأمان لم يعمل</li>
+                            <li>لماذا لم يعمل؟ لأنه لم يتم صيانته منذ 8 أشهر</li>
+                            <li>لماذا لم تتم الصيانة؟ لأنها لم تكن ضمن نظام إدارة الصيانة</li>
+                            <li>لماذا لم تكن ضمن النظام؟ لأن هناك ضعف في نظام إدارة الصيانة</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">تطبيق طريقة 5 أسباب على سيناريو محدد.</div>
+                </div>
+
+                <div class="concept-item" id="concept-fishbone">
+                    <div class="concept-title">مخطط عظم السمكة (Fishbone Diagram)</div>
+                    <div class="concept-meta">الدرس الثاني | صفحة: 878-914</div>
+                    <div class="concept-def">
+                        أداة تحليل تصورية تُصنف الأسباب المحتملة في فئات رئيسية:
+                        <ul>
+                            <li><strong>المواد (Materials):</strong> نوعية وجودة المواد المستخدمة</li>
+                            <li><strong>الأفراد (Man):</strong> المهارات، التدريب، التواصل</li>
+                            <li><strong>الآلات (Machine):</strong> صيانة، عمر المعدات، التصميم</li>
+                            <li><strong>الطرق (Methods):</strong> الإجراءات، التعليمات، السياسات</li>
+                            <li><strong>البيئة (Environment):</strong> الظروف الجوية، الإضاءة، التهوية</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">تصنيف الأسباب في الفئات الخمس الصحيحة.</div>
+                </div>
+            </div>
+
+            <!-- Lesson 3: Scene Assessment -->
+            <div class="card">
+                <h2>الدرس الثالث: تقييم مسرح الحادث</h2>
+
+                <div class="concept-item" id="concept-assessment-importance">
+                    <div class="concept-title">أهمية تقييم مسرح الحادث</div>
+                    <div class="concept-meta">الدرس الثالث | صفحة: 1210-1237</div>
+                    <div class="concept-def">
+                        <ul>
+                            <li>التأكد من عدم وجود أي أخطار قبل دخول فريق الإنقاذ</li>
+                            <li>منع تحول فريق الإنقاذ إلى ضحايا جدد</li>
+                            <li>تحديد مصادر الخطر المحتملة (كهرباء، حريق، مواد كيميائية)</li>
+                            <li>تحديد مستوى الحماية المطلوبة للدخول الآمن</li>
+                            <li>اتخاذ قرارات فعالة بشكل سريع</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">فهم أن تقييم الوضع يأتي قبل أي إجراء آخر.</div>
+                </div>
+
+                <div class="concept-item" id="concept-assessment-types">
+                    <div class="concept-title">أنواع التقييم</div>
+                    <div class="concept-meta">الدرس الثالث | صفحة: 1255-1300</div>
+                    <div class="concept-def">
+                        <table class="comparison-table">
+                            <tr>
+                                <th>النوع</th>
+                                <th>التوقيت</th>
+                                <th>الأهمية</th>
+                            </tr>
+                            <tr>
+                                <td>التقييم الفوري (Immediate)</td>
+                                <td>عند الوصول للموقع - قبل السيطرة على الحادث</td>
+                                <td>بصري سريع</td>
+                            </tr>
+                            <tr>
+                                <td>التقييم السريع (Rapid)</td>
+                                <td>بعد السيطرة على الحادث - بعد العزل</td>
+                                <td>مهم للسلامة</td>
+                            </tr>
+                            <tr>
+                                <td>التقييم المعمق (In-depth)</td>
+                                <td>أثناء تنفيذ عملية هندسية مستمرة</td>
+                                <td>تحليلي تقني</td>
+                            </tr>
+                            <tr>
+                                <td>التقييم الديناميكي (Dynamic)</td>
+                                <td>عملية مستمرة</td>
+                                <td>مراقبة مستمرة</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="exam-angle">اختيار نوع التقييم المناسب لكل مرحلة.</div>
+                </div>
+
+                <div class="concept-item" id="concept-assessment-tools">
+                    <div class="concept-title">أدوات التقييم الأساسية</div>
+                    <div class="concept-meta">الدرس الثالث | صفحة: 1346-1367</div>
+                    <div class="concept-def">
+                        <ul>
+                            <li><strong>كاشف الغازات:</strong> قياس H₂S، CO، O₂، LEL</li>
+                            <li><strong>كاشف الكهرباء:</strong> التأكد من عودة الجهد الكهربائي</li>
+                            <li><strong>مقياس الحرارة بالأشعة:</strong> كشف ارتفاع درجات الحرارة الخفية</li>
+                            <li><strong>بيانات السلامة:</strong> تحديد المخاطر المحتملة للمواد</li>
+                            <li><strong>مقياس الضوء:</strong> التأكد من سلامة الرؤية</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">اختيار الأداة المناسبة لكل نوع من المخاطر.</div>
+                </div>
+
+                <div class="concept-item" id="concept-unsafe-signs">
+                    <div class="concept-title">الإشارات التحذيرية لموقع غير آمن</div>
+                    <div class="concept-meta">الدرس الثالث | صفحة: 1369-1391</div>
+                    <div class="concept-def">
+                        <ul>
+                            <li><strong>رائحة:</strong> غاز سام أو مادة كيميائية متطايرة</li>
+                            <li><strong>عذلة أو ذفان:</strong> عدم التوازن في الدرج أو السقف</li>
+                            <li><strong>لون أبيض أو أخضر:</strong> تفاعل كيميائي</li>
+                            <li><strong>سلاسل أو كاسات محروقة:</strong> خطر كهربائي مباشر</li>
+                            <li><strong>فقدان شخص للوعي داخل الغرفة:</strong> نقص أكسجين أو غاز سام</li>
+                            <li><strong>أدوات مكسورة أو متورمة:</strong> آثار انفجار أو اهتزاز</li>
+                        </ul>
+                    </div>
+                    <div class="exam-angle">التعرف على علامات الخطر من الوصف.</div>
+                </div>
+
+                <div class="concept-item" id="concept-osha-nebosh">
+                    <div class="concept-title">معايير OSHA و NEBOSH في تقييم مواقع الحوادث</div>
+                    <div class="concept-meta">الدرس الثالث | صفحة: 1391-1401</div>
+                    <div class="concept-def">
+                        خطوات التقييم حسب المعايير الدولية:
+                        <ol>
+                            <li>المراقبة من الخارج</li>
+                            <li>عزل مصدر الخطر</li>
+                            <li>تحليل العناصر البيئية</li>
+                            <li>استخدام أدوات القياس</li>
+                            <li>التوثيق الأولي</li>
+                            <li>اتخاذ قرار بالدخول أو الإغلاق أو طلب المساعدة</li>
+                        </ol>
+                    </div>
+                    <div class="exam-angle">تطبيق خطوات المعايير الدولية في السيناريوهات العملية.</div>
+                </div>
+            </div>
+
+            <!-- Analytical Models Card -->
+            <div class="card">
+                <h2>النماذج التحليلية</h2>
+
+                <h3>مصفوفة تقييم المخاطر (Risk Matrix)</h3>
+                <div class="risk-matrix" role="table" aria-label="Risk Matrix">
+                    <div class="matrix-header" role="columnheader">التأثير →<br>الاحتمال ↓</div>
+                    <div class="matrix-header" role="columnheader">ضئيل</div>
+                    <div class="matrix-header" role="columnheader">متوسط</div>
+                    <div class="matrix-header" role="columnheader">كبير</div>
+                    <div class="matrix-header" role="columnheader">حرِج</div>
+
+                    <div class="matrix-header" role="rowheader">نادر</div>
+                    <div class="matrix-cell matrix-low">منخفض</div>
+                    <div class="matrix-cell matrix-low">منخفض</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+
+                    <div class="matrix-header" role="rowheader">محتمل</div>
+                    <div class="matrix-cell matrix-low">منخفض</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+
+                    <div class="matrix-header" role="rowheader">مرجّح</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+
+                    <div class="matrix-header" role="rowheader">شبه مؤكد</div>
+                    <div class="matrix-cell matrix-medium">متوسط</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+                    <div class="matrix-cell matrix-high">عالي</div>
+                    <div class="matrix-cell matrix-critical">حرِج</div>
+                </div>
+
+                <h3>تحليل SWOT</h3>
+                <div class="swot-grid">
+                    <div class="swot-box swot-strengths">
+                        <h4>نقاط القوة (Strengths)</h4>
+                        <ul>
+                            <li>فريق مدرب على إجراءات السلامة</li>
+                            <li>توفر معدات الحماية الشخصية</li>
+                            <li>أنظمة مراقبة حديثة</li>
+                        </ul>
+                    </div>
+                    <div class="swot-box swot-weaknesses">
+                        <h4>نقاط الضعف (Weaknesses)</h4>
+                        <ul>
+                            <li>نقص في التدريب المستمر</li>
+                            <li>إجراءات غير محدثة</li>
+                            <li>ضعف في التوثيق</li>
+                        </ul>
+                    </div>
+                    <div class="swot-box swot-opportunities">
+                        <h4>الفرص (Opportunities)</h4>
+                        <ul>
+                            <li>تطبيق معايير دولية</li>
+                            <li>استخدام تقنيات حديثة</li>
+                            <li>تحسين ثقافة السلامة</li>
+                        </ul>
+                    </div>
+                    <div class="swot-box swot-threats">
+                        <h4>التهديدات (Threats)</h4>
+                        <ul>
+                            <li>مخاطر كيميائية متزايدة</li>
+                            <li>تغيرات في التشريعات</li>
+                            <li>ضغوط الإنتاج</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glossary Card -->
+            <div class="card">
+                <h2>قاموس المصطلحات</h2>
+
+                <div class="glossary-term">
+                    <strong>مسرح الحادث (Incident Scene)</strong>
+                    المكان الذي يقع فيه الحادث مع جميع العوامل المرتبطة به
+                </div>
+
+                <div class="glossary-term">
+                    <strong>الحادث (Accident)</strong>
+                    حدث يؤدي إلى إصابة أو خسارة فعلية
+                </div>
+
+                <div class="glossary-term">
+                    <strong>الحدث (Incident)</strong>
+                    أي حدث غير مرغوب فيه قد يكون أو لا يكون له نتائج سلبية
+                </div>
+
+                <div class="glossary-term">
+                    <strong>حادث شبه (Near Miss)</strong>
+                    حادث كاد يقع لكنه لم يقع
+                </div>
+
+                <div class="glossary-term">
+                    <strong>المنطقة الساخنة (Hot Zone)</strong>
+                    منطقة الخطر المباشر التي لا يدخلها إلا المتخصصون بمعدات كاملة
+                </div>
+
+                <div class="glossary-term">
+                    <strong>المنطقة الدافئة (Warm Zone)</strong>
+                    منطقة الدعم والمساعدة والتزويد بالمعدات
+                </div>
+
+                <div class="glossary-term">
+                    <strong>المنطقة الباردة (Cold Zone)</strong>
+                    منطقة الأمن والإدارة والتنسيق
+                </div>
+
+                <div class="glossary-term">
+                    <strong>التحقيق الفني (Technical Investigation)</strong>
+                    تحقيق يهدف لكشف الأسباب الحقيقية للحادث لمنع تكراره
+                </div>
+
+                <div class="glossary-term">
+                    <strong>السبب الجذري (Root Cause)</strong>
+                    السبب الأساسي الذي أدى إلى وقوع الحادث
+                </div>
+
+                <div class="glossary-term">
+                    <strong>طريقة 5 أسباب (5 Whys)</strong>
+                    أداة تحليل تسأل "لماذا" 5 مرات للوصول للسبب الجذري
+                </div>
+
+                <div class="glossary-term">
+                    <strong>مخطط عظم السمكة (Fishbone Diagram)</strong>
+                    أداة تصورية لتحليل الأسباب في فئات رئيسية
+                </div>
+
+                <div class="glossary-term">
+                    <strong>OSHA</strong>
+                    إدارة السلامة والصحة المهنية الأمريكية
+                </div>
+
+                <div class="glossary-term">
+                    <strong>NEBOSH</strong>
+                    المؤسسة البريطانية للسلامة والصحة المهنية
+                </div>
+
+                <div class="glossary-term">
+                    <strong>SCBA</strong>
+                    جهاز التنفس ذاتي الحماية
+                </div>
+
+                <div class="glossary-term">
+                    <strong>LEL</strong>
+                    الحد الأدنى للانفجار (Lower Explosive Limit)
+                </div>
+            </div>
+
+            <!-- Infographic Slot -->
+            <div class="card">
+                <h2>الإنفوجرافيك</h2>
+                <div class="infographic-slot">
+                    <img src="unit7.png" alt="Unit Infographic">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Flashcards Tab -->
+        <div id="flashcards" class="tab-content">
+            <div class="card">
+                <h2>البطاقات التعليمية</h2>
+                <p class="text-center mb-4">اضغط على البطاقة لقلبها وعرض المعلومات</p>
+
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-face flashcard-front">
+                            <div class="flashcard-term" id="card-term">مسرح الحادث</div>
+                            <div style="color: #64748b; font-size: 14px;">اضغط لعرض التعريف</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <div class="flashcard-definition" id="card-definition">المكان الذي يقع فيه الحادث، ويشمل الأفراد المصابين، المعدات المتضررة، البيئة المحيطة، والظروف المرتبطة بالحادث</div>
+                            <div class="flashcard-tip" id="card-tip">تذكر أنه نظام متكامل وليس مجرد موقع</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-controls">
+                    <button class="btn btn-primary" onclick="prevCard()">السابق</button>
+                    <button class="btn btn-primary" onclick="nextCard()">التالي</button>
+                </div>
+
+                <div class="flashcard-counter">
+                    <span id="card-current">1</span> / <span id="card-total">15</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Tab -->
+        <div id="exam" class="tab-content">
+            <div id="exam-setup">
+                <div class="card">
+                    <h2>اختيار نموذج الاختبار</h2>
+                    <div class="model-grid">
+                        <div class="model-card" onclick="selectModel('A')">
+                            <h4>النموذج أ</h4>
+                            <div class="model-meta">40 سؤال | مستوى متوسط</div>
+                            <div class="model-description">أسئلة شاملة تغطي جميع المفاهيم الأساسية مع توزيع متوازن</div>
+                        </div>
+                        <div class="model-card" onclick="selectModel('B')">
+                            <h4>النموذج ب</h4>
+                            <div class="model-meta">40 سؤال | مستوى متقدم</div>
+                            <div class="model-description">أسئلة تركز على التطبيق العملي وتحليل السيناريوهات</div>
+                        </div>
+                    </div>
+                    <div class="exam-actions">
+                        <button class="btn btn-primary" id="start-exam-btn" onclick="startExam()" disabled>بدء الاختبار</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="exam-container" class="hidden">
+                <div class="exam-header">
+                    <div class="exam-info">
+                        <div class="exam-info-item">
+                            <span class="label">النموذج:</span>
+                            <span class="value" id="exam-model">-</span>
+                        </div>
+                        <div class="exam-info-item">
+                            <span class="label">الأسئلة:</span>
+                            <span class="value"><span id="answered-count">0</span> / <span id="total-questions">40</span></span>
+                        </div>
+                    </div>
+                    <div class="timer" id="timer">60:00</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div id="questions-container"></div>
+
+                <div class="exam-actions">
+                    <button class="btn btn-success" id="submit-exam-btn" onclick="submitExam()" disabled>تسليم الاختبار</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Tab -->
+        <div id="results" class="tab-content">
+            <div id="results-container">
+                <div class="alert alert-info text-center">
+                    لم يتم إجراء أي اختبار بعد. ابدأ اختباراً من قسم "الاختبار" لعرض النتائج.
+                </div>
+            </div>
+        </div>
+
+        <!-- Mastery Dashboard Tab -->
+        <div id="mastery" class="tab-content">
+            <div class="mastery-card">
+                <h2>لوحة إتقان المفاهيم</h2>
+                <div id="mastery-content">
+                    <div class="alert alert-info text-center">
+                        أكمل اختباراً واحداً على الأقل لعرض لوحة الإتقان.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+
+        // Flashcards Data
+        const flashcardsData = [
+            {
+                term: "مسرح الحادث (Incident Scene)",
+                definition: "المكان الذي يقع فيه الحادث، ويشمل الأفراد المصابين، المعدات المتضررة، البيئة المحيطة، والظروف المرتبطة بالحادث",
+                tip: "تذكر أنه نظام متكامل وليس مجرد موقع"
+            },
+            {
+                term: "الحادث (Accident)",
+                definition: "حدث يؤدي إلى إصابة أو خسارة فعلية",
+                tip: "الفرق الجوهري عن الحدث هو وجود نتيجة سلبية فعلية"
+            },
+            {
+                term: "الحدث (Incident)",
+                definition: "أي حدث غير مرغوب فيه قد يكون أو لا يكون له نتائج سلبية",
+                tip: "مصطلح أعم من الحادث"
+            },
+            {
+                term: "حادث شبه (Near Miss)",
+                definition: "حادث كاد يقع لكنه لم يقع",
+                tip: "فرصة للتعلم ومنع حوادث مستقبلية"
+            },
+            {
+                term: "المنطقة الساخنة (Hot Zone)",
+                definition: "منطقة الخطر المباشر - لا يدخل إلا بمعدات حماية كاملة",
+                tip: "أخطر المناطق الثلاث"
+            },
+            {
+                term: "المنطقة الدافئة (Warm Zone)",
+                definition: "منطقة الدعم والمساعدة - نقطة تجمع للإدارة والتوثيق",
+                tip: "المنطقة الوسيطة للتزويد بالمعدات"
+            },
+            {
+                term: "المنطقة الباردة (Cold Zone)",
+                definition: "منطقة الأمن والإدارة - تجمع العاملين للإدارة والتنسيق",
+                tip: "المنطقة الآمنة للقيادة والتوجيه"
+            },
+            {
+                term: "التحقيق الفني (Technical Investigation)",
+                definition: "أداة علمية تهدف لكشف الأسباب الحقيقية للحادث لمنع تكراره",
+                tip: "يختلف عن التحقيق القانوني الذي يحدد المسؤولية"
+            },
+            {
+                term: "السبب الجذري (Root Cause)",
+                definition: "السبب الأساسي الذي أدى إلى وقوع الحادث",
+                tip: "يتم الوصول إليه بطريقة 5 أسباب"
+            },
+            {
+                term: "طريقة 5 أسباب (5 Whys)",
+                definition: "أداة تحليل تسأل لماذا 5 مرات للوصول للسبب الجذري",
+                tip: "بسيطة لكن فعالة في كشف الأسباب العميقة"
+            },
+            {
+                term: "مخطط عظم السمكة (Fishbone Diagram)",
+                definition: "أداة تصورية لتحليل الأسباب في فئات: المواد، الأفراد، الآلات، الطرق، البيئة",
+                tip: "تصنيف منظم للأسباب المحتملة"
+            },
+            {
+                term: "التقييم الفوري (Immediate Assessment)",
+                definition: "تقييم عند الوصول للموقع قبل السيطرة على الحادث",
+                tip: "بصري سريع لتحديد المخاطر الظاهرة"
+            },
+            {
+                term: "التقييم السريع (Rapid Assessment)",
+                definition: "تقييم بعد السيطرة على الحادث وعزله",
+                tip: "مهم لسلامة فريق الإنقاذ"
+            },
+            {
+                term: "OSHA",
+                definition: "إدارة السلامة والصحة المهنية الأمريكية",
+                tip: "هيئة وضع معايير السلامة العالمية"
+            },
+            {
+                term: "NEBOSH",
+                definition: "المؤسسة البريطانية للسلامة والصحة المهنية",
+                tip: "جهة اعتماد دولية للشهادات المهنية"
+            }
+        ];
+
+        // Question Bank
+        const questionBank = [
+            // Model A - Questions 1-40 (Balanced)
+            {
+                id: 1,
+                question: "ما هو تعريف مسرح الحادث (Incident Scene)؟",
+                options: [
+                    "المكان الجغرافي فقط حيث وقع الحادث",
+                    "المكان الذي يقع فيه الحادث ويشمل الأفراد والمعدات والبيئة المحيطة",
+                    "منطقة الخطر المباشر فقط",
+                    "المكان الذي يتم فيه التحقيق"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-incident-scene",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! مسرح الحادث هو نظام متكامل يشمل المكان والأفراد المصابين والمعدات المتضررة والبيئة المحيطة والظروف المرتبطة بالحادث.",
+                explanationWrong: [
+                    "غير صحيح. مسرح الحادث ليس مجرد موقع جغرافي.",
+                    "",
+                    "غير صحيح. هذه تعريف المنطقة الساخنة.",
+                    "غير صحيح. التحقيق قد يتم خارج مسرح الحادث."
+                ],
+                evidenceText: "وهو المكان الذي يقع فيه الحادث. يشمل الأفراد المصابين، المعدات المتضررة، البيئة المحيطة، والظروف المرتبطة بالحادث.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "165" }
+            },
+            {
+                id: 2,
+                question: "ما الفرق الرئيسي بين الحادث (Accident) والحدث (Incident)؟",
+                options: [
+                    "الحادث أخطر من الحدث دائماً",
+                    "الحادث يؤدي إلى إصابة أو خسارة بينما الحدث قد لا يكون له نتائج",
+                    "الحدث يحدث في المصانع والحادث في الشوارع",
+                    "لا يوجد فرق بينهما"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-accident-vs-incident",
+                bloomLevel: "Understanding",
+                explanationCorrect: "صحيح! الحادث يؤدي إلى إصابة أو خسارة فعلية، بينما الحدث هو أي حدث غير مرغوب فيه قد يكون أو لا يكون له نتائج سلبية.",
+                explanationWrong: [
+                    "غير صحيح. الخطورة ليست المعيار التمييزي.",
+                    "",
+                    "غير صحيح. كلا المصطلحين يتعلقان بأي مكان.",
+                    "غير صحيح. هناك فرق جوهري بينهما."
+                ],
+                evidenceText: "الحدث (Incident): أي حدث غير مرغوب فيه. الحادث (Accident): حدث يؤدي إلى إصابة أو خسارة.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "286-295" }
+            },
+            {
+                id: 3,
+                question: "ما هو حادث شبه (Near Miss)؟",
+                options: [
+                    "حادث وقع بالفعل وأدى لإصابات",
+                    "حادث كاد يقع لكنه لم يقع",
+                    "حادث وقع في منطقة بعيدة",
+                    "حادث صغير الحجم"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-accident-vs-incident",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! حادث شبه هو حادث كاد يقع لكنه لم يقع، وهو فرصة للتعلم ومنع حوادث مستقبلية.",
+                explanationWrong: [
+                    "غير صحيح. هذا تعريف الحادث الفعلي.",
+                    "",
+                    "غير صحيح. الموقع ليس المعيار.",
+                    "غير صحيح. الحجم ليس المعيار."
+                ],
+                evidenceText: "حادث شبه (Near Miss): حادث كاد يقع لكنه لم يقع.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "295" }
+            },
+            {
+                id: 4,
+                question: "أي من التالي يعتبر من الحوادث الكهربائية؟",
+                options: [
+                    "تسرب غاز سام",
+                    "سامتلا يئابرهك (الصعق الكهربائي)",
+                    "انهيار أرضي",
+                    "سقوط من ارتفاع"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-incident-types",
+                bloomLevel: "Application",
+                explanationCorrect: "صحيح! الصعق الكهربائي هو من الحوادث الكهربائية، بالإضافة إلى شرارة حريق وانفجار المواد.",
+                explanationWrong: [
+                    "غير صحيح. هذا حادث كيميائي.",
+                    "",
+                    "غير صحيح. هذا حادث بيئي.",
+                    "غير صحيح. هذا حادث مرتبط بالإشعاع/السقوط."
+                ],
+                evidenceText: "الحوادث الكهربائية: سامتلا يئابرهك، قيرح ةرارش، داوم راجفنا",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "252-257" }
+            },
+            {
+                id: 5,
+                question: "ما هي المنطقة التي يُسمح فيها بدخول غير المتخصصين في مسرح الحادث؟",
+                options: [
+                    "المنطقة الساخنة (Hot Zone)",
+                    "المنطقة الدافئة (Warm Zone)",
+                    "المنطقة الباردة (Cold Zone)",
+                    "جميع المناطق"
+                ],
+                correctIndex: 2,
+                conceptId: "concept-zones",
+                bloomLevel: "Understanding",
+                explanationCorrect: "صحيح! المنطقة الباردة هي منطقة الأمن والإدارة حيث يجتمع العاملين للإدارة والتنسيق، وهي آمنة لغير المتخصصين.",
+                explanationWrong: [
+                    "غير صحيح. المنطقة الساخنة للمتخصصين فقط بمعدات كاملة.",
+                    "غير صحيح. المنطقة الدافئة للدعم والمساعدة.",
+                    "",
+                    "غير صحيح. فقط المنطقة الباردة آمنة."
+                ],
+                evidenceText: "المنطقة الباردة (Cold Zone): منطقة الأمن والإدارة - تجمع العاملين للإدارة والتنسيق.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "342" }
+            },
+            {
+                id: 6,
+                question: "ما الغرض الرئيسي من المنطقة الدافئة (Warm Zone)؟",
+                options: [
+                    "الدخول المباشر لموقع الخطر",
+                    "منطقة الدعم والمساعدة ونقطة تجمع للإدارة والتوثيق",
+                    "مكان إخلاء المصابين فقط",
+                    "منطقة للصحفيين والإعلام"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-zones",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! المنطقة الدافئة هي منطقة الدعم والمساعدة حيث تتم الإدارة والتوثيق.",
+                explanationWrong: [
+                    "غير صحيح. هذا هو الغرض من المنطقة الساخنة.",
+                    "",
+                    "غير صحيح. الإخلاء قد يتم عبر عدة مناطق.",
+                    "غير صحيح. الإعلام يبقى خارج جميع المناطق."
+                ],
+                evidenceText: "المنطقة الدافئة (Warm Zone): منطقة الدعم والمساعدة - نقطة تجمع للإدارة والتوثيق.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "338" }
+            },
+            {
+                id: 7,
+                question: "في حالة تسرب غاز الكلور في معمل معالجة مياه، ما هي المنطقة الساخنة؟",
+                options: [
+                    "مركز القيادة خارج المصنع",
+                    "محيط المصنع",
+                    "غرفة المعالجة حيث حدث التسرب",
+                    "موقف السيارات"
+                ],
+                correctIndex: 2,
+                conceptId: "concept-zones",
+                bloomLevel: "Application",
+                explanationCorrect: "صحيح! المنطقة الساخنة هي مكان الخطر المباشر، وهي غرفة المعالجة حيث حدث التسرب.",
+                explanationWrong: [
+                    "غير صحيح. هذا هو مكان المنطقة الباردة.",
+                    "غير صحيح. هذا هو مكان المنطقة الدافئة.",
+                    "",
+                    "غير صحيح. هذا خارج نطاق المسرح."
+                ],
+                evidenceText: "في حالة تسرب غاز الكلور في معمل معالجة مياه: المنطقة الساخنة هي غرفة المعالجة، المنطقة الدافئة هي محيط المصنع، المنطقة الباردة هي مركز القيادة.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "344-345" }
+            },
+            {
+                id: 8,
+                question: "ما هو الهدف الأساسي من التحقيق الفني في الحوادث؟",
+                options: [
+                    "تحديد المسؤول القانوني عن الحادث",
+                    "كشف الأسباب الحقيقية لمنع تكرار الحادث",
+                    "معاقبة المخطئين",
+                    "تقديم تعويضات للمصابين"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-technical-investigation",
+                bloomLevel: "Understanding",
+                explanationCorrect: "صحيح! الهدف الأساسي من التحقيق الفني هو كشف الأسباب الحقيقية للحادث لمنع تكراره، وهو يختلف عن التحقيق القانوني.",
+                explanationWrong: [
+                    "غير صحيح. هذا هدف التحقيق القانوني.",
+                    "",
+                    "غير صحيح. العقوبة ليست هدف التحقيق الفني.",
+                    "غير صحيح. التعويضات هي مسألة قانونية وتأمينية."
+                ],
+                evidenceText: "التحقيق الفني: هو أداة علمية وتقنية تهدف إلى كشف الأسباب الحقيقية التي أدت إلى وقوع الحادث. يختلف عن التحقيق القانوني الذي يهدف إلى تحديد المسؤولية.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "487-521" }
+            },
+            {
+                id: 9,
+                question: "كم نسبة الحوادث التي يمكن التحكم فيها وفقاً للدراسات؟",
+                options: [
+                    "50-60%",
+                    "80-90%",
+                    "30-40%",
+                    "100%"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-technical-investigation",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! 80-90% من الحوادث يمكن التحكم فيها، مما يجعل التحقيق الفني أمراً حيوياً.",
+                explanationWrong: [
+                    "غير صحيح. النسبة أعلى من ذلك.",
+                    "",
+                    "غير صحيح. النسبة أعلى من ذلك بكثير.",
+                    "غير صحيح. ليست جميع الحوادث قابلة للتحكم."
+                ],
+                evidenceText: "80-90% من الحوادث يمكن التحكم فيها، مما يجعل التحقيق الفني أمراً حيوياً.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "496-498" }
+            },
+            {
+                id: 10,
+                question: "من هو الشخص المسؤول عن التنسيق والإدارة في فريق التحقيق الفني؟",
+                options: [
+                    "ممثل إدارة السلامة المهنية",
+                    "رئيس اللجنة",
+                    "ممثل العمال",
+                    "المتخصص القانوني"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-investigation-team",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! رئيس اللجنة هو المسؤول عن التنسيق والإدارة في فريق التحقيق الفني.",
+                explanationWrong: [
+                    "غير صحيح. هذا الخبير التقني.",
+                    "",
+                    "غير صحيح. هذا ممثل وجهة نظر الميدان.",
+                    "غير صحيح. هذا للجانب القانوني."
+                ],
+                evidenceText: "رئيس اللجنة: مسؤول عن التنسيق والإدارة.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "674" }
+            },
+            {
+                id: 11,
+                question: "ما هي الخطوة الأولى في التحقيق الفني؟",
+                options: [
+                    "تشكيل لجنة التحقيق",
+                    "تأمين وحماية موقع الحادث",
+                    "إعداد التقرير النهائي",
+                    "معرفة الشهادات"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-investigation-steps",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! الخطوة الأولى هي تأمين وحماية موقع الحادث ومنع أي تعديل أو تعبث.",
+                explanationWrong: [
+                    "غير صحيح. التشكيل يأتي بعد حماية الموقع.",
+                    "",
+                    "غير صحيح. التقرير النهائي هو الخطوة الأخيرة.",
+                    "غير صحيح. معرفة الشهادات تأتي لاحقاً."
+                ],
+                evidenceText: "خطوات التحقيق الفني: 1. تأمين وحماية موقع الحادث - منع أي تعديل أو تعبث.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "717-721" }
+            },
+            {
+                id: 12,
+                question: "في طريقة 5 أسباب (5 Whys)، كم مرة نسأل 'لماذا' للوصول للسبب الجذري؟",
+                options: [
+                    "3 مرات",
+                    "5 مرات",
+                    "7 مرات",
+                    "10 مرات"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-5whys",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! طريقة 5 أسباب تتطلب السؤال 'لماذا' 5 مرات للوصول للسبب الجذري.",
+                explanationWrong: [
+                    "غير صحيح. العدد أكبر من ذلك.",
+                    "",
+                    "غير صحيح. العدد أقل من ذلك.",
+                    "غير صحيح. العدد أقل من ذلك."
+                ],
+                evidenceText: "طريقة 5 أسباب: أداة تحليل بسيطة تسأل 'لماذا' 5 مرات للوصول إلى السبب الجذري.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "878-914" }
+            },
+            {
+                id: 13,
+                question: "ما هي الفئات الخمس في مخطط عظم السمكة (Fishbone Diagram)؟",
+                options: [
+                    "المواد، الأفراد، الآلات، الطرق، البيئة",
+                    "الوقت، التكلفة، الجودة، النطاق، المخاطر",
+                    "الإدارة، العمال، المعدات، الإجراءات، الموقع",
+                    "السبب الأول، الثاني، الثالث، الرابع، الخامس"
+                ],
+                correctIndex: 0,
+                conceptId: "concept-fishbone",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! الفئات الخمس هي: المواد (Materials)، الأفراد (Man)، الآلات (Machine)، الطرق (Methods)، البيئة (Environment).",
+                explanationWrong: [
+                    "",
+                    "غير صحيح. هذه عناصر إدارة المشاريع.",
+                    "غير صحيح. هذه ليست الفئات المعيارية.",
+                    "غير صحيح. هذه ليست فئات المخطط."
+                ],
+                evidenceText: "مخطط عظم السمكة: المواد (Materials)، الأفراد (Man)، الآلات (Machine)، الطرق (Methods)، البيئة (Environment).",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "878-914" }
+            },
+            {
+                id: 14,
+                question: "لماذا يعتبر تقييم مسرح الحادث مهمًا قبل دخول فريق الإنقاذ؟",
+                options: [
+                    "لتسريع عملية الإنقاذ",
+                    "للتأكد من عدم وجود أخطار قد تحول فريق الإنقاذ إلى ضحايا",
+                    "لتصوير الحادث للأخبار",
+                    "لإزالة الأدلة"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-assessment-importance",
+                bloomLevel: "Understanding",
+                explanationCorrect: "صحيح! التقييم مهم للتأكد من عدم وجود أخطار قد تحول فريق الإنقاذ إلى ضحايا جدد.",
+                explanationWrong: [
+                    "غير صحيح. السرعة ليست الهدف الرئيسي.",
+                    "",
+                    "غير صحيح. التصوير ليس من أهداف التقييم.",
+                    "غير صحيح. إزالة الأدلة ممنوعة."
+                ],
+                evidenceText: "أهمية تقييم مسرح الحادث: التأكد من عدم وجود أي أخطار قبل دخول فريق الإنقاذ، منع تحول فريق الإنقاذ إلى ضحايا جدد.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1210-1218" }
+            },
+            {
+                id: 15,
+                question: "أي نوع من التقييم يتم عند الوصول للموقع قبل السيطرة على الحادث؟",
+                options: [
+                    "التقييم السريع (Rapid Assessment)",
+                    "التقييم الفوري (Immediate Assessment)",
+                    "التقييم المعمق (In-depth Assessment)",
+                    "التقييم الديناميكي (Dynamic Assessment)"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-assessment-types",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! التقييم الفوري يتم عند الوصول للموقع قبل السيطرة على الحادث.",
+                explanationWrong: [
+                    "غير صحيح. هذا يتم بعد السيطرة.",
+                    "",
+                    "غير صحيح. هذا يتم أثناء عملية هندسية مستمرة.",
+                    "غير صحيح. هذا عملية مستمرة."
+                ],
+                evidenceText: "التقييم الفوري (Immediate): عند الوصول للموقع - قبل السيطرة على الحادث.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1255-1280" }
+            },
+            {
+                id: 16,
+                question: "ما هي أداة القياس المستخدمة للكشف عن غاز أول أكسيد الكربون (CO)؟",
+                options: [
+                    "كاشف الكهرباء",
+                    "كاشف الغازات",
+                    "مقياس الحرارة",
+                    "مقياس الضوء"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-assessment-tools",
+                bloomLevel: "Application",
+                explanationCorrect: "صحيح! كاشف الغازات يقيس H₂S، CO، O₂، LEL.",
+                explanationWrong: [
+                    "غير صحيح. هذا للكشف عن الكهرباء.",
+                    "",
+                    "غير صحيح. هذا لقياس الحرارة.",
+                    "غير صحيح. هذا لقياس مستوى الإضاءة."
+                ],
+                evidenceText: "أدوات التقييم: كاشف الغازات: قياس H₂S، CO، O₂، LEL.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1346-1352" }
+            },
+            {
+                id: 17,
+                question: "ما هي الإشارة التحذيرية التي تشير إلى وجود غاز سام أو مادة كيميائية متطايرة؟",
+                options: [
+                    "لون أبيض أو أخضر",
+                    "رائحة",
+                    "عدم التوازن في الدرج",
+                    "أدوات مكسورة"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-unsafe-signs",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! الرائحة تشير إلى وجود غاز سام أو مادة كيميائية متطايرة.",
+                explanationWrong: [
+                    "غير صحيح. هذا يشير لتفاعل كيميائي.",
+                    "",
+                    "غير صحيح. هذا يشير لعدم استقرار المبنى.",
+                    "غير صحيح. هذا يشير لانفجار سابق."
+                ],
+                evidenceText: "الإشارات التحذيرية: رائحة: غاز سام أو مادة كيميائية متطايرة.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1369-1372" }
+            },
+            {
+                id: 18,
+                question: "ما هي المنظمة الدولية المسؤولة عن وضع معايير السلامة والصحة المهنية في الولايات المتحدة؟",
+                options: [
+                    "NEBOSH",
+                    "OSHA",
+                    "ISO",
+                    "WHO"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-osha-nebosh",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! OSHA هي إدارة السلامة والصحة المهنية الأمريكية.",
+                explanationWrong: [
+                    "غير صحيح. NEBOSH هي المؤسسة البريطانية.",
+                    "",
+                    "غير صحيح. ISO هي المنظمة الدولية للتوحيد القياسي.",
+                    "غير صحيح. WHO هي منظمة الصحة العالمية."
+                ],
+                evidenceText: "OSHA: إدارة السلامة والصحة المهنية الأمريكية.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "236" }
+            },
+            {
+                id: 19,
+                question: "في حالة وجود فقدان شخص للوعي داخل غرفة مغلقة، ما هو الاحتمال الأكثر ترجيحاً؟",
+                options: [
+                    "سكتة قلبية",
+                    "نقص أكسجين أو غاز سام",
+                    "إرهاق",
+                    "نوبة صرع"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-unsafe-signs",
+                bloomLevel: "Analysis",
+                explanationCorrect: "صحيح! فقدان الوعي في غرفة مغلقة يشير غالباً إلى نقص أكسجين أو وجود غاز سام.",
+                explanationWrong: [
+                    "غير صحيح. احتمال أقل في هذا السياق.",
+                    "",
+                    "غير صحيح. احتمال أقل في هذا السياق.",
+                    "غير صحيح. احتمال أقل في هذا السياق."
+                ],
+                evidenceText: "فقدان شخص للوعي داخل الغرفة: نقص أكسجين أو غاز سام.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1386-1387" }
+            },
+            {
+                id: 20,
+                question: "ما هو LEL في سياق تقييم مسرح الحادث؟",
+                options: [
+                    "الحد الأدنى للانفجار (Lower Explosive Limit)",
+                    "مستوى التعرض القانوني (Legal Exposure Level)",
+                    "مستوى الطوارئ المنخفض (Low Emergency Level)",
+                    "حد الارتفاع المسموح (Legal Elevation Limit)"
+                ],
+                correctIndex: 0,
+                conceptId: "concept-assessment-tools",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! LEL هو الحد الأدنى للانفجار (Lower Explosive Limit) ويقاس بكاشف الغازات.",
+                explanationWrong: [
+                    "",
+                    "غير صحيح. هذا ليس المعنى الصحيح.",
+                    "غير صحيح. هذا ليس المعنى الصحيح.",
+                    "غير صحيح. هذا ليس المعنى الصحيح."
+                ],
+                evidenceText: "كاشف الغازات: قياس H₂S، CO، O₂، LEL (Lower Explosive Limit).",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1351" }
+            },
+            {
+                id: 21,
+                question: "في سيناريو: عامل دخل غرفة صيانة ولم يخرج، زميله دخل لإنقاذه وسقط أيضاً. ما الخطأ الأساسي؟",
+                options: [
+                    "عدم وجود إضاءة كافية",
+                    "الدخول بدون تقييم للمخاطر",
+                    "عدم وجود أدوات الإنقاذ",
+                    "باب الغرفة مقفل"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-entry-prohibitions",
+                bloomLevel: "Analysis",
+                explanationCorrect: "صحيح! الخطأ الأساسي هو الدخول بدون تقييم للمخاطر، مما حول المنقذ إلى ضحية.",
+                explanationWrong: [
+                    "غير صحيح. ليس هذا الخطأ الأساسي.",
+                    "",
+                    "غير صحيح. ليس هذا الخطأ الأساسي.",
+                    "غير صحيح. ليس هذا الخطأ الأساسي."
+                ],
+                evidenceText: "الأخطاء الشائعة: الدخول المباشر للموقع بدون تقييم.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "319-322" }
+            },
+            {
+                id: 22,
+                question: "ما هو SCBA المذكور في المقرر؟",
+                options: [
+                    "جهاز الكشف عن الغازات",
+                    "جهاز التنفس ذاتي الحماية",
+                    "نظام الإنذار المركزي",
+                    "جهاز الإسعافات الأولية"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-assessment-tools",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! SCBA هو جهاز التنفس ذاتي الحماية (Self-Contained Breathing Apparatus).",
+                explanationWrong: [
+                    "غير صحيح. هذا هو كاشف الغازات.",
+                    "",
+                    "غير صحيح. هذا نظام مختلف.",
+                    "غير صحيح. هذا معدات مختلفة."
+                ],
+                evidenceText: "SCBA: جهاز التنفس ذاتي الحماية.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1456" }
+            },
+            {
+                id: 23,
+                question: "في طريقة 5 أسباب، إذا كان السبب الأول 'انفجار الغاز'، ما هو السؤال التالي؟",
+                options: [
+                    "من المسؤول؟",
+                    "لماذا اشتعل الغاز؟",
+                    "كم شخص أصيب؟",
+                    "متى حدث الانفجار؟"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-5whys",
+                bloomLevel: "Application",
+                explanationCorrect: "صحيح! في طريقة 5 أسباب نسأل 'لماذا' للوصول للسبب الأعمق.",
+                explanationWrong: [
+                    "غير صحيح. هذا سؤال قانوني.",
+                    "",
+                    "غير صحيح. هذا ليس سؤال تحليلي.",
+                    "غير صحيح. هذا سؤال زمني."
+                ],
+                evidenceText: "طريقة 5 أسباب: تسأل 'لماذا' 5 مرات للوصول للسبب الجذري.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "878-914" }
+            },
+            {
+                id: 24,
+                question: "في مخطط عظم السمكة، أي فئة تشمل 'الإجراءات والتعليمات والسياسات'؟",
+                options: [
+                    "المواد (Materials)",
+                    "الأفراد (Man)",
+                    "الطرق (Methods)",
+                    "الآلات (Machine)"
+                ],
+                correctIndex: 2,
+                conceptId: "concept-fishbone",
+                bloomLevel: "Understanding",
+                explanationCorrect: "صحيح! الإجراءات والتعليمات والسياسات تندرج تحت فئة الطرق (Methods).",
+                explanationWrong: [
+                    "غير صحيح. هذه فئة مختلفة.",
+                    "غير صحيح. هذه فئة مختلفة.",
+                    "",
+                    "غير صحيح. هذه فئة مختلفة."
+                ],
+                evidenceText: "الطرق (Methods): الإجراءات، التعليمات، السياسات.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "878-914" }
+            },
+            {
+                id: 25,
+                question: "ما هو التقييم الذي يتم بعد السيطرة على الحادث وعزله؟",
+                options: [
+                    "التقييم الفوري",
+                    "التقييم السريع",
+                    "التقييم المعمق",
+                    "التقييم الديناميكي"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-assessment-types",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! التقييم السريع يتم بعد السيطرة على الحادث وعزله.",
+                explanationWrong: [
+                    "غير صحيح. هذا يتم قبل السيطرة.",
+                    "",
+                    "غير صحيح. هذا يتم أثناء عملية مستمرة.",
+                    "غير صحيح. هذا عملية مستمرة."
+                ],
+                evidenceText: "التقييم السريع (Rapid): بعد السيطرة على الحادث - بعد العزل.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1278-1280" }
+            },
+            {
+                id: 26,
+                question: "أي من الحوادث التالية يعتبر حادثاً كيميائياً؟",
+                options: [
+                    "صعق كهربائي",
+                    "تسرب غاز سام",
+                    "انهيار جدار",
+                    "سقوط من ارتفاع"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-incident-types",
+                bloomLevel: "Application",
+                explanationCorrect: "صحيح! تسرب غاز سام هو حادث كيميائي.",
+                explanationWrong: [
+                    "غير صحيح. هذا حادث كهربائي.",
+                    "",
+                    "غير صحيح. هذا حادث ميكانيكي/بيئي.",
+                    "غير صحيح. هذا حادث مرتبط بالارتفاع."
+                ],
+                evidenceText: "الحوادث الكيميائية: تازاغ برست، قحس، تادعم نيب راشحنا.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "259-262" }
+            },
+            {
+                id: 27,
+                question: "ما هو الهدف من حماية موقع الحادث؟",
+                options: [
+                    "منع دخول الصحفيين",
+                    "منع أي تعديل أو تعبث بالأدلة",
+                    "تسريع عملية الإنقاذ",
+                    "تنظيف الموقع"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-investigation-steps",
+                bloomLevel: "Understanding",
+                explanationCorrect: "صحيح! حماية الموقع تهدف لمنع أي تعديل أو تعبث بالأدلة.",
+                explanationWrong: [
+                    "غير صحيح. هذا ليس الهدف الرئيسي.",
+                    "",
+                    "غير صحيح. الحماية قد تبطئ العملية.",
+                    "غير صحيح. التنظيف يأتي لاحقاً."
+                ],
+                evidenceText: "تأمين وحماية موقع الحادث - منع أي تعديل أو تعبث.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "721" }
+            },
+            {
+                id: 28,
+                question: "في مصفوفة المخاطر، ما هو مستوى الخطر عند احتمال 'مرجح' وتأثير 'كبير'؟",
+                options: [
+                    "منخفض",
+                    "متوسط",
+                    "عالي",
+                    "حرج"
+                ],
+                correctIndex: 2,
+                conceptId: "concept-risk-matrix",
+                bloomLevel: "Application",
+                explanationCorrect: "صحيح! عند احتمال 'مرجح' وتأثير 'كبير' يكون المستوى 'عالي'.",
+                explanationWrong: [
+                    "غير صحيح. المستوى أعلى من ذلك.",
+                    "غير صحيح. المستوى أعلى من ذلك.",
+                    "",
+                    "غير صحيح. المستوى أقل من ذلك."
+                ],
+                evidenceText: "مصفوفة المخاطر: احتمال مرجح + تأثير كبير = عالي.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "risk-matrix" }
+            },
+            {
+                id: 29,
+                question: "ما هي NEBOSH؟",
+                options: [
+                    "إدارة السلامة الأمريكية",
+                    "المؤسسة البريطانية للسلامة والصحة المهنية",
+                    "منظمة الصحة العالمية",
+                    "المنظمة الدولية للتوحيد القياسي"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-osha-nebosh",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! NEBOSH هي المؤسسة البريطانية للسلامة والصحة المهنية.",
+                explanationWrong: [
+                    "غير صحيح. هذه OSHA.",
+                    "",
+                    "غير صحيح. هذه WHO.",
+                    "غير صحيح. هذه ISO."
+                ],
+                evidenceText: "NEBOSH: المؤسسة البريطانية للسلامة والصحة المهنية.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "474-478" }
+            },
+            {
+                id: 30,
+                question: "ما هو السبب الجذري في مثال طريقة 5 أسباب: 'ضعف في نظام إدارة الصيانة'؟",
+                options: [
+                    "السبب الأول",
+                    "السبب الأخير (الجذري)",
+                    "السبب الثالث",
+                    "ليس سبباً"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-5whys",
+                bloomLevel: "Understanding",
+                explanationCorrect: "صحيح! 'ضعف في نظام إدارة الصيانة' هو السبب الجذري الذي يتم الوصول إليه في النهاية.",
+                explanationWrong: [
+                    "غير صحيح. هذا هو السبب الأخير.",
+                    "",
+                    "غير صحيح. هذا هو السبب الأخير.",
+                    "غير صحيح. هذا سبب أساسي."
+                ],
+                evidenceText: "لماذا لم تكن ضمن النظام؟ لأن هناك ضعف في نظام إدارة الصيانة.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "903-906" }
+            },
+            {
+                id: 31,
+                question: "في فريق التحقيق، من هو المسؤول عن الخبرة التقنية والفنية؟",
+                options: [
+                    "رئيس اللجنة",
+                    "ممثل إدارة السلامة المهنية",
+                    "المتخصص القانوني",
+                    "ممثل العمال"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-investigation-team",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! ممثل إدارة السلامة المهنية هو الخبير التقني في الفريق.",
+                explanationWrong: [
+                    "غير صحيح. هذا مسؤول التنسيق.",
+                    "",
+                    "غير صحيح. هذا للجانب القانوني.",
+                    "غير صحيح. هذا لممثلي الميدان."
+                ],
+                evidenceText: "ممثل إدارة السلامة المهنية: الخبير التقني.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "677-678" }
+            },
+            {
+                id: 32,
+                question: "ما هي الخطوة الأخيرة في خطوات التحقيق الفني؟",
+                options: [
+                    "تشكيل لجنة التحقيق",
+                    "تأمين موقع الحادث",
+                    "إعداد التقرير النهائي",
+                    "جمع الشهادات"
+                ],
+                correctIndex: 2,
+                conceptId: "concept-investigation-steps",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! إعداد التقرير النهائي هي الخطوة الأخيرة في التحقيق.",
+                explanationWrong: [
+                    "غير صحيح. هذه خطوة مبكرة.",
+                    "غير صحيح. هذه الخطوة الأولى.",
+                    "",
+                    "غير صحيح. هذه خطوة وسطى."
+                ],
+                evidenceText: "إعداد التقرير النهائي: الخطوة الأخيرة في التحقيق.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "742" }
+            },
+            {
+                id: 33,
+                question: "في سيناريو: رائحة كريهة تنبعث من غرفة مغلقة. ما الإجراء الصحيح؟",
+                options: [
+                    "فتح الباب والدخول فوراً",
+                    "الدخول بمعدات الحماية وكاشف الغازات",
+                    "إشعال النور للفحص",
+                    "طلب المساعدة فقط دون فعل"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-assessment-tools",
+                bloomLevel: "Application",
+                explanationCorrect: "صحيح! يجب الدخول بمعدات الحماية وكاشف الغازات للتأكد من سلامة الجو.",
+                explanationWrong: [
+                    "غير صحيح. هذا خطير جداً.",
+                    "",
+                    "غير صحيح. هذا قد يشعل غازاً قابلاً للانفجار.",
+                    "غير صحيح. يجب اتخاذ إجراء فعلي."
+                ],
+                evidenceText: "استخدام كاشف الغازات للتأكد من سلامة الجو قبل الدخول.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1346-1352" }
+            },
+            {
+                id: 34,
+                question: "ما هي الإشارة التي تشير إلى خطر كهربائي مباشر؟",
+                options: [
+                    "رائحة غاز",
+                    "سلاسل أو كاسات محروقة",
+                    "لون أخضر على الجدران",
+                    "صوت humming"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-unsafe-signs",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! السلاسل أو الكاسات المحروقة تشير إلى خطر كهربائي مباشر.",
+                explanationWrong: [
+                    "غير صحيح. هذا يشير لغاز سام.",
+                    "",
+                    "غير صحيح. هذا يشير لتفاعل كيميائي.",
+                    "غير صحيح. هذا ليس مذكوراً في المقرر."
+                ],
+                evidenceText: "سلاسل أو كاسات محروقة: خطر كهربائي مباشر.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1382-1383" }
+            },
+            {
+                id: 35,
+                question: "في أي منطقة يتم تجمع العاملين للإدارة والتنسيق في مسرح الحادث؟",
+                options: [
+                    "المنطقة الساخنة",
+                    "المنطقة الدافئة",
+                    "المنطقة الباردة",
+                    "جميع المناطق"
+                ],
+                correctIndex: 2,
+                conceptId: "concept-zones",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! المنطقة الباردة هي منطقة تجمع العاملين للإدارة والتنسيق.",
+                explanationWrong: [
+                    "غير صحيح. هذه منطقة الخطر المباشر.",
+                    "غير صحيح. هذه منطقة الدعم والمساعدة.",
+                    "",
+                    "غير صحيح. فقط المنطقة الباردة."
+                ],
+                evidenceText: "المنطقة الباردة (Cold Zone): منطقة الأمن والإدارة - تجمع العاملين للإدارة والتنسيق.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "342" }
+            },
+            {
+                id: 36,
+                question: "ما هو التقييم الذي يتم أثناء تنفيذ عملية هندسية مستمرة؟",
+                options: [
+                    "التقييم الفوري",
+                    "التقييم السريع",
+                    "التقييم المعمق",
+                    "التقييم الديناميكي"
+                ],
+                correctIndex: 2,
+                conceptId: "concept-assessment-types",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! التقييم المعمق يتم أثناء تنفيذ عملية هندسية مستمرة.",
+                explanationWrong: [
+                    "غير صحيح. هذا يتم عند الوصول.",
+                    "غير صحيح. هذا يتم بعد السيطرة.",
+                    "",
+                    "غير صحيح. هذا عملية مستمرة عامة."
+                ],
+                evidenceText: "التقييم المعمق (In-depth): أثناء تنفيذ عملية هندسية مستمرة.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1280-1296" }
+            },
+            {
+                id: 37,
+                question: "في مخطط عظم السمكة، أي فئة تشمل 'التهوية والإضاءة والظروف الجوية'؟",
+                options: [
+                    "المواد",
+                    "الأفراد",
+                    "الآلات",
+                    "البيئة"
+                ],
+                correctIndex: 3,
+                conceptId: "concept-fishbone",
+                bloomLevel: "Understanding",
+                explanationCorrect: "صحيح! التهوية والإضاءة والظروف الجوية تندرج تحت فئة البيئة.",
+                explanationWrong: [
+                    "غير صحيح. هذه فئة مختلفة.",
+                    "غير صحيح. هذه فئة مختلفة.",
+                    "غير صحيح. هذه فئة مختلفة.",
+                    ""
+                ],
+                evidenceText: "البيئة (Environment): الظروف الجوية، الإضاءة، التهوية.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "878-914" }
+            },
+            {
+                id: 38,
+                question: "ما هو الغرض من تحليل سلسلة الأحداث في التحقيق الفني؟",
+                options: [
+                    "تحديد المسؤول القانوني",
+                    "فهم تسلسل وقوع الحادث وكيفية حدوثه",
+                    "معاقبة المخطئين",
+                    "تقدير التعويضات"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-investigation-steps",
+                bloomLevel: "Understanding",
+                explanationCorrect: "صحيح! تحليل سلسلة الأحداث يهدف لفهم تسلسل وقوع الحادث وكيفية حدوثه.",
+                explanationWrong: [
+                    "غير صحيح. هذا هدف التحقيق القانوني.",
+                    "",
+                    "غير صحيح. العقوبة ليست هدف التحقيق الفني.",
+                    "غير صحيح. التعويضات ليست هدف التحقيق الفني."
+                ],
+                evidenceText: "تحليل سلسلة الأحداث: لفهم تسلسل وقوع الحادث.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "741" }
+            },
+            {
+                id: 39,
+                question: "في سيناريو: عامل يشعر بدوار داخل خزان مغلق. ما الاحتمال الأكثر ترجيحاً؟",
+                options: [
+                    "الجوع",
+                    "نقص الأكسجين",
+                    "الإرهاق",
+                    "التوتر النفسي"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-unsafe-signs",
+                bloomLevel: "Analysis",
+                explanationCorrect: "صحيح! الدوار في خزان مغلق يشير غالباً إلى نقص الأكسجين.",
+                explanationWrong: [
+                    "غير صحيح. احتمال أقل في هذا السياق.",
+                    "",
+                    "غير صحيح. احتمال أقل في هذا السياق.",
+                    "غير صحيح. احتمال أقل في هذا السياق."
+                ],
+                evidenceText: "فقدان شخص للوعي داخل الغرفة: نقص أكسجين أو غاز سام.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "1386-1387" }
+            },
+            {
+                id: 40,
+                question: "ما هو التعريف الصحيح للمنطقة الساخنة (Hot Zone)؟",
+                options: [
+                    "منطقة تجمع العاملين للإدارة",
+                    "منطقة الخطر المباشر التي لا يدخلها إلا المتخصصون بمعدات كاملة",
+                    "منطقة الدعم والمساعدة",
+                    "منطقة آمنة للجميع"
+                ],
+                correctIndex: 1,
+                conceptId: "concept-zones",
+                bloomLevel: "Recall",
+                explanationCorrect: "صحيح! المنطقة الساخنة هي منطقة الخطر المباشر التي لا يدخلها إلا المتخصصون بمعدات حماية كاملة.",
+                explanationWrong: [
+                    "غير صحيح. هذا تعريف المنطقة الباردة.",
+                    "",
+                    "غير صحيح. هذا تعريف المنطقة الدافئة.",
+                    "غير صحيح. المنطقة الساخنة خطيرة."
+                ],
+                evidenceText: "المنطقة الساخنة (Hot Zone): منطقة الخطر المباشر - لا يدخل إلا بمعدات حماية كاملة.",
+                sourceMeta: { file: "PDF", locatorType: "page", locatorValue: "331-332" }
+            }
+        ];
+
+        // State Management
+        let currentTab = 'home';
+        let currentCard = 0;
+        let selectedModel = null;
+        let examQuestions = [];
+        let userAnswers = {};
+        let examTimer = null;
+        let timeRemaining = 3600; // 60 minutes
+        let examStartTime = null;
+        let examSubmitted = false;
+        let userInfo = { name: ''};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserInfo();
+            loadLastAttempt();
+            setupTabs();
+            updateFlashcard();
+        });
+
+        // Tab Management
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab;
+                    switchTab(tabId);
+                });
+            });
+        }
+
+        function switchTab(tabId) {
+            // Update active tab
+            document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+
+            // Update active content
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            currentTab = tabId;
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Load data for specific tabs
+            if (tabId === 'mastery') {
+                loadMasteryDashboard();
+            }
+        }
+
+        // User Info Management
+        function saveUserInfo() {
+            const name = document.getElementById('user-name').value.trim();
+            
+
+            if (!name) {
+                alert('الرجاء إدخال الاسم');
+                return;
+            }
+
+            userInfo = { name};
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+            document.getElementById('user-info-section').classList.add('hidden');
+            alert('تم حفظ المعلومات بنجاح!');
+        }
+
+        function loadUserInfo() {
+            const saved = localStorage.getItem('userInfo');
+            if (saved) {
+                userInfo = JSON.parse(saved);
+                document.getElementById('user-name').value = userInfo.name;
+                
+                document.getElementById('user-info-section').classList.add('hidden');
+            }
+        }
+
+        // Flashcards
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function updateFlashcard() {
+            const card = flashcardsData[currentCard];
+            document.getElementById('card-term').textContent = card.term;
+            document.getElementById('card-definition').textContent = card.definition;
+            document.getElementById('card-tip').textContent = card.tip;
+            document.getElementById('card-current').textContent = currentCard + 1;
+            document.getElementById('card-total').textContent = flashcardsData.length;
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+
+        function nextCard() {
+            currentCard = (currentCard + 1) % flashcardsData.length;
+            updateFlashcard();
+        }
+
+        function prevCard() {
+            currentCard = (currentCard - 1 + flashcardsData.length) % flashcardsData.length;
+            updateFlashcard();
+        }
+
+        // Exam Management
+        function selectModel(model) {
+            selectedModel = model;
+            document.querySelectorAll('.model-card').forEach(c => c.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.getElementById('start-exam-btn').disabled = false;
+        }
+
+        function startExam() {
+            if (!selectedModel) return;
+
+            if (!userInfo.name) {
+                alert('الرجاء إدخال معلوماتك الشخصية أولاً من الصفحة الرئيسية');
+                switchTab('home');
+                return;
+            }
+
+            // Get questions for selected model
+            examQuestions = questionBank.slice(0, 40);
+            userAnswers = {};
+            examSubmitted = false;
+            timeRemaining = 3600;
+            examStartTime = Date.now();
+
+            document.getElementById('exam-setup').classList.add('hidden');
+            document.getElementById('exam-container').classList.remove('hidden');
+            document.getElementById('exam-model').textContent = selectedModel;
+            document.getElementById('total-questions').textContent = examQuestions.length;
+
+            renderQuestions();
+            startTimer();
+            updateProgress();
+        }
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  examQuestions.forEach((q, index) => {
+    const userPick = userAnswers[q.id]; // قد تكون undefined إذا لم يُجب
+
+    const questionEl = document.createElement('div');
+    questionEl.className = 'question-card';
+
+    // بناء الخيارات مع تلوين correct/wrong بعد التسليم
+    const optionsHTML = q.options.map((opt, i) => {
+      const selected = (userPick === i);
+      const isCorrect = (i === q.correctIndex);
+
+      const clsSelected = selected ? 'selected' : '';
+      const clsCorrect = (examSubmitted && isCorrect) ? 'correct' : '';
+      const clsWrong = (examSubmitted && selected && !isCorrect) ? 'wrong' : '';
+
+      // منع تغيير الإجابات بعد التسليم
+      const clickAttr = examSubmitted ? '' : `onclick="selectAnswer(${q.id}, ${i})"`;
+
+      return `
+        <div class="option ${clsSelected} ${clsCorrect} ${clsWrong}"
+             ${clickAttr}
+             data-question="${q.id}"
+             data-option="${i}">
+          <div class="option-marker">${String.fromCharCode(1616 + i)}</div>
+          <div>${opt}</div>
+        </div>
+      `;
+    }).join('');
+
+    // تلوين صندوق التفسير: إذا لم يجب، يعتبر غير صحيح
+    const expClass = (userPick === q.correctIndex) ? 'explanation-correct' : 'explanation-wrong';
+
+    questionEl.innerHTML = `
+      <span class="question-number">سؤال ${index + 1}</span>
+      <div class="question-text">${q.question}</div>
+
+      <div class="options-list">
+        ${optionsHTML}
+      </div>
+
+      <div class="explanation ${examSubmitted ? 'show' : ''} ${expClass}" id="explanation-${q.id}">
+        ${examSubmitted ? getExplanation(q) : ''}
+      </div>
+    `;
+
+    container.appendChild(questionEl);
+  });
+}
+
+function getExplanation(q) {
+  const pick = userAnswers[q.id];            // undefined إذا لم يجب
+  const isCorrect = (pick === q.correctIndex);
+
+  let html = `<strong>${isCorrect ? '✓ إجابة صحيحة!' : '✗ إجابة خاطئة'}</strong><br>`;
+
+  // تفسير الصحيح (إن وجد)
+  if (q.explanationCorrect) {
+    html += `${q.explanationCorrect}<br><br>`;
+  } else {
+    html += `<br>`;
+  }
+
+  // إذا ليست صحيحة، اعرض الإجابة الصحيحة + تفسير الخطأ (إن وجد)
+  if (!isCorrect) {
+    const correctText = (q.options && q.options[q.correctIndex] !== undefined)
+      ? q.options[q.correctIndex]
+      : '(غير متاح)';
+
+    html += `<strong>الإجابة الصحيحة هي: ${correctText}</strong><br>`;
+
+    // تفسير الخطأ حسب الاختيار
+    if (pick !== undefined && q.explanationWrong && q.explanationWrong[pick]) {
+      html += q.explanationWrong[pick];
+    } else {
+      // لا نطبع شيء بدل ما يسبب خطأ
+      html += '';
+    }
+  }
+
+  return html;
+}
+
+
+        function selectAnswer(questionId, optionIndex) {
+            if (examSubmitted) return;
+
+            userAnswers[questionId] = optionIndex;
+
+            // Update UI
+            const options = document.querySelectorAll(`[data-question="${questionId}"]`);
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answered = Object.keys(userAnswers).length;
+            const total = examQuestions.length;
+            const percentage = (answered / total) * 100;
+
+            document.getElementById('answered-count').textContent = answered;
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('submit-exam-btn').disabled = answered < 0;
+        }
+
+        function startTimer() {
+            updateTimerDisplay();
+            examTimer = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 300) { // 5 minutes warning
+                    document.getElementById('timer').classList.add('warning');
+                }
+                if (timeRemaining <= 60) { // 1 minute danger
+                    document.getElementById('timer').classList.remove('warning');
+                    document.getElementById('timer').classList.add('danger');
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(examTimer);
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function submitExam() {
+            if (examSubmitted) return;
+
+            if (Object.keys(userAnswers).length < examQuestions.length) {
+                if (!confirm('لم تجب على جميع الأسئلة. هل تريد التسليم anyway؟')) {
+                    return;
+                }
+            }
+
+            clearInterval(examTimer);
+            examSubmitted = true;
+
+            // Calculate results
+            let correct = 0;
+            examQuestions.forEach(q => {
+                if (userAnswers[q.id] === q.correctIndex) {
+                    correct++;
+                }
+            });
+
+            const score = Math.round((correct / examQuestions.length) * 100);
+            const passed = score >= 70;
+
+            // Save attempt
+            const attempt = {
+                date: new Date().toISOString(),
+                model: selectedModel,
+                score: score,
+                correct: correct,
+                total: examQuestions.length,
+                passed: passed,
+                userAnswers: userAnswers,
+                timeUsed: 3600 - timeRemaining
+            };
+
+            let attempts = JSON.parse(localStorage.getItem('examAttempts') || '[]');
+            attempts.push(attempt);
+            localStorage.setItem('examAttempts', JSON.stringify(attempts));
+
+            // Show results
+	       renderQuestions();
+            showResults(attempt);
+        }
+
+function showResults(attempt) {
+  switchTab('results');
+
+  const container = document.getElementById('results-container');
+  const statusClass = attempt.passed ? 'pass' : 'fail';
+  const statusText = attempt.passed ? 'ناجح' : 'راسب';
+
+  // ملخص النتائج + حاوية المراجعة
+  container.innerHTML = `
+    <div class="results-summary">
+      <div class="score-circle ${statusClass}">
+        <div class="score-value">${attempt.score}%</div>
+        <div class="score-label">النتيجة</div>
+      </div>
+      <div class="result-status ${statusClass}">${statusText}</div>
+      <p>${attempt.passed ? 'مبروك! لقد اجتزت الاختبار بنجاح.' : 'لم تصل لنسبة النجاح المطلوبة (70%). حاول مرة أخرى.'}</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">${attempt.correct}</div>
+          <div class="stat-label">إجابات صحيحة</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${attempt.total - attempt.correct}</div>
+          <div class="stat-label">إجابات خاطئة</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${Math.floor(attempt.timeUsed / 60)}:${(attempt.timeUsed % 60).toString().padStart(2, '0')}</div>
+          <div class="stat-label">الوقت المستخدم</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${attempt.model}</div>
+          <div class="stat-label">النموذج</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px;">
+      <h2 style="color:var(--primary);margin-bottom:12px;">مراجعة الإجابات</h2>
+      <div id="review-container"></div>
+    </div>
+
+    <div class="exam-actions">
+      <button class="btn btn-primary" onclick="switchTab('exam'); resetExam();">اختبار جديد</button>
+      <button class="btn btn-success" onclick="switchTab('mastery')">عرض لوحة الإتقان</button>
+    </div>
+  `;
+
+  // بناء المراجعة داخل النتائج
+  const review = document.getElementById('review-container');
+  if (review) {
+    review.innerHTML = examQuestions.map((q, idx) => {
+      const pick = attempt.userAnswers[q.id]; // قد تكون undefined
+      const isCorrectPick = (pick === q.correctIndex);
+
+      const optionsHTML = q.options.map((opt, i) => {
+        const selected = (pick === i);
+        const isCorrect = (i === q.correctIndex);
+
+        const clsSelected = selected ? 'selected' : '';
+        const clsCorrect  = isCorrect ? 'correct' : '';
+        const clsWrong    = (selected && !isCorrect) ? 'wrong' : '';
+
+        return `
+          <div class="option ${clsSelected} ${clsCorrect} ${clsWrong}" style="cursor:default;">
+            <div class="option-marker">${String.fromCharCode(1616 + i)}</div>
+            <div>${opt}</div>
+          </div>
+        `;
+      }).join('');
+
+      const expClass = isCorrectPick ? 'explanation-correct' : 'explanation-wrong';
+
+      return `
+        <div class="question-card">
+          <span class="question-number">سؤال ${idx + 1}</span>
+          <div class="question-text">${q.question}</div>
+
+          <div class="options-list">${optionsHTML}</div>
+
+          <div class="explanation show ${expClass}">
+            ${getExplanation(q)}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  loadLastAttempt();
+}
+
+
+        function resetExam() {
+            document.getElementById('exam-setup').classList.remove('hidden');
+            document.getElementById('exam-container').classList.add('hidden');
+            document.querySelectorAll('.model-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('start-exam-btn').disabled = true;
+            selectedModel = null;
+        }
+
+        function loadLastAttempt() {
+            const attempts = JSON.parse(localStorage.getItem('examAttempts') || '[]');
+            if (attempts.length > 0) {
+                const last = attempts[attempts.length - 1];
+                document.getElementById('last-attempt-container').classList.remove('hidden');
+                document.getElementById('last-attempt-content').innerHTML = `
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">${last.score}%</div>
+                            <div class="stat-label">النتيجة</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${last.passed ? 'ناجح' : 'راسب'}</div>
+                            <div class="stat-label">الحالة</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${new Date(last.date).toLocaleDateString('ar-SA')}</div>
+                            <div class="stat-label">التاريخ</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Mastery Dashboard
+        function loadMasteryDashboard() {
+            const attempts = JSON.parse(localStorage.getItem('examAttempts') || '[]');
+            if (attempts.length === 0) return;
+
+            // Calculate mastery per concept
+            const conceptStats = {};
+
+            attempts.forEach(attempt => {
+                if (!attempt.userAnswers) return;
+
+                examQuestions.forEach(q => {
+                    if (!conceptStats[q.conceptId]) {
+                        conceptStats[q.conceptId] = { correct: 0, total: 0 };
+                    }
+                    conceptStats[q.conceptId].total++;
+                    if (attempt.userAnswers[q.id] === q.correctIndex) {
+                        conceptStats[q.conceptId].correct++;
+                    }
+                });
+            });
+
+            // Generate HTML
+            let html = '';
+            const conceptNames = {
+                'concept-incident-scene': 'مسرح الحادث',
+                'concept-accident-vs-incident': 'الحادث والحدث',
+                'concept-incident-types': 'أنواع الحوادث',
+                'concept-zones': 'مناطق المسرح',
+                'concept-entry-prohibitions': 'الأخطاء الشائعة',
+                'concept-technical-investigation': 'التحقيق الفني',
+                'concept-investigation-team': 'فريق التحقيق',
+                'concept-investigation-steps': 'خطوات التحقيق',
+                'concept-5whys': 'طريقة 5 أسباب',
+                'concept-fishbone': 'مخطط عظم السمكة',
+                'concept-assessment-importance': 'أهمية التقييم',
+                'concept-assessment-types': 'أنواع التقييم',
+                'concept-assessment-tools': 'أدوات التقييم',
+                'concept-unsafe-signs': 'الإشارات التحذيرية',
+                'concept-osha-nebosh': 'OSHA و NEBOSH',
+                'concept-risk-matrix': 'مصفوفة المخاطر'
+            };
+
+            for (const [conceptId, stats] of Object.entries(conceptStats)) {
+                const percentage = Math.round((stats.correct / stats.total) * 100);
+                const mastered = percentage >= 70 && stats.total >= 3;
+                const barClass = mastered ? 'mastered' : (percentage >= 50 ? 'developing' : 'weak');
+
+                html += `
+                    <div class="concept-mastery">
+                        <div class="concept-mastery-header">
+                            <span class="concept-name">${conceptNames[conceptId] || conceptId}</span>
+                            <span class="concept-score" style="color: ${mastered ? 'var(--success)' : (percentage >= 50 ? 'var(--accent)' : 'var(--danger)')}">${percentage}%</span>
+                        </div>
+                        <div class="concept-bar">
+                            <div class="concept-bar-fill ${barClass}" style="width: ${percentage}%"></div>
+                        </div>
+                        ${!mastered ? `
+                            <div class="recommendation">
+                                <strong>توصية:</strong> راجع مفهوم <a href="#${conceptId}" onclick="switchTab('study')">${conceptNames[conceptId]}</a> في قسم المذاكرة
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+
+            document.getElementById('mastery-content').innerHTML = html;
+        }
+    </script>
+</body>
+</html>
