@@ -36,29 +36,36 @@
 
         /* App Container */
         #app {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 16px;
+            padding: 12px;
         }
 
         /* Header */
-        .app-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 24px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 40px rgba(30, 58, 138, 0.2);
-        }
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+
+    padding: 14px 20px;           /* كان 24px */
+    border-radius: 12px;          /* كان 16px */
+    margin-bottom: 16px;          /* كان 24px */
+
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.15); /* أخف */
+}
+
 
         .app-header h1 {
-            font-size: 28px;
+            font-size: 22px;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .app-header p {
-            font-size: 16px;
+            font-size: 14px;
             opacity: 0.9;
         }
 
@@ -115,9 +122,9 @@
         /* Cards */
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 16px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
 
@@ -135,13 +142,13 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
+            gap: 12px;
             margin-bottom: 24px;
         }
 
         .stat-card {
             background: var(--card-bg);
-            padding: 20px;
+            padding: 16px;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -667,8 +674,8 @@
   gap:10px;
   flex-wrap:wrap;
   align-items:center;
-  margin-top:16px;
-  padding:10px;
+  margin-top:10px;
+  padding:6px;
   border-radius:14px;
   background: rgba(255,255,255,.10);
   backdrop-filter: blur(6px);
@@ -679,7 +686,7 @@
   display:flex;
   align-items:center;
   gap:10px;
-  padding:10px 14px;
+  padding:8px 12px;
   border-radius:12px;
   text-decoration:none;
   background: rgba(255,255,255,.10);
@@ -711,8 +718,8 @@
   --stroke:#ffffff;
   --fill:#2563eb;
 
-  width:34px;
-  height:34px;
+  width:28px;
+  height:28px;
   border-radius:999px;
   display:inline-grid;
   place-items:center;
@@ -774,8 +781,7 @@
 <body>
     <div id="app">
         <header class="app-header">
-            <h1>نظام التدريب المهني</h1>
-            <p>إدارة السلامة ومنع الخسائر | Safety Management and Loss Prevention</p>
+            <h1>نظام إتقان دارة السلامة ومنع الخسائر</h1>
 <div class="container">
 <div aria-label="تنقّل أيام البرنامج" class="days-bar">
 
@@ -1391,24 +1397,51 @@
 
         <!-- Exam Section -->
         <section id="exam" class="content-section">
-            <div class="exam-header">
-                <div>
-                    <h2 class="card-title" style="margin: 0;">الاختبار النهائي</h2>
-                    <p style="color: var(--text-light);">60 سؤال | 60 دقيقة | درجة النجاح 70%</p>
+            <!-- Exam Start Screen -->
+            <div id="examStart" style="display: block;">
+                <div class="card" style="text-align: center; padding: 48px;">
+                    <div style="font-size: 64px; margin-bottom: 16px;">📝</div>
+                    <h2 style="margin-bottom: 16px; font-size: 28px;">اختبار التقييم النهائي</h2>
+                    <p style="color: var(--text-light); margin-bottom: 32px; font-size: 18px;">
+                        60 سؤالاً | 60 دقيقة | درجة النجاح 70%
+                    </p>
+                    <div style="background: var(--bg); padding: 24px; border-radius: 12px; margin-bottom: 32px; text-align: right;">
+                        <h3 style="margin-bottom: 16px; font-size: 20px;">تعليمات الاختبار:</h3>
+                        <ul style="list-style-position: inside; color: var(--text-light); line-height: 2;">
+                            <li>الاختبار يحتوي على 60 سؤالاً متنوعاً</li>
+                            <li>المدة المخصصة: 60 دقيقة</li>
+                            <li>يجب الإجابة على جميع الأسئلة</li>
+                            <li>درجة النجاح: 70% فأكثر</li>
+                            <li>يمكنك مراجعة إجاباتك قبل التسليم</li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary" style="font-size: 18px; padding: 16px 48px;" onclick="startExam()">
+                        🚀 ابدأ الاختبار الآن
+                    </button>
                 </div>
-                <div class="timer-badge" id="timer">60:00</div>
             </div>
 
-            <div class="progress-container">
-                <div class="progress-bar" id="examProgress" style="width: 0%"></div>
-            </div>
+            <!-- Exam Questions Screen -->
+            <div id="examQuestions" style="display: none;">
+                <div class="exam-header">
+                    <div>
+                        <h2 class="card-title" style="margin: 0;">الاختبار النهائي</h2>
+                        <p style="color: var(--text-light);">60 سؤال | 60 دقيقة | درجة النجاح 70%</p>
+                    </div>
+                    <div class="timer-badge" id="timer">60:00</div>
+                </div>
 
-            <div id="examContainer">
-                <!-- Questions will be loaded here -->
-            </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="examProgress" style="width: 0%"></div>
+                </div>
 
-            <div style="text-align: center; margin-top: 24px;">
-                <button class="btn btn-success" id="submitExam" onclick="submitExam()" disabled>تسليم الاختبار</button>
+                <div id="examContainer">
+                    <!-- Questions will be loaded here -->
+                </div>
+
+                <div style="text-align: center; margin-top: 24px;">
+                    <button class="btn btn-success" id="submitExam" onclick="submitExam()" disabled>تسليم الاختبار</button>
+                </div>
             </div>
         </section>
 
@@ -2349,6 +2382,12 @@
 
             currentTab = tabId;
 
+            // If switching to exam tab and exam not started, show start screen
+            if (tabId === 'exam' && !examStarted) {
+                document.getElementById('examStart').style.display = 'block';
+                document.getElementById('examQuestions').style.display = 'none';
+            }
+
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -2378,6 +2417,10 @@
 
         // ==================== EXAM ====================
         function startExam() {
+            // Hide start screen, show questions
+            document.getElementById('examStart').style.display = 'none';
+            document.getElementById('examQuestions').style.display = 'block';
+
             examAnswers = {};
             examTime = 3600;
             examStarted = true;
@@ -2443,7 +2486,8 @@
 
         function checkAllAnswered() {
             const answered = Object.keys(examAnswers).length;
-            document.getElementById('submitExam').disabled = answered < currentQuestions.length;
+            // Enable submit button if at least 1 question is answered
+            document.getElementById('submitExam').disabled = answered < 1;
         }
 
         function startTimer() {
@@ -2516,8 +2560,79 @@
             // Save results
             saveResults(score, conceptStats);
 
-            // Show results
-            showResults(score, correct, currentQuestions.length, conceptStats);
+            // Hide submit button and show results summary
+            document.getElementById('submitExam').style.display = 'none';
+            
+            // Show results summary at top of exam page
+            showExamResults(score, correct, currentQuestions.length);
+
+            // Update results page data
+            updateResultsPage(score, correct, currentQuestions.length, conceptStats);
+            
+            // Scroll to top to see results
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showExamResults(score, correct, total) {
+            const examHeader = document.querySelector('#examQuestions .exam-header');
+            
+            // Remove timer
+            document.getElementById('timer').style.display = 'none';
+            
+            // Create results summary card
+            const resultCard = document.createElement('div');
+            resultCard.className = 'card';
+            resultCard.style.cssText = 'margin-bottom: 24px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white;';
+            resultCard.innerHTML = `
+                <div style="text-align: center;">
+                    <h2 style="margin-bottom: 16px; font-size: 28px;">نتيجة الاختبار</h2>
+                    <div style="font-size: 64px; font-weight: 800; margin: 16px 0;">${score}%</div>
+                    <p style="font-size: 18px; margin-bottom: 16px;">
+                        ${score >= 70 ? '🎉 مبروك! لقد نجحت في الاختبار' : '😔 لم تنجح هذه المرة'}
+                    </p>
+                    <p style="font-size: 16px; opacity: 0.9;">
+                        أجبت على ${correct} من ${total} أسئلة بشكل صحيح
+                    </p>
+                    <button class="btn" style="margin-top: 24px; background: white; color: var(--primary);" onclick="switchTab('results')">
+                        عرض التقرير التفصيلي 📊
+                    </button>
+                </div>
+            `;
+            
+            // Insert after exam header
+            examHeader.insertAdjacentElement('afterend', resultCard);
+            
+            // Add info alert
+            const infoAlert = document.createElement('div');
+            infoAlert.className = 'alert alert-info';
+            infoAlert.style.cssText = 'margin-bottom: 24px;';
+            infoAlert.innerHTML = `
+                <strong>📝 مراجعة الإجابات:</strong> راجع إجاباتك أدناه. الإجابات الصحيحة باللون الأخضر ✓ والإجابات الخاطئة باللون الأحمر ✗
+            `;
+            resultCard.insertAdjacentElement('afterend', infoAlert);
+        }
+
+        function updateResultsPage(score, correct, total, conceptStats) {
+            const resultDiv = document.getElementById('resultSummary');
+            const scoreDiv = document.getElementById('resultScore');
+            const messageDiv = document.getElementById('resultMessage');
+
+            scoreDiv.textContent = score + '%';
+            scoreDiv.className = 'result-score ' + (score >= 70 ? 'pass' : 'fail');
+
+            if (score >= 70) {
+                messageDiv.innerHTML = `<span style="color: var(--success); font-weight: 700;">مبروك! لقد نجحت في الاختبار</span><br>أجبت على ${correct} من ${total} أسئلة بشكل صحيح`;
+            } else {
+                messageDiv.innerHTML = `<span style="color: var(--danger); font-weight: 700;">لم تنجح هذه المرة</span><br>أجبت على ${correct} من ${total} أسئلة بشكل صحيح<br>درجة النجاح المطلوبة: 70%`;
+            }
+
+            resultDiv.style.display = 'block';
+            document.getElementById('masteryDashboard').style.display = 'block';
+
+            // Render mastery
+            renderMastery(conceptStats);
+            
+            loadStats();
         }
 
         function saveResults(score, conceptStats) {
@@ -2541,29 +2656,6 @@
             localStorage.setItem('conceptMastery', JSON.stringify(mastery));
         }
 
-        function showResults(score, correct, total, conceptStats) {
-            const resultDiv = document.getElementById('resultSummary');
-            const scoreDiv = document.getElementById('resultScore');
-            const messageDiv = document.getElementById('resultMessage');
-
-            scoreDiv.textContent = score + '%';
-            scoreDiv.className = 'result-score ' + (score >= 70 ? 'pass' : 'fail');
-
-            if (score >= 70) {
-                messageDiv.innerHTML = `<span style="color: var(--success); font-weight: 700;">مبروك! لقد نجحت في الاختبار</span><br>أجبت على ${correct} من ${total} أسئلة بشكل صحيح`;
-            } else {
-                messageDiv.innerHTML = `<span style="color: var(--danger); font-weight: 700;">لم تنجح هذه المرة</span><br>أجبت على ${correct} من ${total} أسئلة بشكل صحيح<br>درجة النجاح المطلوبة: 70%`;
-            }
-
-            resultDiv.style.display = 'block';
-            document.getElementById('masteryDashboard').style.display = 'block';
-
-            // Render mastery
-            renderMastery(conceptStats);
-
-            switchTab('results');
-            loadStats();
-        }
 
         function renderMastery(conceptStats) {
             const list = document.getElementById('masteryList');
